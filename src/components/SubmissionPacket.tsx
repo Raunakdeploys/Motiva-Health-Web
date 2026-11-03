@@ -453,7 +453,7 @@ Notice our bonus features: instant toggle between English and Hinglish, and full
 
           <div className="p-3 bg-[#F8F2EB] border border-[#E6CBBD] space-y-1">
             <span className="font-mono text-[10px] text-[#C04E2A] font-bold block">TYPOGRAPHY</span>
-            <div className="font-semibold text-[#351D1D]">Fraunces Serif + Caveat Notes</div>
+            <div className="font-semibold text-[#351D1D]">Instrument Serif + DM Sans</div>
             <p className="text-[10px] text-[#786A61]">Mixes upright and italic within headlines. Handwritten founder notes.</p>
           </div>
 

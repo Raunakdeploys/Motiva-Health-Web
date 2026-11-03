@@ -988,7 +988,7 @@ export default function App() {
         {/* 03. Split Work Canvas: Center Content + Right Contextual Inspector */}
         <div className="flex-1 flex overflow-hidden">
           {/* CENTER: The Dominant Working Canvas */}
-          <main className="flex-1 min-w-0 overflow-y-auto pb-16">
+          <main className="steer-route-canvas flex-1 min-w-0 overflow-y-auto pb-16" data-active-page={currentTab}>
             {/* Async Sync Status Banner with Retry & Loading States */}
             {sqlSyncStatus === 'error' && (
               <div className="mx-6 mt-4 p-3 bg-red-50 border border-red-200 rounded-xl flex items-center justify-between text-xs text-red-800">

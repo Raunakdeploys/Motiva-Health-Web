@@ -423,9 +423,9 @@ export const ContentStudio: React.FC<ContentStudioProps> = ({
         soft_paper: '#FFFEFA',
       },
       typography: {
-        headline: 'Fraunces Serif',
-        body: 'Plus Jakarta Sans',
-        notes: 'Plus Jakarta Sans',
+headline: 'Instrument Serif',
+  body: 'DM Sans',
+  notes: 'DM Sans',
       },
       paper: activePaper.title,
       total_slides: carousel?.slides.length || 0,

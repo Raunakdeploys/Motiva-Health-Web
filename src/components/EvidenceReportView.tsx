@@ -238,19 +238,19 @@ export const EvidenceReportView: React.FC<EvidenceReportViewProps> = ({
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] bg-[#FAF6F0] p-3 border border-[#E6CBBD] font-mono rounded-xs">
                     <div>
                       <span className="text-[9px] text-[#786A61] font-bold block">POPULATION:</span>
-                      <span className="text-[#351D1D] font-medium block truncate">{claim.population}</span>
+                      <span className="text-[#351D1D] font-medium block break-words leading-snug">{claim.population}</span>
                     </div>
                     <div>
                       <span className="text-[9px] text-[#786A61] font-bold block">DESIGN:</span>
-                      <span className="text-[#351D1D] font-medium block truncate">{claim.study_design}</span>
+                      <span className="text-[#351D1D] font-medium block break-words leading-snug">{claim.study_design}</span>
                     </div>
                     <div>
                       <span className="text-[9px] text-[#786A61] font-bold block">OUTCOME:</span>
-                      <span className="text-[#351D1D] font-medium block truncate">{claim.outcome || 'General'}</span>
+                      <span className="text-[#351D1D] font-medium block break-words leading-snug">{claim.outcome || 'General'}</span>
                     </div>
                     <div>
                       <span className="text-[9px] text-[#786A61] font-bold block">METRICS:</span>
-                      <span className="text-[#351D1D] font-medium block truncate">{claim.numbers_and_units}</span>
+                      <span className="text-[#351D1D] font-medium block break-words leading-snug">{claim.numbers_and_units}</span>
                     </div>
                   </div>
                 </div>

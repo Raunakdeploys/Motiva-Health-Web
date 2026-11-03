@@ -346,7 +346,7 @@ export const ProvenanceGraph: React.FC<ProvenanceGraphProps> = ({
   const cardHeight = 84;
 
   return (
-    <div className="flex flex-col lg:flex-row h-[calc(100vh-3.5rem)] overflow-hidden bg-[#FAF6F0]">
+    <div className="steer-provenance-page flex flex-col lg:flex-row h-[calc(100vh-3.5rem)] overflow-hidden bg-[#FAF6F0]">
       {/* Main Canvas Area */}
       <div
         className="flex-1 relative flex flex-col min-w-0 border-r border-[#E6CBBD] select-none overflow-hidden"

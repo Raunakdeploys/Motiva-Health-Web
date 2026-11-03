@@ -22,6 +22,7 @@ import type {
   ReelContent,
   StaticPostContent,
 } from '../types';
+import type { ActiveTab } from './NavigationSidebar';
 
 interface WorkspaceProps {
   papers: PaperRecord[];
@@ -31,7 +32,7 @@ interface WorkspaceProps {
   carousel: CarouselContent | null;
   staticPost: StaticPostContent | null;
   reel: ReelContent | null;
-  onNavigate: (tab: any) => void;
+  onNavigate: (tab: ActiveTab) => void;
   onOpenDemo: () => void;
   onSwitchPaper: (paperId: string) => void;
   onSelectClaimForReview?: (claim: ClaimRecord) => void;
@@ -42,11 +43,19 @@ interface MetricCardProps {
   label: string;
   value: number;
   note: string;
-  tone?: 'sage' | 'rust' | 'blue';
+  tone?: 'sage' | 'rust' | 'forest';
+  prominent?: boolean;
 }
 
-const MetricCard: React.FC<MetricCardProps> = ({ icon: Icon, label, value, note, tone = 'blue' }) => (
-  <article className="steer-metric-card">
+const MetricCard: React.FC<MetricCardProps> = ({
+  icon: Icon,
+  label,
+  value,
+  note,
+  tone = 'forest',
+  prominent = false,
+}) => (
+  <article className="steer-metric-card" data-tone={tone} data-prominent={prominent}>
     <div className="steer-metric-top">
       <span>{label}</span>
       <span className="steer-metric-icon" data-tone={tone}>
@@ -65,7 +74,7 @@ const getClaimStatus = (claim: ClaimRecord) => {
   if (claim.review_status === 'FLAGGED' || claim.review_status === 'BLOCKED') {
     return { label: claim.review_status === 'BLOCKED' ? 'Blocked' : 'Flagged', tone: 'rust' };
   }
-  return { label: 'Needs review', tone: 'blue' };
+  return { label: 'Needs review', tone: 'forest' };
 };
 
 export const Workspace: React.FC<WorkspaceProps> = ({
@@ -104,7 +113,7 @@ export const Workspace: React.FC<WorkspaceProps> = ({
       : currentClaims;
   const totalClaimCount = currentClaims.length || 1;
 
-  const primaryAction =
+  const primaryAction: { label: string; tab: ActiveTab } =
     flaggedClaims.length + blockedClaims.length > 0
       ? { label: `Investigate ${flaggedClaims.length + blockedClaims.length} claims`, tab: 'desk' }
       : pendingClaims.length > 0
@@ -113,13 +122,20 @@ export const Workspace: React.FC<WorkspaceProps> = ({
       ? { label: 'Open content studio', tab: 'studio' }
       : { label: 'Open research library', tab: 'papers' };
 
-  const pipeline = [
-    { label: 'Research', detail: `${papers.length} in library`, complete: !!activePaper },
-    { label: 'Evidence', detail: `${currentPassages.length} passages`, complete: currentPassages.length > 0 },
-    { label: 'Claims', detail: `${currentClaims.length} identified`, complete: currentClaims.length > 0 },
-    { label: 'Review', detail: `${approvedClaims.length} approved`, complete: currentClaims.length > 0 && attentionClaims.length === 0 },
-    { label: 'Publish', detail: `${deliverableCount} formats ready`, complete: deliverableCount > 0 },
+  const pipeline: {
+    label: string;
+    detail: string;
+    complete: boolean;
+    tab: ActiveTab;
+    icon: LucideIcon;
+  }[] = [
+    { label: 'Research', detail: `${papers.length} in library`, complete: !!activePaper, tab: 'papers', icon: BookOpen },
+    { label: 'Evidence', detail: `${currentPassages.length} passages`, complete: currentPassages.length > 0, tab: 'source', icon: FileText },
+    { label: 'Claims', detail: `${currentClaims.length} identified`, complete: currentClaims.length > 0, tab: 'desk', icon: Layers },
+    { label: 'Review', detail: `${approvedClaims.length} approved`, complete: currentClaims.length > 0 && attentionClaims.length === 0, tab: 'review', icon: ShieldCheck },
+    { label: 'Publish', detail: `${deliverableCount} formats ready`, complete: deliverableCount > 0, tab: 'studio', icon: Sparkles },
   ];
+  const currentStepIndex = pipeline.findIndex((step) => !step.complete);
 
   if (papers.length === 0) {
     return (
@@ -239,14 +255,14 @@ export const Workspace: React.FC<WorkspaceProps> = ({
           label="Research sources"
           value={papers.length}
           note="Papers in your library"
-          tone="blue"
+          tone="forest"
         />
         <MetricCard
           icon={Layers}
           label="Extracted claims"
           value={currentClaims.length}
           note={`${currentPassages.length} supporting passages`}
-          tone="blue"
+          tone="forest"
         />
         <MetricCard
           icon={AlertTriangle}
@@ -254,6 +270,7 @@ export const Workspace: React.FC<WorkspaceProps> = ({
           value={attentionClaims.length}
           note={`${flaggedClaims.length + blockedClaims.length} flagged · ${pendingClaims.length} pending`}
           tone="rust"
+          prominent={attentionClaims.length > 0}
         />
         <MetricCard
           icon={ShieldCheck}
@@ -261,6 +278,7 @@ export const Workspace: React.FC<WorkspaceProps> = ({
           value={approvedClaims.length}
           note="Ready for content production"
           tone="sage"
+          prominent={attentionClaims.length === 0 && approvedClaims.length > 0}
         />
       </section>
 
@@ -277,16 +295,30 @@ export const Workspace: React.FC<WorkspaceProps> = ({
               </button>
             </div>
 
-            <div className="steer-pipeline-steps" role="list" aria-label="Research workflow progress">
-              {pipeline.map((step) => (
-                <div className="steer-pipeline-step" data-complete={step.complete} key={step.label} role="listitem">
-                  <span className="steer-pipeline-dot">
-                    {step.complete ? <CheckCircle2 size={13} aria-hidden="true" /> : <span aria-hidden="true">·</span>}
-                  </span>
-                  <strong>{step.label}</strong>
-                  <small>{step.detail}</small>
-                </div>
-              ))}
+            <div className="steer-pipeline-steps" role="group" aria-label="Evidence workflow stages">
+              {pipeline.map((step, index) => {
+                const Icon = step.icon;
+                const isCurrent = index === currentStepIndex;
+
+                return (
+                  <button
+                    type="button"
+                    className="steer-pipeline-step"
+                    data-complete={step.complete}
+                    data-current={isCurrent}
+                    key={step.label}
+                    onClick={() => onNavigate(step.tab)}
+                    aria-current={isCurrent ? 'step' : undefined}
+                    aria-label={`${step.label}: ${step.detail}. Open ${step.label.toLowerCase()} workspace.`}
+                  >
+                    <span className="steer-pipeline-dot" aria-hidden="true">
+                      {step.complete ? <CheckCircle2 size={15} /> : <Icon size={14} />}
+                    </span>
+                    <strong>{step.label}</strong>
+                    <small>{step.detail}</small>
+                  </button>
+                );
+              })}
             </div>
 
             <div className="steer-claim-breakdown" aria-label="Claim review status">
@@ -296,7 +328,7 @@ export const Workspace: React.FC<WorkspaceProps> = ({
               </div>
               {[
                 { label: 'Approved', count: approvedClaims.length, tone: 'sage' },
-                { label: 'Needs review', count: pendingClaims.length, tone: 'blue' },
+                { label: 'Needs review', count: pendingClaims.length, tone: 'forest' },
                 { label: 'Flagged or blocked', count: flaggedClaims.length + blockedClaims.length, tone: 'rust' },
               ].map((status) => (
                 <div className="steer-status-row" key={status.label}>
@@ -417,7 +449,12 @@ export const Workspace: React.FC<WorkspaceProps> = ({
               </div>
             </div>
             <div className="steer-next-steps">
-              <button type="button" className="steer-next-step" onClick={() => onNavigate('review')}>
+              <button
+                type="button"
+                className="steer-next-step"
+                data-recommended={primaryAction.tab === 'review'}
+                onClick={() => onNavigate('review')}
+              >
                 <span className="steer-next-step-icon"><ShieldCheck size={15} aria-hidden="true" /></span>
                 <span className="steer-next-step-copy">
                   <strong>Review claims</strong>
@@ -425,7 +462,12 @@ export const Workspace: React.FC<WorkspaceProps> = ({
                 </span>
                 <ArrowRight size={13} aria-hidden="true" />
               </button>
-              <button type="button" className="steer-next-step" onClick={() => onNavigate('studio')}>
+              <button
+                type="button"
+                className="steer-next-step"
+                data-recommended={primaryAction.tab === 'studio'}
+                onClick={() => onNavigate('studio')}
+              >
                 <span className="steer-next-step-icon"><Sparkles size={15} aria-hidden="true" /></span>
                 <span className="steer-next-step-copy">
                   <strong>Create content</strong>

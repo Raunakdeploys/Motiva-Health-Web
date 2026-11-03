@@ -554,7 +554,7 @@ export const EvidenceRadar: React.FC<EvidenceRadarProps> = ({
                 <span className="text-[#C04E2A] font-semibold">DXA TRIAL LINKED</span>
               </div>
               <h4 className="font-serif font-bold text-sm text-[#351D1D] mb-1">GLP-1 & Muscle Preservation</h4>
-              <p className="text-xs text-[#786A61] line-clamp-2">
+              <p className="text-xs text-[#786A61] leading-relaxed">
                 "Does semaglutide destroy muscle?" "What happens to metabolic rate when stopping?"
               </p>
             </div>
@@ -572,7 +572,7 @@ export const EvidenceRadar: React.FC<EvidenceRadarProps> = ({
                 <span className="text-[#C04E2A] font-semibold">VISCERAL FAT</span>
               </div>
               <h4 className="font-serif font-bold text-sm text-[#351D1D] mb-1">South Asian Phenotype</h4>
-              <p className="text-xs text-[#786A61] line-clamp-2">
+              <p className="text-xs text-[#786A61] leading-relaxed">
                 "Why am I skinny-fat with high HbA1c?" "Is cutting rice enough for insulin sensitivity?"
               </p>
             </div>
@@ -590,7 +590,7 @@ export const EvidenceRadar: React.FC<EvidenceRadarProps> = ({
                 <span className="text-[#C04E2A] font-semibold">CALORIMETRY</span>
               </div>
               <h4 className="font-serif font-bold text-sm text-[#351D1D] mb-1">Adaptive Thermogenesis</h4>
-              <p className="text-xs text-[#786A61] line-clamp-2">
+              <p className="text-xs text-[#786A61] leading-relaxed">
                 "1,000 calorie plateau: did I break my metabolism?" "Why does NEAT drop on deficits?"
               </p>
             </div>
@@ -608,7 +608,7 @@ export const EvidenceRadar: React.FC<EvidenceRadarProps> = ({
                 <span className="text-purple-700 font-semibold">QA EDGE CASES</span>
               </div>
               <h4 className="font-serif font-bold text-sm text-[#351D1D] mb-1">Adversarial Test Suite</h4>
-              <p className="text-xs text-[#786A61] line-clamp-2">
+              <p className="text-xs text-[#786A61] leading-relaxed">
                 Includes sarcasm, non-health query, conflicting claims, and vinegar hype assertions.
               </p>
             </div>
