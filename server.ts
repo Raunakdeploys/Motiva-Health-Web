@@ -2443,10 +2443,9 @@ app.post('/api/edit-image', async (req, res) => {
 
 // Setup Vite middleware in dev or static files in production
 async function startServer() {
+  const httpServer = createHttpServer(app);
   const distPath = path.resolve(__dirname, 'dist');
   const indexPath = path.join(distPath, 'index.html');
-  const port = PORT;
-  const httpServer = createHttpServer(app);
   const isProduction =
     process.env.NODE_ENV === 'production' ||
     process.env.RENDER === 'true' ||
@@ -2476,16 +2475,14 @@ async function startServer() {
       server: {
         middlewareMode: true,
         allowedHosts: true,
-        hmr:
-          process.env.DISABLE_HMR === 'true'
-            ? false
-            : { server: httpServer },
+        hmr: { server: httpServer },
       },
       appType: 'spa',
     });
     app.use(vite.middlewares);
   }
 
+  const port = PORT;
   httpServer.listen(port, '0.0.0.0', () => {
     console.log(`[steer / Evidence Studio] Server running on port ${port}`);
   });

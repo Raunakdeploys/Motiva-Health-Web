@@ -164,10 +164,10 @@ export const ProvenanceGraph: React.FC<ProvenanceGraphProps> = ({
         label: `Audit Gate #${idx + 1}`,
         sublabel:
           outcome === 'PASS'
-            ? '12/12 Rules Clean · Zero Hallucination'
+            ? 'Audit: 12/12 Passed · All deterministic rules clean'
             : outcome === 'FLAGGED'
-            ? 'Flagged · Editorial Context Caveat'
-            : 'Blocker · Unresolved Inconsistency',
+            ? 'Flagged · Editorial context caveat noted'
+            : 'Blocker · Unresolved inconsistency',
         status: outcome,
         entityId: `gate_${c.claim_id}`,
         metadata: { claim: c, findings: c.validation_findings },
@@ -179,7 +179,7 @@ export const ProvenanceGraph: React.FC<ProvenanceGraphProps> = ({
         source: `node_claim_${c.claim_id}`,
         target: vNodeId,
         type: 'EVALUATES',
-        label: outcome === 'FAIL' ? 'contradicts' : 'evaluates',
+        label: outcome === 'FAIL' ? 'contradicts' : '',
         severity: outcome === 'FAIL' ? 'invalidated' : 'normal',
       });
 
@@ -271,13 +271,15 @@ export const ProvenanceGraph: React.FC<ProvenanceGraphProps> = ({
     return { columns: cols, nodes: rawNodes, edges: rawEdges };
   }, [activePaper, paperPassages, paperClaims, carousel, staticPost, reel]);
 
-  // Default selection
+  // Initial focus on mount
+  const hasInitializedRef = useRef(false);
   React.useEffect(() => {
-    if (!selectedNodeId && nodes.length > 0) {
+    if (!hasInitializedRef.current && nodes.length > 0) {
+      hasInitializedRef.current = true;
       const firstClaim = nodes.find((n) => n.type === 'CLAIM');
       if (firstClaim) setSelectedNodeId(firstClaim.id);
     }
-  }, [nodes, selectedNodeId]);
+  }, [nodes]);
 
   // Lineage / Path finding for active selection or hover
   const activeFocusId = hoveredNodeId || selectedNodeId;
@@ -540,23 +542,23 @@ export const ProvenanceGraph: React.FC<ProvenanceGraphProps> = ({
                       strokeDasharray={edge.severity === 'invalidated' ? '4,4' : undefined}
                       markerEnd={`url(#${isIlluminated ? 'arrow-active' : 'arrow-normal'})`}
                     />
-                    {isIlluminated && (
+                    {isIlluminated && edge.label && (
                       <g>
                         <rect
-                          x={(startX + endX) / 2 - 24}
-                          y={(startY + endY) / 2 - 8}
-                          width="48"
-                          height="16"
-                          rx="3"
+                          x={(startX + endX) / 2 - 27}
+                          y={(startY + endY) / 2 - 9}
+                          width="54"
+                          height="18"
+                          rx="9"
                           fill="#FFFDF9"
                           stroke="#661414"
-                          strokeWidth="1"
+                          strokeWidth="1.2"
                         />
                         <text
                           x={(startX + endX) / 2}
                           y={(startY + endY) / 2 + 3.5}
                           fill="#661414"
-                          fontSize="8.5"
+                          fontSize="9"
                           fontFamily="monospace"
                           fontWeight="bold"
                           textAnchor="middle"
@@ -639,20 +641,6 @@ export const ProvenanceGraph: React.FC<ProvenanceGraphProps> = ({
                     <p className="text-[10px] text-[#786A61] truncate font-mono">
                       {node.sublabel}
                     </p>
-
-                    {/* Left connection dot */}
-                    <span
-                      className={`absolute -left-1.5 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-[#FFFDF9] transition-colors ${
-                        isIlluminated ? 'bg-[#661414]' : 'bg-[#E6CBBD]'
-                      }`}
-                    />
-
-                    {/* Right connection dot */}
-                    <span
-                      className={`absolute -right-1.5 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-[#FFFDF9] transition-colors ${
-                        isIlluminated ? 'bg-[#661414]' : 'bg-[#E6CBBD]'
-                      }`}
-                    />
                   </div>
                 );
               })}

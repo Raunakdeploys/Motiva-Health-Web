@@ -93,7 +93,7 @@ export const EvidenceReportView: React.FC<EvidenceReportViewProps> = ({
   };
 
   return (
-    <div className="steer-page-root steer-report-page max-w-[1400px] mx-auto p-4 sm:p-6 space-y-6">
+    <div className="max-w-[1400px] mx-auto p-4 sm:p-6 space-y-6">
       {/* 01. Desk Header & Print Actions */}
       <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 rounded-xs shadow-xs">
         <div className="space-y-1">
