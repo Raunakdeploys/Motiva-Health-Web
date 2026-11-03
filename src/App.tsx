@@ -65,7 +65,7 @@ import { propagateClaimChange } from './utils/impactAnalysis';
 export default function App() {
   const { user, idToken } = useAuth();
 
-  const [currentTab, setCurrentTab] = useState<ActiveTab>('studio');
+  const [currentTab, setCurrentTab] = useState<ActiveTab>('workspace');
   const [studioTab, setStudioTab] = useState<'carousel' | 'static' | 'reel' | 'caption'>('carousel');
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isInspectorOpen, setIsInspectorOpen] = useState(false);
@@ -914,7 +914,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5EFE6] text-[#391E1D] flex">
+    <div className="steer-app-shell flex">
       {/* 01. LEFT: Persistent Desktop Navigation Rail (228px) */}
       <NavigationSidebar
         currentTab={currentTab}
@@ -941,7 +941,7 @@ export default function App() {
       )}
 
       {/* 02. CENTER & RIGHT: Main Workstation Area (offset by 228px on desktop) */}
-      <div className="flex-1 md:ml-[228px] flex flex-col min-h-screen min-w-0">
+      <div className="flex-1 md:ml-[232px] flex flex-col min-h-screen min-w-0">
         {/* Top Header Bar across canvas */}
         <TopBar
           currentTab={currentTab}
@@ -1265,7 +1265,7 @@ export default function App() {
           </main>
 
           {/* 04. RIGHT: Contextual Inspector (310px where viewport allows) */}
-          {['workspace', 'evidence', 'review'].includes(currentTab) && isInspectorOpen && (
+          {['workspace', 'source', 'review'].includes(currentTab) && isInspectorOpen && (
             <div className="hidden xl:block">
               <ContextInspector
                 selectedClaim={inspectedClaim}

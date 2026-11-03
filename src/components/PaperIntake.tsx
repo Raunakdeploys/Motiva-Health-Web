@@ -144,25 +144,25 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
     : [];
 
   return (
-    <div className="max-w-[1360px] mx-auto p-4 sm:p-6 md:p-8 space-y-8">
+    <div className="steer-page-root steer-intake-page max-w-[1360px] mx-auto p-4 sm:p-6 md:p-8 space-y-8">
       {/* 00. Landmark Research Studies for Hackathon PS2 */}
       <section className="space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
           <div>
             <div className="flex items-center gap-2">
               <span className="px-2 py-0.5 bg-[#661414] text-[#F5EBDF] text-[10px] font-mono font-bold uppercase rounded-xs">
-                STAGE 01: INGESTION
+                RESEARCH LIBRARY
               </span>
               <span className="text-xs font-mono text-[#C04E2A] font-semibold">
-                Landmark Metabolic Research Library
+                Evidence collection
               </span>
             </div>
             <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#351D1D] mt-1 tracking-tight">
-              Select a Clinical Study or Upload Any Medical PDF
+              Choose a study or upload your own research
             </h2>
           </div>
           <span className="text-xs font-mono text-[#786A61]">
-            Problem Statement 2 • steerclub.com
+            Clinical research workspace
           </span>
         </div>
 
@@ -170,8 +170,17 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Study 1: GLP-1 & Lean Mass */}
           <div
+            role="button"
+            tabIndex={0}
+            aria-pressed={activePaper?.paper_id === 'paper_glp1_muscle_2024'}
             onClick={() => onSelectPaper('paper_glp1_muscle_2024')}
-            className={`p-5 rounded-xs border transition-all cursor-pointer flex flex-col justify-between space-y-3 ${
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                onSelectPaper('paper_glp1_muscle_2024');
+              }
+            }}
+            className={`steer-intake-study-card w-full text-left p-5 rounded-xs border transition-all cursor-pointer flex flex-col justify-between space-y-3 ${
               activePaper?.paper_id === 'paper_glp1_muscle_2024'
                 ? 'bg-[#FFFDF9] border-[#661414] shadow-md ring-1 ring-[#661414]'
                 : 'bg-[#FFFDF9] border-[#E6CBBD] hover:border-[#C04E2A]'
@@ -207,8 +216,17 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
 
           {/* Study 2: South Asian Phenotype */}
           <div
+            role="button"
+            tabIndex={0}
+            aria-pressed={activePaper?.paper_id === 'paper_south_asian_phenotype_2024'}
             onClick={() => onSelectPaper('paper_south_asian_phenotype_2024')}
-            className={`p-5 rounded-xs border transition-all cursor-pointer flex flex-col justify-between space-y-3 ${
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                onSelectPaper('paper_south_asian_phenotype_2024');
+              }
+            }}
+            className={`steer-intake-study-card w-full text-left p-5 rounded-xs border transition-all cursor-pointer flex flex-col justify-between space-y-3 ${
               activePaper?.paper_id === 'paper_south_asian_phenotype_2024'
                 ? 'bg-[#FFFDF9] border-[#661414] shadow-md ring-1 ring-[#661414]'
                 : 'bg-[#FFFDF9] border-[#E6CBBD] hover:border-[#C04E2A]'
@@ -244,8 +262,17 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
 
           {/* Study 3: Adaptive Thermogenesis */}
           <div
+            role="button"
+            tabIndex={0}
+            aria-pressed={activePaper?.paper_id === 'paper_metabolic_adaptation_2024'}
             onClick={() => onSelectPaper('paper_metabolic_adaptation_2024')}
-            className={`p-5 rounded-xs border transition-all cursor-pointer flex flex-col justify-between space-y-3 ${
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                onSelectPaper('paper_metabolic_adaptation_2024');
+              }
+            }}
+            className={`steer-intake-study-card w-full text-left p-5 rounded-xs border transition-all cursor-pointer flex flex-col justify-between space-y-3 ${
               activePaper?.paper_id === 'paper_metabolic_adaptation_2024'
                 ? 'bg-[#FFFDF9] border-[#661414] shadow-md ring-1 ring-[#661414]'
                 : 'bg-[#FFFDF9] border-[#E6CBBD] hover:border-[#C04E2A]'

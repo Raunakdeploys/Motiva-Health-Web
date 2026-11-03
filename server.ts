@@ -1,4 +1,5 @@
 import express, { type Request, type Response } from 'express';
+import { createServer as createHttpServer } from 'node:http';
 import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import fs from 'fs';
@@ -2444,6 +2445,8 @@ app.post('/api/edit-image', async (req, res) => {
 async function startServer() {
   const distPath = path.resolve(__dirname, 'dist');
   const indexPath = path.join(distPath, 'index.html');
+  const port = PORT;
+  const httpServer = createHttpServer(app);
   const isProduction =
     process.env.NODE_ENV === 'production' ||
     process.env.RENDER === 'true' ||
@@ -2470,14 +2473,20 @@ async function startServer() {
     }
   } else {
     const vite = await createViteServer({
-      server: { middlewareMode: true, allowedHosts: true },
+      server: {
+        middlewareMode: true,
+        allowedHosts: true,
+        hmr:
+          process.env.DISABLE_HMR === 'true'
+            ? false
+            : { server: httpServer },
+      },
       appType: 'spa',
     });
     app.use(vite.middlewares);
   }
 
-  const port = PORT;
-  app.listen(port, '0.0.0.0', () => {
+  httpServer.listen(port, '0.0.0.0', () => {
     console.log(`[steer / Evidence Studio] Server running on port ${port}`);
   });
 }

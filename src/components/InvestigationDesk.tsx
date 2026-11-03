@@ -348,7 +348,7 @@ export const InvestigationDesk: React.FC<InvestigationDeskProps> = ({
   };
 
   return (
-    <div className="max-w-[1600px] mx-auto p-3 sm:p-5 space-y-4">
+    <div className="steer-page-root steer-investigation-page max-w-[1600px] mx-auto p-3 sm:p-5 space-y-4">
       {/* 01. Desk Subhead Bar */}
       <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-3.5 sm:p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 rounded-xs shadow-xs">
         <div className="flex items-center gap-3">

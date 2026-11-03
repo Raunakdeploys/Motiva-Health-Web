@@ -414,18 +414,18 @@ export const ContentStudio: React.FC<ContentStudioProps> = ({
       brand: 'steer',
       website: 'steerclub.com',
       palette: {
-        cream_base: '#F5EBDF',
-        steer_rust: '#C04E2A',
-        deep_maroon: '#661414',
-        ink: '#351D1D',
-        clay: '#B58777',
-        blush: '#E6CBBD',
-        soft_paper: '#F8F2EB',
+        cream_base: '#F3F2EE',
+        steer_rust: '#B4513D',
+        deep_maroon: '#672B28',
+        ink: '#252824',
+        clay: '#77776F',
+        blush: '#E6E2DA',
+        soft_paper: '#FFFEFA',
       },
       typography: {
-        headline: 'Fraunces Serif (Mix Upright & Italic)',
+        headline: 'Fraunces Serif',
         body: 'Plus Jakarta Sans',
-        notes: 'Caveat (Handwritten)',
+        notes: 'Plus Jakarta Sans',
       },
       paper: activePaper.title,
       total_slides: carousel?.slides.length || 0,
@@ -504,20 +504,20 @@ CITATION: ${slide.source_citation || activePaper.journal} · steerclub.com`;
   };
 
   return (
-    <div className="max-w-[1360px] mx-auto p-4 sm:p-6 md:p-8 space-y-6">
+    <div className="steer-page-root steer-studio max-w-[1360px] mx-auto p-4 sm:p-6 md:p-8 space-y-6">
       {/* 01. Desk Header & Toolbar */}
-      <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xs">
+      <div className="steer-studio-header bg-[#FFFDF9] border border-[#E6CBBD] p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xs">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <h2 className="font-serif text-xl font-bold text-[#351D1D]">
-              steer / Content Production Studio
+              Content production
             </h2>
             <span className="text-[10px] font-mono text-[#416C49] bg-[#416C49]/10 px-2 py-0.5 rounded-xs font-semibold">
               Backed by {approvedClaims.length} Approved Claim{approvedClaims.length === 1 ? '' : 's'}
             </span>
           </div>
           <p className="text-xs text-[#B58777]">
-            Transforms scientific papers into scroll-stopping Instagram Carousels, Statics, and AI Reels in Steer's calm editorial voice.
+            Turn approved research into clear carousels, statics, and reels—each draft linked to its source.
           </p>
         </div>
 
@@ -668,18 +668,18 @@ CITATION: ${slide.source_citation || activePaper.journal} · steerclub.com`;
 
       {/* 01B. Landmark Clinical Studies Quick Switcher */}
       {papers && papers.length > 0 && onSelectPaper && (
-        <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-4 space-y-3 shadow-xs">
+        <div className="steer-studies-panel bg-[#FFFDF9] border border-[#E6CBBD] p-4 space-y-3 shadow-xs">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#E6CBBD]/60 pb-2">
             <div className="flex items-center gap-2">
               <span className="px-2 py-0.5 bg-[#661414] text-[#F5EBDF] text-[10px] font-mono font-bold uppercase rounded-xs">
-                LANDMARK METABOLIC STUDIES
+                STUDIES IN YOUR WORKSPACE
               </span>
               <span className="text-xs text-[#786A61] font-mono hidden sm:inline">
-                Click any study to switch Instagram deliverables in real-time
+                Switch studies to update their drafts and source links
               </span>
             </div>
             <span className="text-[11px] font-mono text-[#C04E2A] font-semibold">
-              Problem Statement 2 • steerclub.com
+              Evidence-linked content
             </span>
           </div>
 
@@ -698,7 +698,9 @@ CITATION: ${slide.source_citation || activePaper.journal} · steerclub.com`;
                 <button
                   key={p.paper_id}
                   onClick={() => onSelectPaper(p.paper_id)}
-                  className={`p-3 text-left border rounded-xs transition-all cursor-pointer flex flex-col justify-between gap-2 ${
+                  className={`steer-study-card p-3 text-left border rounded-xs transition-all cursor-pointer flex flex-col justify-between gap-2 ${
+                    isSelected ? 'steer-study-card-active' : ''
+                  } ${
                     isSelected
                       ? 'bg-[#661414] text-[#F5EBDF] border-[#661414] shadow-md ring-1 ring-[#661414]'
                       : 'bg-[#FFFDF9] text-[#351D1D] border-[#E6CBBD] hover:border-[#C04E2A] hover:bg-[#F8F2EB]'
@@ -740,7 +742,7 @@ CITATION: ${slide.source_citation || activePaper.journal} · steerclub.com`;
       )}
 
       {/* 02. Format Selector Tabs */}
-      <div className="flex flex-wrap items-center justify-between border-b border-[#E6CBBD] text-xs font-mono gap-2">
+      <div className="steer-studio-tabs flex flex-wrap items-center justify-between border-b border-[#E6CBBD] text-xs font-mono gap-2">
         <div className="flex items-center gap-1">
           <button
             onClick={() => handleTabChange('carousel')}
@@ -831,7 +833,7 @@ CITATION: ${slide.source_citation || activePaper.journal} · steerclub.com`;
           {carousel ? (
             <div>
               {/* Exact Copy & View Mode Toolbar */}
-              <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-3 sm:p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-xs">
+              <div className="steer-carousel-toolbar bg-[#FFFDF9] border border-[#E6CBBD] p-3 sm:p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-xs">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-[10px] font-mono uppercase tracking-wider text-[#786A61] font-bold">
                     PREVIEW MODE:
@@ -919,7 +921,7 @@ CITATION: ${slide.source_citation || activePaper.journal} · steerclub.com`;
                       <span>·</span>
                       <span className="text-[#786A61] truncate max-w-md">{activePaper.title}</span>
                     </div>
-                    <span className="text-[#C04E2A] font-semibold">Click 'Copy Copy' on any slide to grab its exact text</span>
+                    <span className="text-[#C04E2A] font-semibold">Use the copy action on a slide to reuse its approved copy</span>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -990,7 +992,7 @@ CITATION: ${slide.source_citation || activePaper.journal} · steerclub.com`;
                             ) : (
                               <Copy className="w-3 h-3 text-[#C04E2A]" />
                             )}
-                            <span>{copiedSlideIndex === idx ? 'Copied!' : 'Copy Copy'}</span>
+                            <span>{copiedSlideIndex === idx ? 'Copied!' : 'Copy slide text'}</span>
                           </button>
 
                           <div className="flex items-center gap-1">
@@ -1028,7 +1030,7 @@ CITATION: ${slide.source_citation || activePaper.journal} · steerclub.com`;
                 /* Phone Simulator & Editor */
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                   {/* Left Column: Slide Gallery Preview (7 Cols) */}
-              <div className="lg:col-span-7 bg-[#FFFDF9] border border-[#E6CBBD] p-5 sm:p-6 space-y-4">
+              <div className="steer-editor-panel lg:col-span-7 bg-[#FFFDF9] border border-[#E6CBBD] p-5 sm:p-6 space-y-4">
                 <div className="flex flex-wrap items-center justify-between border-b border-[#E6CBBD] pb-3 text-xs font-mono gap-2">
                   <div className="flex items-center gap-2">
                     <span className="font-semibold text-[#661414]">
@@ -1352,7 +1354,7 @@ CITATION: ${slide.source_citation || activePaper.journal} · steerclub.com`;
               </div>
 
               {/* Right Column: Slide Editor & Provenance Anchoring (5 Cols) */}
-              <div className="lg:col-span-5 bg-[#FFFDF9] border border-[#E6CBBD] p-5 space-y-4">
+              <div className="steer-editor-panel lg:col-span-5 bg-[#FFFDF9] border border-[#E6CBBD] p-5 space-y-4">
                 <div className="border-b border-[#E6CBBD] pb-2 flex items-center justify-between">
                   <span className="text-[10px] font-mono uppercase tracking-wider text-[#B58777] font-semibold">
                     SLIDE PROVENANCE & EDITORIAL COPY
@@ -1512,7 +1514,7 @@ CITATION: ${slide.source_citation || activePaper.journal} · steerclub.com`;
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {staticPost ? (
             <>
-              <div className="lg:col-span-7 bg-[#FFFDF9] border border-[#E6CBBD] p-5 sm:p-6 space-y-4">
+              <div className="steer-editor-panel lg:col-span-7 bg-[#FFFDF9] border border-[#E6CBBD] p-5 sm:p-6 space-y-4">
                 <div className="flex flex-wrap items-center justify-between border-b border-[#E6CBBD] pb-3 text-xs font-mono gap-2">
                   <span className="font-semibold text-[#661414]">1080×1080 EDITORIAL BRIEF</span>
                   <div className="flex items-center gap-2">
@@ -1657,7 +1659,7 @@ CITATION: ${slide.source_citation || activePaper.journal} · steerclub.com`;
 
 
               {/* Attributes */}
-              <div className="lg:col-span-5 bg-[#FFFDF9] border border-[#E6CBBD] p-5 space-y-4">
+              <div className="steer-editor-panel lg:col-span-5 bg-[#FFFDF9] border border-[#E6CBBD] p-5 space-y-4">
                 <span className="text-[10px] font-mono uppercase tracking-wider text-[#B58777] font-semibold block border-b border-[#E6CBBD] pb-2">
                   STATIC POST ATTRIBUTES
                 </span>
@@ -1721,7 +1723,7 @@ CITATION: ${slide.source_citation || activePaper.journal} · steerclub.com`;
           {reel ? (
             <>
               {/* Left Column: Scene Script Ledger (7 Cols) */}
-              <div className="lg:col-span-7 bg-[#FFFDF9] border border-[#E6CBBD] p-5 space-y-4">
+              <div className="steer-editor-panel lg:col-span-7 bg-[#FFFDF9] border border-[#E6CBBD] p-5 space-y-4">
                 <div className="flex flex-wrap items-center justify-between border-b border-[#E6CBBD] pb-2 text-xs font-mono gap-2">
                   <div className="flex items-center gap-2">
                     <span className="font-semibold text-[#661414]">
@@ -1893,7 +1895,7 @@ CITATION: ${slide.source_citation || activePaper.journal} · steerclub.com`;
               </div>
 
               {/* Right Column: 9:16 Vertical Simulator (5 Cols) */}
-              <div className="lg:col-span-5 bg-[#FFFDF9] border border-[#E6CBBD] p-5 space-y-3">
+              <div className="steer-editor-panel lg:col-span-5 bg-[#FFFDF9] border border-[#E6CBBD] p-5 space-y-3">
                 <div className="flex items-center justify-between border-b border-[#E6CBBD] pb-2 text-xs font-mono">
                   <span className="font-semibold text-[#661414]">9:16 REEL SIMULATOR</span>
                   <span className="text-[#B58777]">

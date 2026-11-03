@@ -569,7 +569,7 @@ export const SelfTestRunner: React.FC = () => {
   const totalPassed = testResults.filter((r) => r.passed).length;
 
   return (
-    <div className="max-w-[1400px] mx-auto p-4 sm:p-6 space-y-6">
+    <div className="steer-page-root steer-validation-page max-w-[1400px] mx-auto p-4 sm:p-6 space-y-6">
       {/* 01. Desk Header */}
       <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 rounded-xs shadow-xs">
         <div className="space-y-1">

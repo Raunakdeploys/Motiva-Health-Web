@@ -84,7 +84,7 @@ Notice our bonus features: instant toggle between English and Hinglish, and full
   };
 
   return (
-    <div className="max-w-[1360px] mx-auto p-4 sm:p-6 md:p-8 space-y-8">
+    <div className="steer-page-root steer-submission-page max-w-[1360px] mx-auto p-4 sm:p-6 md:p-8 space-y-8">
       {/* 01. Hackathon Banner Header */}
       <div className="bg-[#661414] text-[#F5EBDF] p-6 sm:p-8 border border-[#351D1D] shadow-sm space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#F5EBDF]/20 pb-4">
