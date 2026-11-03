@@ -100,15 +100,23 @@ export const InvestigationDesk: React.FC<InvestigationDeskProps> = ({
         paperPassages,
         paperClaims
       );
+      let resolvedStatus: ClaimRecord['review_status'] = claim.review_status;
+      if (claim.review_status === 'HUMAN_APPROVED') {
+        if (findings.some((f) => f.severity === 'BLOCKER')) {
+          resolvedStatus = 'BLOCKED';
+        } else {
+          resolvedStatus = 'HUMAN_APPROVED';
+        }
+      } else if (claim.review_status === 'FLAGGED' || claim.review_status === 'REJECTED') {
+        resolvedStatus = claim.review_status;
+      } else {
+        resolvedStatus = calculatedStatus;
+      }
       return {
         ...claim,
         validation_findings: findings,
         validation_checks: checks,
-        review_status:
-          claim.review_status === 'HUMAN_APPROVED' &&
-          !findings.some((f) => f.severity === 'BLOCKER')
-            ? 'HUMAN_APPROVED'
-            : calculatedStatus,
+        review_status: resolvedStatus,
       };
     });
   }, [paperClaims, paperPassages]);
@@ -348,7 +356,7 @@ export const InvestigationDesk: React.FC<InvestigationDeskProps> = ({
   };
 
   return (
-    <div className="steer-page-root steer-investigation-page max-w-[1600px] mx-auto p-3 sm:p-5 space-y-4">
+    <div className="max-w-[1600px] mx-auto p-3 sm:p-5 space-y-4">
       {/* 01. Desk Subhead Bar */}
       <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-3.5 sm:p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 rounded-xs shadow-xs">
         <div className="flex items-center gap-3">

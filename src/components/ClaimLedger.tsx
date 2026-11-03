@@ -86,17 +86,30 @@ export const ClaimLedger: React.FC<ClaimLedgerProps> = ({
   // Re-run validation engine deterministically
   const validatedClaims = paperClaims.map((claim) => {
     const { findings, calculatedStatus } = runValidationEngine(claim, paperPassages, paperClaims);
+    let resolvedStatus: ClaimRecord['review_status'] = claim.review_status;
+    if (claim.review_status === 'HUMAN_APPROVED') {
+      if (findings.some((f) => f.severity === 'BLOCKER')) {
+        resolvedStatus = 'BLOCKED';
+      } else {
+        resolvedStatus = 'HUMAN_APPROVED';
+      }
+    } else if (claim.review_status === 'FLAGGED' || claim.review_status === 'REJECTED') {
+      resolvedStatus = claim.review_status;
+    } else {
+      resolvedStatus = calculatedStatus;
+    }
     return {
       ...claim,
       validation_findings: findings,
-      review_status:
-        claim.review_status === 'HUMAN_APPROVED' && !findings.some((f) => f.severity === 'BLOCKER')
-          ? 'HUMAN_APPROVED'
-          : calculatedStatus,
+      review_status: resolvedStatus,
     };
   });
 
   const filteredClaims = validatedClaims.filter((claim) => {
+    // In ALL filter, exclude REJECTED claims from the active review view
+    if (statusFilter === 'ALL' && claim.review_status === 'REJECTED') {
+      return false;
+    }
     const matchesFilter = statusFilter === 'ALL' || claim.review_status === statusFilter;
     const matchesSearch =
       searchQuery === '' ||
@@ -272,9 +285,18 @@ export const ClaimLedger: React.FC<ClaimLedgerProps> = ({
       updated_at: new Date().toISOString(),
     };
     onUpdateClaim(updated, wasApproved);
-    setAuditSummary('Claim flagged with caveat note.');
+    setAuditSummary('Claim flagged with caveat note & isolated from active generation.');
     setTimeout(() => setAuditSummary(null), 5000);
-    if (onResumeContentGeneration && wasApproved) {
+
+    // Select next pending claim if available
+    const remainingPending = validatedClaims.filter(
+      (c) => c.claim_id !== claim.claim_id && c.review_status === 'READY_FOR_HUMAN_REVIEW'
+    );
+    if (remainingPending.length > 0) {
+      handleSelectClaimRecord(remainingPending[0]);
+    }
+
+    if (onResumeContentGeneration) {
       onResumeContentGeneration();
     }
   };
@@ -291,8 +313,19 @@ export const ClaimLedger: React.FC<ClaimLedgerProps> = ({
         };
         onUpdateClaim(updated, claim.review_status === 'HUMAN_APPROVED');
       }
-      setAuditSummary('Claim rejected & removed from pipeline.');
+      setAuditSummary('Claim rejected & removed from editorial pipeline.');
       setTimeout(() => setAuditSummary(null), 5000);
+
+      // Select next available claim
+      const remaining = validatedClaims.filter(
+        (c) => c.claim_id !== claim.claim_id && c.review_status !== 'REJECTED'
+      );
+      if (remaining.length > 0) {
+        handleSelectClaimRecord(remaining[0]);
+      } else {
+        setInternalSelectedClaimId(null);
+      }
+
       if (onResumeContentGeneration) {
         onResumeContentGeneration();
       }
@@ -348,7 +381,7 @@ export const ClaimLedger: React.FC<ClaimLedgerProps> = ({
   };
 
   return (
-    <div className="steer-page-root steer-review-page max-w-[1500px] mx-auto p-4 sm:p-6 space-y-6">
+    <div className="max-w-[1500px] mx-auto p-4 sm:p-6 space-y-6">
       {/* 01. Desk Action Header & Filter Bar */}
       <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xs rounded-xs">
         {/* Left: Metrics & Status */}
@@ -470,8 +503,8 @@ export const ClaimLedger: React.FC<ClaimLedgerProps> = ({
               />
             </div>
 
-            <div className="flex items-center gap-1 text-[11px] font-mono">
-              {['ALL', 'FLAGGED', 'BLOCKED', 'READY_FOR_HUMAN_REVIEW', 'HUMAN_APPROVED'].map((status) => (
+            <div className="flex flex-wrap items-center gap-1 text-[11px] font-mono">
+              {['ALL', 'READY_FOR_HUMAN_REVIEW', 'HUMAN_APPROVED', 'FLAGGED', 'BLOCKED', 'REJECTED'].map((status) => (
                 <button
                   key={status}
                   onClick={() => setStatusFilter(status)}
@@ -485,6 +518,8 @@ export const ClaimLedger: React.FC<ClaimLedgerProps> = ({
                     ? 'Pending'
                     : status === 'HUMAN_APPROVED'
                     ? 'Approved'
+                    : status === 'REJECTED'
+                    ? 'Rejected'
                     : status}
                 </button>
               ))}
