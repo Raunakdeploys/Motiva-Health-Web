@@ -37,11 +37,11 @@ export async function downloadStaticPostPng(post: StaticPostContent, filename = 
 
   // Top header: Wordmark
   ctx.fillStyle = '#661414'; // Deep maroon
-  ctx.font = 'bold 32px "Plus Jakarta Sans", sans-serif';
+  ctx.font = 'bold 32px "DM Sans", sans-serif';
   ctx.fillText('steer', 100, 140);
 
   ctx.fillStyle = '#C04E2A'; // Rust
-  ctx.font = '600 18px "Plus Jakarta Sans", sans-serif';
+  ctx.font = '600 18px "DM Sans", sans-serif';
   ctx.letterSpacing = '2px';
   ctx.fillText('EVIDENCE STUDIO · RESEARCH BRIEF', 210, 138);
 
@@ -54,7 +54,7 @@ export async function downloadStaticPostPng(post: StaticPostContent, filename = 
 
   // Primary Headline
   ctx.fillStyle = '#351D1D'; // Ink
-  ctx.font = 'italic 700 64px "Fraunces", Georgia, serif';
+  ctx.font = 'italic 700 64px "Instrument Serif", Georgia, serif';
   wrapText(ctx, post.headline, 100, 260, 880, 76);
 
   // Primary Finding Box
@@ -65,21 +65,21 @@ export async function downloadStaticPostPng(post: StaticPostContent, filename = 
   ctx.strokeRect(100, 420, 880, 200);
 
   ctx.fillStyle = '#C04E2A';
-  ctx.font = '600 20px "Plus Jakarta Sans", sans-serif';
+  ctx.font = '600 20px "DM Sans", sans-serif';
   ctx.fillText('KEY MEASURED FINDING', 140, 465);
 
   ctx.fillStyle = '#351D1D';
-  ctx.font = '600 36px "Plus Jakarta Sans", sans-serif';
+  ctx.font = '600 36px "DM Sans", sans-serif';
   wrapText(ctx, post.primary_finding, 140, 520, 800, 46);
 
   // Supporting Context
   ctx.fillStyle = '#351D1D';
-  ctx.font = '400 26px "Plus Jakarta Sans", sans-serif';
+  ctx.font = '400 26px "DM Sans", sans-serif';
   wrapText(ctx, post.supporting_text, 100, 670, 880, 38);
 
   // Qualification / Limitation
   ctx.fillStyle = '#661414';
-  ctx.font = 'italic 500 22px "Fraunces", Georgia, serif';
+  ctx.font = 'italic 500 22px "Instrument Serif", Georgia, serif';
   wrapText(ctx, `Caveat: ${post.qualification}`, 100, 810, 880, 32);
 
   // Bottom Footer / Citation
@@ -134,11 +134,11 @@ export async function downloadCarouselSlidePng(
 
   // Top Header
   ctx.fillStyle = '#661414';
-  ctx.font = 'bold 30px "Plus Jakarta Sans", sans-serif';
+  ctx.font = 'bold 30px "DM Sans", sans-serif';
   ctx.fillText('steer', 100, 140);
 
   ctx.fillStyle = '#8B6A60';
-  ctx.font = '500 20px "Plus Jakarta Sans", sans-serif';
+  ctx.font = '500 20px "DM Sans", sans-serif';
   ctx.fillText(`SLIDE ${slideIndex + 1} OF ${totalSlides}`, 820, 140);
 
   ctx.strokeStyle = 'rgba(53, 29, 29, 0.12)';
@@ -150,19 +150,19 @@ export async function downloadCarouselSlidePng(
   // Slide Layout rendering
   if (slide.layout === 'cover') {
     ctx.fillStyle = '#C04E2A';
-    ctx.font = '600 20px "Plus Jakarta Sans", sans-serif';
+    ctx.font = '600 20px "DM Sans", sans-serif';
     ctx.fillText('HEALTH EVIDENCE BRIEF', 100, 270);
 
     ctx.fillStyle = '#351D1D';
-    ctx.font = 'italic 700 70px "Fraunces", Georgia, serif';
+    ctx.font = 'italic 700 70px "Instrument Serif", Georgia, serif';
     wrapText(ctx, slide.headline, 100, 360, 880, 84);
 
     ctx.fillStyle = '#553636';
-    ctx.font = '400 30px "Plus Jakarta Sans", sans-serif';
+    ctx.font = '400 30px "DM Sans", sans-serif';
     wrapText(ctx, slide.body_text, 100, 680, 880, 46);
   } else if (slide.layout === 'finding_caveat') {
     ctx.fillStyle = '#351D1D';
-    ctx.font = '700 52px "Fraunces", Georgia, serif';
+    ctx.font = '700 52px "Instrument Serif", Georgia, serif';
     wrapText(ctx, slide.headline, 100, 260, 880, 64);
 
     // Finding card
@@ -172,11 +172,11 @@ export async function downloadCarouselSlidePng(
     ctx.strokeRect(100, 380, 880, 240);
 
     ctx.fillStyle = '#C04E2A';
-    ctx.font = '600 20px "Plus Jakarta Sans", sans-serif';
+    ctx.font = '600 20px "DM Sans", sans-serif';
     ctx.fillText('EMPIRICAL FINDING', 140, 430);
 
     ctx.fillStyle = '#351D1D';
-    ctx.font = '400 28px "Plus Jakarta Sans", sans-serif';
+    ctx.font = '400 28px "DM Sans", sans-serif';
     wrapText(ctx, slide.finding || slide.body_text, 140, 480, 800, 40);
 
     // Caveat box
@@ -187,21 +187,21 @@ export async function downloadCarouselSlidePng(
       ctx.strokeRect(100, 660, 880, 180);
 
       ctx.fillStyle = '#661414';
-      ctx.font = '600 18px "Plus Jakarta Sans", sans-serif';
+      ctx.font = '600 18px "DM Sans", sans-serif';
       ctx.fillText('CRITICAL CAVEAT / LIMITATION', 140, 705);
 
       ctx.fillStyle = '#351D1D';
-      ctx.font = 'italic 400 24px "Fraunces", Georgia, serif';
+      ctx.font = 'italic 400 24px "Instrument Serif", Georgia, serif';
       wrapText(ctx, slide.caveat_or_limitation, 140, 750, 800, 34);
     }
   } else {
     // Takeaway or source
     ctx.fillStyle = '#351D1D';
-    ctx.font = '700 56px "Fraunces", Georgia, serif';
+    ctx.font = '700 56px "Instrument Serif", Georgia, serif';
     wrapText(ctx, slide.headline, 100, 280, 880, 68);
 
     ctx.fillStyle = '#351D1D';
-    ctx.font = '400 30px "Plus Jakarta Sans", sans-serif';
+    ctx.font = '400 30px "DM Sans", sans-serif';
     wrapText(ctx, slide.body_text, 100, 460, 880, 44);
 
     if (slide.source_citation) {
@@ -219,7 +219,7 @@ export async function downloadCarouselSlidePng(
   ctx.stroke();
 
   ctx.fillStyle = '#8B6A60';
-  ctx.font = '400 18px "Plus Jakarta Sans", sans-serif';
+  ctx.font = '400 18px "DM Sans", sans-serif';
   ctx.fillText('Swipe for evidence audit · steer / Evidence Studio', 100, 970);
 
   canvas.toBlob((blob) => {
@@ -401,11 +401,11 @@ function drawReelFrame(
 
   // Top header brand
   ctx.fillStyle = '#661414';
-  ctx.font = 'bold 28px "Plus Jakarta Sans", sans-serif';
+  ctx.font = 'bold 28px "DM Sans", sans-serif';
   ctx.fillText('steer', 60, 90);
 
   ctx.fillStyle = '#C04E2A';
-  ctx.font = '600 16px "Plus Jakarta Sans", sans-serif';
+  ctx.font = '600 16px "DM Sans", sans-serif';
   ctx.fillText('EVIDENCE STUDIO', 150, 88);
 
   // Scene indicator
@@ -422,13 +422,13 @@ function drawReelFrame(
 
   // Scene title
   ctx.fillStyle = '#8B6A60';
-  ctx.font = '600 18px "Plus Jakarta Sans", sans-serif';
+  ctx.font = '600 18px "DM Sans", sans-serif';
   const displayTitle = (scene.title || scene.on_screen_text || `SCENE ${sceneNum}`).toUpperCase();
   ctx.fillText(displayTitle, 60, 220);
 
   // Primary on-screen text
   ctx.fillStyle = '#351D1D';
-  ctx.font = 'italic 700 46px "Fraunces", Georgia, serif';
+  ctx.font = 'italic 700 46px "Instrument Serif", Georgia, serif';
   wrapText(ctx, scene.on_screen_text, 60, 300, width - 120, 60);
 
   // Center visual card
@@ -438,11 +438,11 @@ function drawReelFrame(
   ctx.strokeRect(60, 560, width - 120, 280);
 
   ctx.fillStyle = '#661414';
-  ctx.font = '600 18px "Plus Jakarta Sans", sans-serif';
+  ctx.font = '600 18px "DM Sans", sans-serif';
   ctx.fillText('VOICEOVER / SCRIPT CUE', 90, 610);
 
   ctx.fillStyle = '#351D1D';
-  ctx.font = '400 22px "Plus Jakarta Sans", sans-serif';
+  ctx.font = '400 22px "DM Sans", sans-serif';
   wrapText(ctx, `"${scene.voiceover_script}"`, 90, 660, width - 180, 34);
 
   // Subtitle banner at bottom
@@ -450,12 +450,12 @@ function drawReelFrame(
   ctx.fillRect(60, 940, width - 120, 150);
 
   ctx.fillStyle = '#FFFFFF';
-  ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
+  ctx.font = '600 22px "DM Sans", sans-serif';
   wrapText(ctx, scene.subtitle_text, 90, 1000, width - 180, 32);
 
   // Disclaimer bottom
   ctx.fillStyle = '#8B6A60';
-  ctx.font = '400 14px "Plus Jakarta Sans", sans-serif';
+  ctx.font = '400 14px "DM Sans", sans-serif';
   ctx.fillText('Evidence-backed health reporting · human review required', 60, 1170);
 }
 

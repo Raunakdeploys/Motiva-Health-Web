@@ -166,7 +166,7 @@ export const PostScheduler: React.FC<PostSchedulerProps> = ({
       )}
 
       {/* 02. Cadence & Pipeline Metrics Bar */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="steer-calendar-metrics grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-4 space-y-1">
           <span className="text-[10px] font-mono uppercase text-[#B58777] block">Weekly Cadence</span>
           <div className="text-xl font-serif font-bold text-[#351D1D]">7 Posts / Week</div>
@@ -226,11 +226,11 @@ export const PostScheduler: React.FC<PostSchedulerProps> = ({
           return (
             <div
               key={post.id}
-              className="bg-[#FFFDF9] border border-[#E6CBBD] p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-[#C04E2A] transition-colors shadow-xs"
+              className="steer-calendar-entry bg-[#FFFDF9] border border-[#E6CBBD] p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-[#C04E2A] transition-colors shadow-xs"
             >
               {/* Left: Time & Format Badge */}
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-[#F8F2EB] border border-[#E6CBBD] flex flex-col items-center justify-center shrink-0">
+                <div className="steer-calendar-day-index w-12 h-12 bg-[#F8F2EB] border border-[#E6CBBD] flex flex-col items-center justify-center shrink-0">
                   <span className="text-[10px] font-mono text-[#B58777] uppercase font-bold">
                     DAY
                   </span>
@@ -275,7 +275,7 @@ export const PostScheduler: React.FC<PostSchedulerProps> = ({
                     "{post.hook}"
                   </h3>
 
-                  <p className="text-xs text-[#786A61] line-clamp-1">
+                  <p className="text-xs text-[#786A61] leading-relaxed break-words">
                     Source Paper: {post.paper_title}
                   </p>
                 </div>

@@ -193,7 +193,7 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
               <h3 className="font-serif font-bold text-sm text-[#351D1D] leading-snug">
                 Once-Weekly Semaglutide in Adults with Overweight or Obesity
               </h3>
-              <p className="text-xs text-[#786A61] line-clamp-2 leading-relaxed">
+              <p className="text-xs text-[#786A61] leading-relaxed">
                 Landmark STEP-1 clinical trial: up to 39% of weight loss on GLP-1 is lean muscle mass, requiring high-protein protection.
               </p>
             </div>
@@ -230,7 +230,7 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
               <h3 className="font-serif font-bold text-sm text-[#351D1D] leading-snug">
                 Insulin Resistance & The 'Thin-Fat' South Asian Phenotype
               </h3>
-              <p className="text-xs text-[#786A61] line-clamp-2 leading-relaxed">
+              <p className="text-xs text-[#786A61] leading-relaxed">
                 Why Indians with normal BMI suffer severe 3 PM insulin crashes, visceral adiposity, and earlier onset of type-2 diabetes.
               </p>
             </div>
@@ -267,7 +267,7 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
               <h3 className="font-serif font-bold text-sm text-[#351D1D] leading-snug">
                 Persistent Metabolic Adaptation 6 Years After Crash Dieting
               </h3>
-              <p className="text-xs text-[#786A61] line-clamp-2 leading-relaxed">
+              <p className="text-xs text-[#786A61] leading-relaxed">
                 Resting metabolic rate drops by ~500 kcal/day and stays suppressed for years, proving weight regain is hormonal biology.
               </p>
             </div>
@@ -427,7 +427,7 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs border-t border-[#E6CBBD] pt-4 font-mono">
             <div className="p-3 bg-[#FAF6F0] border border-[#E6CBBD] rounded-xs">
               <span className="text-[9px] uppercase text-[#786A61] block">Journal</span>
-              <span className="text-[#391E1D] font-medium block truncate mt-0.5">{activePaper.journal || 'Not specified'}</span>
+              <span className="text-[#391E1D] font-medium block break-words mt-0.5">{activePaper.journal || 'Not specified'}</span>
             </div>
             <div className="p-3 bg-[#FAF6F0] border border-[#E6CBBD] rounded-xs">
               <span className="text-[9px] uppercase text-[#786A61] block">Publication Year</span>
@@ -435,7 +435,7 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
             </div>
             <div className="p-3 bg-[#FAF6F0] border border-[#E6CBBD] rounded-xs">
               <span className="text-[9px] uppercase text-[#786A61] block">DOI Reference</span>
-              <span className="text-[#391E1D] font-medium block truncate mt-0.5">{activePaper.doi || 'None recorded'}</span>
+              <span className="text-[#391E1D] font-medium block break-words mt-0.5">{activePaper.doi || 'None recorded'}</span>
             </div>
             <div className="p-3 bg-[#FAF6F0] border border-[#E6CBBD] rounded-xs">
               <span className="text-[9px] uppercase text-[#786A61] block">Extracted Extent</span>
@@ -489,7 +489,7 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
                   </div>
                   <h4
                     onClick={() => onSelectPaper(p.paper_id)}
-                    className="font-serif text-sm font-semibold text-[#351D1D] hover:text-[#661414] cursor-pointer line-clamp-1 transition-colors"
+                    className="font-serif text-sm font-semibold text-[#351D1D] hover:text-[#661414] cursor-pointer break-words transition-colors"
                   >
                     {p.title}
                   </h4>
