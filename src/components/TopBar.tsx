@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
+  ArrowRight,
+  ChevronDown,
+  Database,
+  LogOut,
   Menu,
   PanelRightClose,
   PanelRightOpen,
-  Database,
-  ArrowRight,
-  LogOut,
-  User as UserIcon,
-  ChevronDown,
+  Search,
   Sparkles,
-  ShieldCheck,
-  Check,
+  User as UserIcon,
+  X,
 } from 'lucide-react';
-import { ActiveTab } from './NavigationSidebar';
-import { PaperRecord } from '../types';
+import type { ActiveTab } from './NavigationSidebar';
+import type { PaperRecord } from '../types';
 import { useAuth } from '../context/AuthContext';
 import { GoogleAuthModal } from './GoogleAuthModal';
 
@@ -32,21 +32,38 @@ interface TopBarProps {
 }
 
 const TAB_TITLES: Record<ActiveTab, { title: string; subtitle: string }> = {
-  workspace: { title: 'Workbench', subtitle: 'Overview & Editorial Queue' },
-  radar: { title: 'Evidence Radar', subtitle: 'Audience Questions, Literature Gaps & Content Briefs' },
-  papers: { title: 'Paper Intake', subtitle: 'Ingest Research & Extract Passages' },
-  source: { title: 'Evidence Stitch', subtitle: 'Verbatim Document Source Reader' },
-  desk: { title: 'Investigation Desk', subtitle: 'Multi-Pane Evidence & Claim Triangulation' },
-  provenance: { title: 'Provenance Graph', subtitle: 'End-to-End Visual Audit Trail' },
-  review: { title: 'Claim Review', subtitle: 'Doctor Review Gate & 12-Rule Audit' },
-  studio: { title: 'Content Studio', subtitle: 'Instagram Carousels, Statics & Reels' },
-  schedule: { title: 'Content Calendar', subtitle: '7-Day Instagram Publishing Cadence' },
-  submission: { title: 'Submission Packet', subtitle: 'Problem Statement 2 Showcase' },
-  report: { title: 'Evidence Report', subtitle: 'Printable Audit Trail & Compliance' },
-  selftest: { title: 'Validation Engine', subtitle: '12-Rule Deterministic Self-Tests' },
-  audit: { title: 'Audit Logs', subtitle: 'System Governance & Multi-User Trail' },
-  media: { title: 'AI Media & Grounding Lab', subtitle: 'Veo 3 Video, Nano Banana 2.1 & Search Grounding' },
+  workspace: { title: 'Overview', subtitle: 'Your evidence-to-publishing workflow' },
+  radar: { title: 'Evidence radar', subtitle: 'Audience questions and scientific gaps' },
+  papers: { title: 'Research library', subtitle: 'Manage and ingest clinical research' },
+  source: { title: 'Source reader', subtitle: 'Trace claims back to the original paper' },
+  desk: { title: 'Investigation desk', subtitle: 'Inspect evidence and refine claims' },
+  provenance: { title: 'Provenance graph', subtitle: 'Follow the path from source to story' },
+  review: { title: 'Claim review', subtitle: 'Review evidence before it becomes content' },
+  studio: { title: 'Content studio', subtitle: 'Create research-backed social deliverables' },
+  schedule: { title: 'Publishing calendar', subtitle: 'Plan and track upcoming content' },
+  submission: { title: 'Submission packet', subtitle: 'Prepare a concise project showcase' },
+  report: { title: 'Evidence report', subtitle: 'Review the supporting research record' },
+  selftest: { title: 'Validation tests', subtitle: 'Check the rules that protect each claim' },
+  audit: { title: 'Audit log', subtitle: 'Review workspace activity and decisions' },
+  media: { title: 'AI media lab', subtitle: 'Generate grounded media for approved claims' },
 };
+
+const PAGE_LINKS: { id: ActiveTab; label: string; detail: string }[] = [
+  { id: 'workspace', label: 'Overview', detail: 'Workspace' },
+  { id: 'papers', label: 'Research library', detail: 'Research & evidence' },
+  { id: 'source', label: 'Source reader', detail: 'Research & evidence' },
+  { id: 'desk', label: 'Investigation desk', detail: 'Research & evidence' },
+  { id: 'review', label: 'Claim review', detail: 'Research & evidence' },
+  { id: 'radar', label: 'Evidence radar', detail: 'Research & evidence' },
+  { id: 'provenance', label: 'Provenance graph', detail: 'Research & evidence' },
+  { id: 'studio', label: 'Content studio', detail: 'Create & publish' },
+  { id: 'media', label: 'AI media lab', detail: 'Create & publish' },
+  { id: 'schedule', label: 'Publishing calendar', detail: 'Create & publish' },
+  { id: 'submission', label: 'Submission packet', detail: 'Create & publish' },
+  { id: 'report', label: 'Evidence report', detail: 'Trust & reporting' },
+  { id: 'selftest', label: 'Validation tests', detail: 'Trust & reporting' },
+  { id: 'audit', label: 'Audit log', detail: 'Trust & reporting' },
+];
 
 export const TopBar: React.FC<TopBarProps> = ({
   currentTab,
@@ -64,182 +81,254 @@ export const TopBar: React.FC<TopBarProps> = ({
   const { user, signOutUser, loading: authLoading } = useAuth();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const [isCommandOpen, setIsCommandOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const tabInfo = TAB_TITLES[currentTab];
 
-  const tabInfo = TAB_TITLES[currentTab] || { title: 'Steer Evidence Studio', subtitle: '' };
+  const searchResults = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) return PAGE_LINKS;
+    return PAGE_LINKS.filter((item) => `${item.label} ${item.detail}`.toLowerCase().includes(query));
+  }, [searchQuery]);
+
+  useEffect(() => {
+    const handleShortcut = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        setIsCommandOpen(true);
+      }
+      if (event.key === 'Escape') {
+        setIsCommandOpen(false);
+        setUserDropdownOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleShortcut);
+    return () => window.removeEventListener('keydown', handleShortcut);
+  }, []);
+
+  useEffect(() => {
+    if (isCommandOpen) {
+      setSearchQuery('');
+      searchInputRef.current?.focus();
+    }
+  }, [isCommandOpen]);
+
+  const openPage = (tab: ActiveTab) => {
+    onSelectTab?.(tab);
+    setIsCommandOpen(false);
+    setSearchQuery('');
+  };
+
+  const syncLabels = {
+    synced: 'Synced',
+    syncing: 'Syncing',
+    offline: 'Local only',
+    error: 'Needs attention',
+  };
 
   return (
     <>
-      <header className="h-14 bg-[#FFFDF9] border-b border-[#E6CBBD] px-3 sm:px-5 flex items-center justify-between gap-3 shrink-0 sticky top-0 z-30 shadow-xs">
-        {/* Left: Mobile Menu Toggle + Breadcrumbs + Active Paper Context */}
-        <div className="flex items-center gap-3 min-w-0">
-          {/* Mobile hamburger toggle */}
+      <header className="steer-topbar sticky top-0 z-30 flex items-center justify-between gap-3 px-3 sm:px-5 xl:px-7">
+        <div className="steer-topbar-left">
           <button
+            type="button"
             onClick={onToggleSidebarMobile}
-            className="md:hidden p-1.5 text-[#351D1D] hover:text-[#661414] hover:bg-[#F8F2EB] rounded-xs border border-[#E6CBBD] transition-colors cursor-pointer"
-            aria-label="Toggle navigation menu"
+            className="steer-icon-button md:hidden"
+            aria-label="Open navigation menu"
           >
-            <Menu className="w-4 h-4" />
+            <Menu size={17} aria-hidden="true" />
           </button>
-
-          {/* Breadcrumb Title */}
-          <div className="flex flex-col min-w-0">
-            <div className="flex items-center gap-1.5 text-xs">
-              <span className="font-serif italic font-bold text-[#661414] tracking-tight">
-                steer
-              </span>
-              <span className="text-[#B58777]">/</span>
-              <h1 className="font-semibold text-[#351D1D] truncate">
-                {tabInfo.title}
-              </h1>
+          <div className="steer-topbar-title-wrap">
+            <div className="steer-topbar-crumb">
+              <strong>steer</strong>
+              <span aria-hidden="true">/</span>
+              <span>Health research workspace</span>
             </div>
-            {activePaper && (
-              <span className="text-[10px] font-mono text-[#786A61] truncate hidden sm:inline max-w-[280px] md:max-w-[420px]">
-                {activePaper.title} ({activePaper.year})
-              </span>
-            )}
+            <h1 className="steer-topbar-heading">{tabInfo.title}</h1>
+            <span className="steer-topbar-context">
+              {activePaper ? `${activePaper.title} · ${activePaper.year}` : tabInfo.subtitle}
+            </span>
           </div>
         </div>
 
-        {/* Right: Quick Stage Progression + Sync Indicator + Inspector Toggle + User Account */}
-        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
-          {/* Workflow Quick Action Button */}
-          {quickActionLabel && onQuickAction && (
-            <button
-              onClick={onQuickAction}
-              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 bg-[#661414] hover:bg-[#501010] active:scale-98 text-[#FFFDF9] text-xs font-semibold rounded-xs shadow-xs transition-all cursor-pointer"
-            >
-              <span>{quickActionLabel}</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          )}
-
-          {/* Trial Simulator Wow Factor Button */}
-          {onOpenSimulator && (
-            <button
-              onClick={onOpenSimulator}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-[#C04E2A] hover:bg-[#a84021] text-[#FFFDF9] text-xs font-bold rounded-xs shadow-xs transition-all cursor-pointer"
-              title="Launch Live Clinical Trial Simulator & Patient Twin"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-[#F5EBDF]" />
-              <span className="hidden sm:inline">🧠 Trial Simulator</span>
-              <span className="sm:hidden">Simulator</span>
-            </button>
-          )}
-
-          {/* Cloud SQL / Firestore Database Sync Status Pill */}
-          <div
-            className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-mono border border-[#E6CBBD] bg-[#FAF6F0] text-[#351D1D] rounded-xs"
-            title={
-              sqlSyncStatus === 'synced'
-                ? 'Cloud SQL & Firestore in-sync'
-                : sqlSyncStatus === 'syncing'
-                ? 'Syncing clinical data...'
-                : 'Local offline storage active'
-            }
-          >
-            <span
-              className={`w-2 h-2 rounded-full shrink-0 ${
-                sqlSyncStatus === 'synced'
-                  ? 'bg-[#416C49]'
-                  : sqlSyncStatus === 'syncing'
-                  ? 'bg-[#C04E2A] animate-pulse'
-                  : 'bg-[#B58777]'
-              }`}
-            />
-            <span className="text-[#786A61] hidden md:inline">SQL:</span>
-            <span className="font-medium">
-              {sqlSyncStatus === 'syncing' ? 'Syncing...' : 'Synced'}
-            </span>
-          </div>
-
-          {/* Evidence Inspector Drawer Toggle */}
+        <div className="steer-topbar-right">
           <button
-            onClick={onToggleInspector}
-            className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 text-xs font-medium border rounded-xs transition-colors cursor-pointer ${
-              isInspectorOpen
-                ? 'bg-[#661414] text-[#FFFDF9] border-[#661414] font-semibold'
-                : 'bg-[#FFFDF9] hover:bg-[#F8F2EB] text-[#351D1D] border-[#E6CBBD]'
-            }`}
-            title={isInspectorOpen ? 'Collapse evidence inspector' : 'Expand evidence inspector'}
+            type="button"
+            className="steer-search-trigger"
+            onClick={() => setIsCommandOpen(true)}
+            aria-label="Search workspace pages, Control or Command K"
+            aria-haspopup="dialog"
           >
-            {isInspectorOpen ? (
-              <PanelRightClose className="w-3.5 h-3.5 text-[#FFFDF9]" />
-            ) : (
-              <PanelRightOpen className="w-3.5 h-3.5 text-[#661414]" />
-            )}
-            <span className="hidden sm:inline">Inspector</span>
+            <Search size={14} aria-hidden="true" />
+            <span className="steer-search-trigger-label">Search pages and tools</span>
+            <kbd>⌘ K</kbd>
           </button>
 
-          {/* User Profile / Google Sign-in */}
+          {quickActionLabel && onQuickAction && (
+            <button
+              type="button"
+              onClick={onQuickAction}
+              className="steer-action-button steer-quick-action"
+            >
+              {quickActionLabel}
+              <ArrowRight size={13} aria-hidden="true" />
+            </button>
+          )}
+
+          {onOpenSimulator && (
+            <button
+              type="button"
+              onClick={onOpenSimulator}
+              className="steer-action-button steer-action-button-primary"
+              title="Open the clinical trial simulator"
+            >
+              <Sparkles size={14} aria-hidden="true" />
+              <span className="hidden xl:inline">Trial simulator</span>
+            </button>
+          )}
+
+          <div className="steer-status-pill" title={`Database status: ${syncLabels[sqlSyncStatus]}`}>
+            <span className="steer-sync-dot" data-status={sqlSyncStatus} aria-hidden="true" />
+            <Database size={13} aria-hidden="true" />
+            {syncLabels[sqlSyncStatus]}
+          </div>
+
+          {(currentTab === 'workspace' || currentTab === 'source' || currentTab === 'review') && (
+            <button
+              type="button"
+              onClick={onToggleInspector}
+              className={`steer-action-button${isInspectorOpen ? ' steer-action-button-primary' : ''}`}
+              title={isInspectorOpen ? 'Close evidence inspector' : 'Open evidence inspector'}
+              aria-pressed={isInspectorOpen}
+            >
+              {isInspectorOpen ? <PanelRightClose size={15} aria-hidden="true" /> : <PanelRightOpen size={15} aria-hidden="true" />}
+              <span className="hidden xl:inline">Inspector</span>
+            </button>
+          )}
+
           {user ? (
-            <div className="relative">
+            <div className="steer-profile-wrap">
               <button
-                onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                className="flex items-center gap-1.5 p-1 sm:px-2 sm:py-1 rounded-xs bg-[#FFFDF9] hover:bg-[#F8F2EB] border border-[#E6CBBD] transition-all text-xs font-medium text-[#351D1D] cursor-pointer"
+                type="button"
+                onClick={() => setUserDropdownOpen((open) => !open)}
+                className="steer-action-button steer-profile-trigger"
+                aria-expanded={userDropdownOpen}
+                aria-haspopup="menu"
+                aria-label="Open account menu"
               >
                 {user.photoURL ? (
-                  <img
-                    src={user.photoURL}
-                    alt={user.displayName || 'User'}
-                    className="w-5 h-5 rounded-full object-cover border border-[#661414]/20"
-                  />
+                  <img src={user.photoURL} alt="" className="size-5 rounded-full object-cover" />
                 ) : (
-                  <div className="w-5 h-5 rounded-full bg-[#661414] text-[#FFFDF9] flex items-center justify-center text-[10px] font-bold">
-                    {(user.displayName || user.email || 'R').charAt(0).toUpperCase()}
-                  </div>
+                  <span className="steer-profile-avatar" aria-hidden="true">
+                    {(user.displayName || user.email || 'S').charAt(0).toUpperCase()}
+                  </span>
                 )}
-                <span className="max-w-[100px] truncate hidden md:inline font-mono text-[11px]">
+                <span className="hidden 2xl:inline max-w-[100px] truncate">
                   {user.displayName || user.email?.split('@')[0]}
                 </span>
-                <ChevronDown className="w-3 h-3 text-[#786A61]" />
+                <ChevronDown size={13} aria-hidden="true" />
               </button>
 
               {userDropdownOpen && (
-                <div
-                  className="absolute right-0 mt-2 w-64 bg-[#FFFDF9] rounded-xs shadow-xl border border-[#E6CBBD] py-2 z-50 animate-in fade-in duration-100"
-                  onClick={() => setUserDropdownOpen(false)}
-                >
-                  <div className="px-3.5 py-2 border-b border-[#E6CBBD]">
-                    <p className="text-xs font-bold text-[#351D1D] truncate">
-                      {user.displayName || 'Steer Medical Researcher'}
-                    </p>
-                    <p className="text-[11px] font-mono text-[#786A61] truncate">{user.email}</p>
-                    <div className="mt-1 flex items-center gap-1 text-[10px] font-mono text-[#416C49]">
-                      <Check className="w-3 h-3" />
-                      <span>Cloud SQL Synced</span>
-                    </div>
+                <div className="steer-profile-menu" role="menu">
+                  <div className="steer-profile-menu-header">
+                    <strong>{user.displayName || 'Steer researcher'}</strong>
+                    <span>{user.email}</span>
+                    <small><Database size={12} aria-hidden="true" /> {syncLabels[sqlSyncStatus]}</small>
                   </div>
-
-                  <div className="py-1">
-                    <button
-                      onClick={signOutUser}
-                      className="w-full px-3.5 py-1.5 text-left text-xs text-[#C04E2A] hover:bg-[#F8F2EB] flex items-center gap-2 cursor-pointer transition-colors"
-                    >
-                      <LogOut className="w-3.5 h-3.5" />
-                      <span>Sign Out</span>
-                    </button>
-                  </div>
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={signOutUser}
+                    className="steer-profile-menu-action"
+                  >
+                    <LogOut size={14} aria-hidden="true" />
+                    Sign out
+                  </button>
                 </div>
               )}
             </div>
           ) : (
             <button
+              type="button"
               onClick={() => {
                 if (onOpenAuthModal) onOpenAuthModal();
                 else setIsAuthModalOpen(true);
               }}
               disabled={authLoading}
-              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 text-xs font-medium text-[#351D1D] bg-[#FFFDF9] hover:bg-[#F8F2EB] border border-[#E6CBBD] rounded-xs transition-colors cursor-pointer"
-              title="Sign in with Google to sync research with Cloud SQL & Firestore"
+              className="steer-action-button steer-auth-trigger"
+              title="Sign in to sync research across devices"
             >
-              <UserIcon className="w-3.5 h-3.5 text-[#661414]" />
-              <span className="hidden sm:inline">Sign In</span>
+              <UserIcon size={14} aria-hidden="true" />
+              <span className="hidden sm:inline">Sign in</span>
             </button>
           )}
         </div>
       </header>
 
-      {/* Google Authentication Portal Modal */}
+      {isCommandOpen && (
+        <div
+          className="steer-command-overlay"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setIsCommandOpen(false);
+          }}
+        >
+          <section
+            className="steer-command-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="steer-command-title"
+          >
+            <h2 id="steer-command-title" className="sr-only">Search workspace pages</h2>
+            <div className="steer-command-search">
+              <Search size={17} aria-hidden="true" />
+              <label className="sr-only" htmlFor="steer-command-input">Search workspace sections</label>
+              <input
+                id="steer-command-input"
+                ref={searchInputRef}
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' && (event.nativeEvent.isComposing || event.keyCode === 229)) return;
+                  if (event.key === 'Enter' && searchResults[0]) openPage(searchResults[0].id);
+                }}
+                placeholder="Search a page or tool…"
+                autoComplete="off"
+              />
+              <button
+                type="button"
+                className="steer-icon-button"
+                onClick={() => setIsCommandOpen(false)}
+                aria-label="Close search"
+              >
+                <X size={15} aria-hidden="true" />
+              </button>
+            </div>
+            <div className="steer-command-results">
+              <span className="steer-command-label">Workspace sections</span>
+              {searchResults.length > 0 ? (
+                searchResults.map((item) => (
+                  <button
+                    type="button"
+                    className="steer-command-item"
+                    key={item.id}
+                    onClick={() => openPage(item.id)}
+                    aria-current={item.id === currentTab ? 'page' : undefined}
+                  >
+                    <span>{item.label}</span>
+                    <small>{item.detail}</small>
+                  </button>
+                ))
+              ) : (
+                <div className="steer-command-empty">No sections match “{searchQuery}”.</div>
+              )}
+            </div>
+          </section>
+        </div>
+      )}
+
       <GoogleAuthModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
