@@ -9,6 +9,13 @@ import {
   StaticPostContent,
 } from './types';
 import {
+  ALL_CAROUSELS,
+  ALL_CLAIMS,
+  ALL_PAPERS,
+  ALL_PASSAGES,
+  ALL_REELS,
+  ALL_STATIC_POSTS,
+  DEFAULT_SCHEDULED_POSTS,
   saveCarousels,
   saveClaims,
   savePapers,
@@ -20,7 +27,7 @@ import {
 } from './utils/storage';
 import type { AuditLogEntry } from './utils/storage';
 import { runValidationEngine } from './utils/validationEngine';
-import { generateClientSteerContent } from './utils/contentGenerator';
+import { generateClientMotivaContent } from './utils/contentGenerator';
 import { useAuth } from './context/AuthContext';
 import {
   authenticatedApiFetch,
@@ -571,9 +578,9 @@ export default function App() {
       console.warn('Backend API /api/generate-content notice:', fetchErr);
     }
 
-    // Resilient fallback: If server unavailable or failed in deployment, generate verified Steer content right in browser
+    // Resilient fallback: If server unavailable or failed in deployment, generate verified MOTIVA content right in browser
     if (!deliverables) {
-      deliverables = generateClientSteerContent(activePaper, claimsToUse, variationSeed);
+      deliverables = generateClientMotivaContent(activePaper, claimsToUse, variationSeed);
     }
 
     if (!deliverables) {
@@ -664,9 +671,39 @@ export default function App() {
   };
 
   const handleResetDemo = async () => {
-    if (!confirm('Add the synthetic metabolic-health benchmark? Your saved papers and editorial drafts will be kept.')) return;
     if (!idToken) {
-      setIsAuthModalOpen(true);
+      const mergeById = <T,>(current: T[], incoming: T[], getId: (item: T) => string): T[] => {
+        const records = new Map<string, T>(current.map((item) => [getId(item), item] as const));
+        incoming.forEach((item) => records.set(getId(item), item));
+        return Array.from(records.values());
+      };
+      const nextPapers = mergeById(papers, ALL_PAPERS, (paper) => paper.paper_id);
+      const nextPassages = mergeById(passages, ALL_PASSAGES, (passage) => passage.evidence_id);
+      const nextClaims = mergeById(claims, ALL_CLAIMS, (claim) => claim.claim_id);
+      const nextCarousels = mergeById(carousels, ALL_CAROUSELS, (item) => item.id);
+      const nextStaticPosts = mergeById(staticPosts, ALL_STATIC_POSTS, (item) => item.id);
+      const nextReels = mergeById(reels, ALL_REELS, (item) => item.id);
+      const nextScheduledPosts = mergeById(scheduledPosts, DEFAULT_SCHEDULED_POSTS, (item) => item.id);
+      const samplePaperId = ALL_PAPERS.find((paper) => paper.is_demo)?.paper_id || '';
+
+      setPapers(nextPapers);
+      setPassages(nextPassages);
+      setClaims(nextClaims);
+      setCarousels(nextCarousels);
+      setStaticPosts(nextStaticPosts);
+      setReels(nextReels);
+      setScheduledPosts(nextScheduledPosts);
+      setActivePaperIdState(samplePaperId);
+      setActivePaperId(samplePaperId);
+      setSelectedClaimId(ALL_CLAIMS.find((claim) => claim.paper_id === samplePaperId)?.claim_id || null);
+      savePapers(nextPapers);
+      savePassages(nextPassages);
+      saveClaims(nextClaims);
+      saveCarousels(nextCarousels);
+      saveStaticPosts(nextStaticPosts);
+      saveReels(nextReels);
+      saveScheduledPosts(nextScheduledPosts);
+      setCurrentTab('workspace');
       return;
     }
 
@@ -757,7 +794,7 @@ export default function App() {
   };
 
   return (
-    <div className="steer-app-shell flex">
+    <div className="motiva-app-shell flex">
       <NavigationSidebar
         currentTab={currentTab}
         onSelectTab={setCurrentTab}
@@ -786,7 +823,8 @@ export default function App() {
           currentTab={currentTab}
           onSelectTab={setCurrentTab}
           activePaper={activePaper}
-          onToggleSidebarMobile={() => setIsMobileSidebarOpen(true)}
+          isMobileSidebarOpen={isMobileSidebarOpen}
+          onToggleSidebarMobile={() => setIsMobileSidebarOpen((open) => !open)}
           isInspectorOpen={isInspectorOpen}
           onToggleInspector={() => setIsInspectorOpen(!isInspectorOpen)}
           sqlSyncStatus={sqlSyncStatus}
@@ -794,7 +832,7 @@ export default function App() {
             currentTab === 'radar'
               ? 'Content Studio →'
               : currentTab === 'papers'
-              ? 'Doctor Review Gate →'
+              ? 'Human Review Gate →'
               : currentTab === 'review' || currentTab === 'desk' || currentTab === 'provenance'
               ? 'Content Studio →'
               : currentTab === 'studio'
@@ -827,7 +865,7 @@ export default function App() {
         {/* Main content canvas with contextual inspector */}
         <div className="flex-1 flex overflow-hidden">
           {/* CENTER: The Dominant Working Canvas */}
-          <main className="steer-route-canvas flex-1 min-w-0 overflow-y-auto pb-16" data-active-page={currentTab}>
+          <main className="motiva-route-canvas flex-1 min-w-0 overflow-y-auto pb-16" data-active-page={currentTab}>
             {/* Async Sync Status Banner with Retry & Loading States */}
             {sqlSyncStatus === 'error' && (
               <div className="mx-6 mt-4 p-3 bg-red-50 border border-red-200 rounded-xl flex items-center justify-between text-xs text-red-800">
@@ -855,7 +893,7 @@ export default function App() {
             )}
 
             {activePaper?.is_demo && (
-              <div className="mx-4 mt-4 flex items-start gap-3 rounded-xs border border-amber-300 bg-amber-50 px-4 py-3 text-xs text-amber-950 sm:mx-6" role="note">
+              <div className="mx-4 mt-4 flex items-start gap-3 rounded-xs border border-amber-300 bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-950 sm:mx-6" role="note">
                 <AlertTriangle className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
                 <p className="leading-relaxed">
                   <strong>Synthetic benchmark data.</strong> This sample paper, passages, claims, approvals, and publishing plan are illustrative only—not verified clinical evidence or real clinician sign-off. Do not use them for health decisions or publication.
@@ -1203,12 +1241,10 @@ export default function App() {
         sqlSyncStatus={sqlSyncStatus}
       />
 
-      {/* Wow Factor: Live Clinical Trial & Patient Twin Simulator */}
+      {/* Illustrative scenario sandbox */}
       <ClinicalTrialSimulator
         isOpen={isSimulatorOpen}
         onClose={() => setIsSimulatorOpen(false)}
-        activePaper={activePaper}
-        claims={currentPaperClaims}
       />
     </div>
   );

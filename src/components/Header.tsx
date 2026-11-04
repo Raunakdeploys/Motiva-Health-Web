@@ -83,7 +83,7 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="flex flex-col">
               <div className="flex items-baseline gap-1.5">
                 <span className="font-serif italic text-xl font-bold tracking-tight text-[#661414]">
-                  steer
+                  MOTIVA
                 </span>
                 <span className="text-[10px] font-mono font-bold tracking-[0.2em] uppercase text-[#351D1D]/80">
                   STITCH
@@ -189,7 +189,7 @@ export const Header: React.FC<HeaderProps> = ({
                 >
                   <div className="px-3.5 py-2 border-b border-[#351D1D]/10">
                     <p className="text-xs font-bold text-[#351D1D] truncate">
-                      {user.displayName || 'Steer Researcher'}
+                      {user.displayName || 'MOTIVA Researcher'}
                     </p>
                     <p className="text-[11px] font-mono text-[#8B6A60] truncate">{user.email}</p>
                     <div className="mt-1 flex items-center gap-1 text-[10px] font-mono text-[#2D5A27]">

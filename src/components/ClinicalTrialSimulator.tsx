@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { PaperRecord, ClaimRecord } from '../types';
-import { Activity, Sliders, UserCheck, Sparkles, TrendingUp, ShieldCheck, HeartPulse, RefreshCw, X } from 'lucide-react';
+import { Activity, Sliders, ShieldCheck, HeartPulse, X } from 'lucide-react';
 
 interface ClinicalTrialSimulatorProps {
   isOpen: boolean;
   onClose: () => void;
-  activePaper: PaperRecord | null;
-  claims: ClaimRecord[];
 }
 
 interface PatientPhenotype {
@@ -27,10 +24,10 @@ interface PatientPhenotype {
 const PHENOTYPES: PatientPhenotype[] = [
   {
     id: 'south_asian',
-    name: 'South Asian Phenotype (High Visceral Adiposity)',
+    name: 'Synthetic profile A · adult example',
     age: 38,
     gender: 'Female',
-    profile: 'Desk professional, insulin resistant tendency, carb-dominant baseline diet.',
+    profile: 'Illustrative inputs only; not a trial participant or recommendation.',
     baselineFatPct: 34.5,
     baselineRmr: 1380,
     baselineMuscleKg: 24.2,
@@ -41,10 +38,10 @@ const PHENOTYPES: PatientPhenotype[] = [
   },
   {
     id: 't2d_risk',
-    name: 'Metabolic Syndrome / Pre-Diabetic Risk',
+    name: 'Synthetic profile B · elevated-risk example',
     age: 46,
     gender: 'Male',
-    profile: 'Elevated fasting glucose, sedentary schedule, high visceral fat accumulation.',
+    profile: 'Illustrative inputs only; not a trial participant or recommendation.',
     baselineFatPct: 29.8,
     baselineRmr: 1720,
     baselineMuscleKg: 32.5,
@@ -55,10 +52,10 @@ const PHENOTYPES: PatientPhenotype[] = [
   },
   {
     id: 'active_preserver',
-    name: 'Active Professional & Muscle Retention Focus',
+    name: 'Synthetic profile C · active-adult example',
     age: 32,
     gender: 'Female',
-    profile: 'Enjoys weekend workouts, wants sustainable fat loss without losing muscle tone.',
+    profile: 'Illustrative inputs only; not a trial participant or recommendation.',
     baselineFatPct: 26.0,
     baselineRmr: 1450,
     baselineMuscleKg: 27.8,
@@ -69,12 +66,7 @@ const PHENOTYPES: PatientPhenotype[] = [
   },
 ];
 
-export const ClinicalTrialSimulator: React.FC<ClinicalTrialSimulatorProps> = ({
-  isOpen,
-  onClose,
-  activePaper,
-  claims,
-}) => {
+export const ClinicalTrialSimulator: React.FC<ClinicalTrialSimulatorProps> = ({ isOpen, onClose }) => {
   const [selectedPhenotype, setSelectedPhenotype] = useState<PatientPhenotype>(PHENOTYPES[0]);
   const [protein, setProtein] = useState<number>(PHENOTYPES[0].defaultProtein);
   const [deficit, setDeficit] = useState<number>(PHENOTYPES[0].defaultDeficit);
@@ -92,7 +84,7 @@ export const ClinicalTrialSimulator: React.FC<ClinicalTrialSimulatorProps> = ({
     setSleep(p.defaultSleep);
   };
 
-  // Algorithmic 12-week Patient Twin Prediction based on paper evidence & clinical rules
+  // Illustrative demo math only; this is not a validated clinical prediction model.
   const proteinBonus = Math.min(protein / 120, 1.3);
   const trainingBonus = trainingDays * 1.8;
   const sleepBonus = sleep >= 7 ? 1.2 : 0.8;
@@ -132,14 +124,14 @@ export const ClinicalTrialSimulator: React.FC<ClinicalTrialSimulatorProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-base font-serif font-bold text-[#351D1D]">
-                  Live Clinical Trial Simulator & Patient Twin
+                  Illustrative Scenario Sandbox
                 </h2>
                 <span className="px-2 py-0.5 rounded-xs bg-[#C04E2A]/15 text-[#C04E2A] text-[10px] font-mono font-bold uppercase tracking-wider">
-                  WOW FEATURE
+                  DEMO ONLY
                 </span>
               </div>
               <p className="text-xs text-[#786A61] font-mono">
-                Simulate 12-week patient outcomes grounded in: <strong className="text-[#351D1D]">{activePaper?.title || 'Active Metabolic Trial'}</strong>
+                Synthetic scenario values from an unvalidated demo formula; not a clinical forecast.
               </p>
             </div>
           </div>
@@ -153,10 +145,14 @@ export const ClinicalTrialSimulator: React.FC<ClinicalTrialSimulatorProps> = ({
 
         {/* Content Body */}
         <div className="p-6 overflow-y-auto space-y-6 flex-1">
+          <div className="rounded-md border border-[#D9B66F] bg-[#FBF4E7] px-4 py-3 text-xs leading-relaxed text-[#5E4821]" role="note">
+            Synthetic demo only. These values come from an unvalidated formula, are not derived from a clinical trial, and must not be used for health or treatment decisions.
+          </div>
+
           {/* Phenotype selector */}
           <div className="space-y-2">
             <label className="block text-xs font-mono uppercase tracking-wider text-[#786A61] font-bold">
-              01. Select Patient Phenotype / Cohort
+              01. Select a Synthetic Demo Profile
             </label>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {PHENOTYPES.map((p) => {
@@ -182,7 +178,7 @@ export const ClinicalTrialSimulator: React.FC<ClinicalTrialSimulatorProps> = ({
                       </p>
                     </div>
                     <div className={`mt-3 pt-2 border-t flex items-center justify-between text-[10px] font-mono ${isSelected ? 'border-[#8B2323] text-[#F5EBDF]' : 'border-[#E6CBBD] text-[#786A61]'}`}>
-                      <span>Age: {p.age} · {p.gender}</span>
+                      <span>              Demo profile · Age {p.age} · {p.gender}</span>
                       <span>Baseline Fat: {p.baselineFatPct}%</span>
                     </div>
                   </button>
@@ -196,13 +192,13 @@ export const ClinicalTrialSimulator: React.FC<ClinicalTrialSimulatorProps> = ({
             <div className="space-y-4">
               <h3 className="text-xs font-serif font-bold text-[#351D1D] uppercase tracking-wider flex items-center gap-1.5">
                 <Sliders className="w-4 h-4 text-[#C04E2A]" />
-                <span>Intervention & Clinical Calibration</span>
+                <span>Illustrative inputs</span>
               </h3>
 
               {/* Protein Slider */}
               <div className="space-y-1.5">
                 <div className="flex justify-between text-xs font-medium text-[#351D1D]">
-                  <span>Daily Protein Intake</span>
+                  <span>Demo protein input</span>
                   <span className="font-mono font-bold text-[#661414]">{protein}g / day</span>
                 </div>
                 <input
@@ -214,13 +210,13 @@ export const ClinicalTrialSimulator: React.FC<ClinicalTrialSimulatorProps> = ({
                   onChange={(e) => setProtein(Number(e.target.value))}
                   className="w-full accent-[#661414] cursor-pointer"
                 />
-                <p className="text-[10px] text-[#786A61]">Higher protein intake protects lean skeletal muscle tissue during deficit.</p>
+                <p className="text-[10px] text-[#786A61]">Illustrative value only; not a nutrition recommendation.</p>
               </div>
 
               {/* Caloric Deficit Slider */}
               <div className="space-y-1.5">
                 <div className="flex justify-between text-xs font-medium text-[#351D1D]">
-                  <span>Daily Caloric Deficit / Surplus</span>
+                  <span>Demo calorie-deficit input</span>
                   <span className="font-mono font-bold text-[#C04E2A]">{deficit > 0 ? `-${deficit}` : `+${Math.abs(deficit)}`} kcal</span>
                 </div>
                 <input
@@ -232,20 +228,20 @@ export const ClinicalTrialSimulator: React.FC<ClinicalTrialSimulatorProps> = ({
                   onChange={(e) => setDeficit(Number(e.target.value))}
                   className="w-full accent-[#C04E2A] cursor-pointer"
                 />
-                <p className="text-[10px] text-[#786A61]">Controlled deficit rate prevents severe metabolic adaptation.</p>
+                <p className="text-[10px] text-[#786A61]">Illustrative value only; this formula does not model clinical effects.</p>
               </div>
             </div>
 
             <div className="space-y-4">
               <h3 className="text-xs font-serif font-bold text-[#351D1D] uppercase tracking-wider flex items-center gap-1.5">
                 <HeartPulse className="w-4 h-4 text-[#416C49]" />
-                <span>Lifestyle & Resistance Frequency</span>
+                <span>Illustrative inputs</span>
               </h3>
 
               {/* Training Days */}
               <div className="space-y-1.5">
                 <div className="flex justify-between text-xs font-medium text-[#351D1D]">
-                  <span>Resistance Training Frequency</span>
+                  <span>Demo training-frequency input</span>
                   <span className="font-mono font-bold text-[#416C49]">{trainingDays} days / week</span>
                 </div>
                 <input
@@ -257,13 +253,13 @@ export const ClinicalTrialSimulator: React.FC<ClinicalTrialSimulatorProps> = ({
                   onChange={(e) => setTrainingDays(Number(e.target.value))}
                   className="w-full accent-[#416C49] cursor-pointer"
                 />
-                <p className="text-[10px] text-[#786A61]">Stimulates muscle protein synthesis and glucose disposal.</p>
+                <p className="text-[10px] text-[#786A61]">Illustrative value only; not an exercise recommendation.</p>
               </div>
 
               {/* Sleep Duration */}
               <div className="space-y-1.5">
                 <div className="flex justify-between text-xs font-medium text-[#351D1D]">
-                  <span>Average Nightly Sleep</span>
+                  <span>Demo sleep-duration input</span>
                   <span className="font-mono font-bold text-[#351D1D]">{sleep} hours / night</span>
                 </div>
                 <input
@@ -275,7 +271,7 @@ export const ClinicalTrialSimulator: React.FC<ClinicalTrialSimulatorProps> = ({
                   onChange={(e) => setSleep(Number(e.target.value))}
                   className="w-full accent-[#351D1D] cursor-pointer"
                 />
-                <p className="text-[10px] text-[#786A61]">Adequate sleep optimizes cortisol balance and fat oxidation.</p>
+                <p className="text-[10px] text-[#786A61]">Illustrative value only; not a health recommendation.</p>
               </div>
             </div>
           </div>
@@ -283,48 +279,47 @@ export const ClinicalTrialSimulator: React.FC<ClinicalTrialSimulatorProps> = ({
           {/* 12-Week Predictive Results Dashboard */}
           <div className="space-y-3">
             <h3 className="text-xs font-mono uppercase tracking-wider text-[#786A61] font-bold">
-              02. Predicted 12-Week Patient Twin Outcome (Trial Model)
+              02. Illustrative 12-Week Demo Output (Not Validated)
             </h3>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-4 rounded-xs text-center space-y-1 shadow-2xs">
-                <span className="text-[10px] font-mono text-[#786A61] uppercase tracking-wider block">Est. Fat Loss</span>
+                <span className="text-[10px] font-mono text-[#786A61] uppercase tracking-wider block">Demo fat-change value</span>
                 <span className="text-2xl font-serif font-bold text-[#661414]">{predictedFatLossPct}%</span>
-                <span className="text-[10px] text-[#416C49] font-medium block">Visceral & Subcutaneous</span>
+                <span className="text-[10px] text-[#786A61] font-medium block">Arbitrary demo output</span>
               </div>
 
               <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-4 rounded-xs text-center space-y-1 shadow-2xs">
-                <span className="text-[10px] font-mono text-[#786A61] uppercase tracking-wider block">Muscle Retained</span>
-                <span className={`text-2xl font-serif font-bold ${predictedMuscleRetainedKg >= 0 ? 'text-[#416C49]' : 'text-[#C04E2A]'}`}>
+                <span className="text-[10px] font-mono text-[#786A61] uppercase tracking-wider block">Demo muscle-change value</span>
+                <span className="text-2xl font-serif font-bold text-[#351D1D]">
                   {predictedMuscleRetainedKg >= 0 ? `+${predictedMuscleRetainedKg}kg` : `${predictedMuscleRetainedKg}kg`}
                 </span>
-                <span className="text-[10px] text-[#786A61] font-medium block">Active Tissue Delta</span>
+                <span className="text-[10px] text-[#786A61] font-medium block">Arbitrary demo output</span>
               </div>
 
               <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-4 rounded-xs text-center space-y-1 shadow-2xs">
-                <span className="text-[10px] font-mono text-[#786A61] uppercase tracking-wider block">RMR Adaptation</span>
-                <span className={`text-2xl font-serif font-bold ${predictedRmrDelta > -50 ? 'text-[#416C49]' : 'text-[#C04E2A]'}`}>
+                <span className="text-[10px] font-mono text-[#786A61] uppercase tracking-wider block">Demo RMR value</span>
+                <span className="text-2xl font-serif font-bold text-[#351D1D]">
                   {predictedRmrDelta > 0 ? `+${predictedRmrDelta}` : predictedRmrDelta} kcal
                 </span>
-                <span className="text-[10px] text-[#786A61] font-medium block">Resting Burn Shift</span>
+                <span className="text-[10px] text-[#786A61] font-medium block">Arbitrary demo output</span>
               </div>
 
               <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-4 rounded-xs text-center space-y-1 shadow-2xs">
-                <span className="text-[10px] font-mono text-[#786A61] uppercase tracking-wider block">Insulin Sensitivity</span>
+                <span className="text-[10px] font-mono text-[#786A61] uppercase tracking-wider block">Demo-only index</span>
                 <span className="text-2xl font-serif font-bold text-[#351D1D]">{insulinSensitivityScore} / 100</span>
-                <span className="text-[10px] text-[#416C49] font-medium block">Biomarker Index</span>
+                <span className="text-[10px] text-[#786A61] font-medium block">Arbitrary demo output</span>
               </div>
             </div>
           </div>
 
-          {/* Doctor Prescription Summary */}
-          <div className="p-4 bg-[#661414]/5 border border-[#661414]/20 rounded-xs space-y-2">
-            <div className="flex items-center gap-2 text-[#661414] font-bold text-xs">
-              <Sparkles className="w-4 h-4 text-[#C04E2A]" />
-              <span>Doctor-Led Clinical Trial Insight for {selectedPhenotype.name}</span>
+          <div className="p-4 bg-[#FBF4E7] border border-[#D9B66F] rounded-md space-y-2" role="note">
+            <div className="flex items-center gap-2 text-[#5E4821] font-bold text-xs">
+              <ShieldCheck className="w-4 h-4" />
+              <span>What this demo cannot tell you</span>
             </div>
-            <p className="text-xs text-[#351D1D] leading-relaxed">
-              Based on active study findings, maintaining <strong>{protein}g protein</strong> with <strong>{trainingDays} days/week resistance training</strong> prevents metabolic slowdown and protects lean skeletal muscle mass. For South Asian and metabolic risk phenotypes, avoiding aggressive crashes prevents long-term rebound and secures permanent biomarker stabilization.
+            <p className="text-xs text-[#5E4821] leading-relaxed">
+              These sliders and outputs use synthetic profiles and an unvalidated formula. They do not forecast individual outcomes or recommend nutrition, exercise, or treatment. Do not use them for care decisions; consult a qualified healthcare professional.
             </p>
           </div>
         </div>
@@ -332,7 +327,7 @@ export const ClinicalTrialSimulator: React.FC<ClinicalTrialSimulatorProps> = ({
         {/* Footer */}
         <div className="px-6 py-4 bg-[#FAF6F0] border-t border-[#E6CBBD] flex items-center justify-between shrink-0">
           <span className="text-[11px] font-mono text-[#786A61]">
-            Powered by Steer Clinical Twin Simulator & Gemini 3.8 Flash
+            MOTIVA scenario sandbox · Not medical advice
           </span>
           <button
             onClick={onClose}

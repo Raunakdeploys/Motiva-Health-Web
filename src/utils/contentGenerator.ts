@@ -7,7 +7,7 @@ export interface GeneratedContentPackage {
 }
 
 /**
- * Editorial angle directives for Steer
+ * Editorial angle directives for MOTIVA
  */
 export const EDITORIAL_ANGLES = [
   {
@@ -31,11 +31,11 @@ export const EDITORIAL_ANGLES = [
 ];
 
 /**
- * Generates verified, brand-aligned Steer editorial deliverables (Carousel, Static, Reel)
+ * Generates verified, brand-aligned MOTIVA editorial deliverables (Carousel, Static, Reel)
  * directly from paper and approved claims in the browser.
  * Guarantees 100% availability in all deployment environments (static hosting, serverless, offline, or full-stack).
  */
-export function generateClientSteerContent(
+export function generateClientMotivaContent(
   paper: PaperRecord,
   approvedClaims: ClaimRecord[],
   variationIndex = 0
@@ -96,9 +96,9 @@ export function generateClientSteerContent(
     title: selectedTitle,
     status: 'DRAFT',
     generated_at: now,
-    caption: `It is biology, not willpower. When you understand the physiological mechanisms behind metabolic regulation, shame leaves the room.\n\nFrom our medical desk: ${topClaim.claim_text}\n\nClinical metric: ${metric}.\n\nsteer · steerclub.com`,
-    hinglish_caption: `Yeh willpower ki kami nahi, body ki natural biology hai. Jab science samajh aati hai, tab guilt khatam ho jata hai.\n\nDoctor-led metabolic care, calibrated for Indian biology.\n\nsteer · steerclub.com`,
-    hashtags: ['#MetabolicHealth', '#EvidenceBased', '#IndianBiology', '#DoctorLedCare', '#steerclub'],
+    caption: `It is biology, not willpower. When you understand the physiological mechanisms behind metabolic regulation, shame leaves the room.\n\nFrom our medical desk: ${topClaim.claim_text}\n\nClinical metric: ${metric}.\n\nMOTIVA · MOTIVAclub.com`,
+    hinglish_caption: `Yeh willpower ki kami nahi, body ki natural biology hai. Jab science samajh aati hai, tab guilt khatam ho jata hai.\n\nDoctor-led metabolic care, calibrated for Indian biology.\n\nMOTIVA · MOTIVAclub.com`,
+    hashtags: ['#MetabolicHealth', '#EvidenceBased', '#IndianBiology', '#DoctorLedCare', '#MOTIVAclub'],
     slides: [
       {
         slide_number: 1,
@@ -108,7 +108,7 @@ export function generateClientSteerContent(
         body_text: `Why conventional advice oversimplifies, and what peer-reviewed research actually found regarding ${cleanTitle.substring(0, 42)}.`,
         hinglish_headline: `Aapki biology ko *sahi science* ki zaroorat hai.`,
         hinglish_body: `Social media reels se door, dekhiye clinical research asali trial data mein kya kehti hai.`,
-        founder_note: 'A clinical note from the Steer medical desk',
+        founder_note: 'A clinical note from the MOTIVA medical desk',
         mapped_claim_ids: [topClaim.claim_id],
       },
       {
@@ -151,7 +151,7 @@ export function generateClientSteerContent(
         body_text: `Never chase rapid aesthetic fixes. The true clinical protocol focuses on biomarker balance, habit preservation, and a planned exit strategy.`,
         hinglish_headline: `"Reel dekh kar shuru mat karo, doctor se baat karo."`,
         hinglish_body: `Harr medicine aur protocol ka ek scientific reason aur exit plan hona chahiye taaki result hamesha ke liye rahe.`,
-        founder_note: 'Dr. Steer Clinical Protocol',
+        founder_note: 'Dr. MOTIVA Clinical Protocol',
         mapped_claim_ids: [thirdClaim.claim_id],
       },
       {
@@ -159,9 +159,9 @@ export function generateClientSteerContent(
         layout: 'takeaway',
         theme_variant: 'maroon',
         headline: `Lose well. *Live well.*`,
-        body_text: `Doctor-led metabolic care, calibrated for Indian biology. No shame. No crash diets. Only peer-reviewed science.\n\nsteer · steerclub.com`,
+        body_text: `Doctor-led metabolic care, calibrated for Indian biology. No shame. No crash diets. Only peer-reviewed science.\n\nMOTIVA · MOTIVAclub.com`,
         hinglish_headline: `Sahi tareeka. *Long-term results.*`,
-        hinglish_body: `Aapki body koi experiment nahi hai. Clinical care ke sath apne metabolism ko protect karein.\n\nsteer · steerclub.com`,
+        hinglish_body: `Aapki body koi experiment nahi hai. Clinical care ke sath apne metabolism ko protect karein.\n\nMOTIVA · MOTIVAclub.com`,
         founder_note: 'Metabolic Care, Calibrated for India',
         mapped_claim_ids: approvedIds.length > 0 ? approvedIds : [topClaim.claim_id],
       },
@@ -178,12 +178,12 @@ export function generateClientSteerContent(
     primary_finding: `${metric}: ${topClaim.exact_supporting_quote || topClaim.claim_text}`,
     qualification: topClaim.limitations || 'Findings monitored under medical supervision.',
     source_note: `${cleanTitle} · ${paper.journal || 'Peer-Reviewed'}`,
-    caption: `When body weight drops rapidly without metabolic protection, up to 40% of the lost tissue can be lean muscle. For Indian bodies—where baseline skeletal muscle is already lower—protecting every gram of muscle is non-negotiable for metabolic longevity.\n\nBefore you start, hear it from a doctor, not a reel.\n\nsteer · steerclub.com`,
+    caption: `When body weight drops rapidly without metabolic protection, up to 40% of the lost tissue can be lean muscle. For Indian bodies—where baseline skeletal muscle is already lower—protecting every gram of muscle is non-negotiable for metabolic longevity.\n\nBefore you start, hear it from a doctor, not a reel.\n\nMOTIVA · MOTIVAclub.com`,
     hinglish_headline: `Scale ka number gir raha hai, par *muscle* ka kya?`,
     hinglish_supporting_text: `Clinical trials confirm karte hain ki ${metric} impact hota hai. Indian biology ke liye muscle bachana sabse important step hai.`,
-    hinglish_caption: `Wazan kam hona kaafi nahi hai. Agar muscle chala gaya, toh metabolism permanently slow ho jata hai. Doctor se baat karein, kisi reel se nahi. steerclub.com`,
+    hinglish_caption: `Wazan kam hona kaafi nahi hai. Agar muscle chala gaya, toh metabolism permanently slow ho jata hai. Doctor se baat karein, kisi reel se nahi. MOTIVAclub.com`,
     founder_note: 'Doctor-Led Metabolic Care · Calibrated for Indian Biology',
-    hashtags: ['#MetabolicHealth', '#DoctorLed', '#IndianBiology', '#LeanMass', '#steerclub'],
+    hashtags: ['#MetabolicHealth', '#DoctorLed', '#IndianBiology', '#LeanMass', '#MOTIVAclub'],
     status: 'DRAFT',
     generated_at: now,
   };
@@ -195,9 +195,9 @@ export function generateClientSteerContent(
     approved_claim_ids: approvedIds.length > 0 ? approvedIds : [topClaim.claim_id],
     title: `${cleanTitle}: The Biological Reality`,
     total_duration_sec: 25,
-    caption: `It is biology, not willpower. Here is what peer-reviewed clinical research actually found about ${cleanTitle.substring(0, 40)}. Lose well. Live well at steerclub.com`,
-    hinglish_caption: `Yeh willpower ki kami nahi, body ki biology hai. Dekhiye clinical data kya kehta hai. steerclub.com`,
-    hashtags: ['#MetabolicHealth', '#ClinicalTrial', '#IndianBiology', '#steerclub', '#DoctorExplains'],
+    caption: `It is biology, not willpower. Here is what peer-reviewed clinical research actually found about ${cleanTitle.substring(0, 40)}. Lose well. Live well at MOTIVAclub.com`,
+    hinglish_caption: `Yeh willpower ki kami nahi, body ki biology hai. Dekhiye clinical data kya kehta hai. MOTIVAclub.com`,
+    hashtags: ['#MetabolicHealth', '#ClinicalTrial', '#IndianBiology', '#MOTIVAclub', '#DoctorExplains'],
     status: 'DRAFT',
     generated_at: now,
     scenes: [
@@ -233,8 +233,8 @@ export function generateClientSteerContent(
         scene_number: 3,
         duration_sec: 7,
         title: 'Scene 3: The Clinical Trial Data',
-        visual_cue: 'Clinical paper quote overlay with Steer rust red stamp and citation tag.',
-        visual_b_roll: 'Clinical paper quote overlay with Steer rust red stamp and citation tag.',
+        visual_cue: 'Clinical paper quote overlay with MOTIVA rust red stamp and citation tag.',
+        visual_b_roll: 'Clinical paper quote overlay with MOTIVA rust red stamp and citation tag.',
         voiceover_script: `Clinical trials demonstrate: ${topClaim.claim_text.substring(0, 120)}. Exact metric documented: ${metric}.`,
         subtitle_text: `${metric} documented in controlled clinical trial.`,
         on_screen_text: `The Clinical Trial Data: ${metric}`,
@@ -247,14 +247,14 @@ export function generateClientSteerContent(
         scene_number: 4,
         duration_sec: 6,
         title: 'Scene 4: The Doctor Protocol',
-        visual_cue: 'Warm editorial cream screen with Steer doctor smiling reassuringly, lowercase "steer" wordmark.',
-        visual_b_roll: 'Warm editorial cream screen with Steer doctor smiling reassuringly, lowercase "steer" wordmark.',
-        voiceover_script: `Before you start any health protocol, hear it from a doctor, not an influencer. Lose well. Live well at steerclub.com.`,
-        subtitle_text: `Before you start, hear it from a doctor, not a reel. steerclub.com`,
-        on_screen_text: `Lose well. Live well. / steerclub.com`,
+        visual_cue: 'Warm editorial cream screen with MOTIVA doctor smiling reassuringly, bold uppercase MOTIVA wordmark.',
+        visual_b_roll: 'Warm editorial cream screen with MOTIVA doctor smiling reassuringly, bold uppercase MOTIVA wordmark.',
+        voiceover_script: `Before you start any health protocol, hear it from a doctor, not an influencer. Lose well. Live well at MOTIVAclub.com.`,
+        subtitle_text: `Before you start, hear it from a doctor, not a reel. MOTIVAclub.com`,
+        on_screen_text: `Lose well. Live well. / MOTIVAclub.com`,
         music_mood: 'Warm, resolving piano chord',
         hinglish_voiceover: `Kisi bhi protocol se pehle doctor se baat karein. Sahi tareeke se ghatao, lambe samay tak maintain karo.`,
-        hinglish_subtitle: `steer · Metabolic care for Indian biology · steerclub.com`,
+        hinglish_subtitle: `MOTIVA · Metabolic care for Indian biology · MOTIVAclub.com`,
         mapped_claim_ids: approvedIds.length > 0 ? approvedIds : [topClaim.claim_id],
       },
     ],

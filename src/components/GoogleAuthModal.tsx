@@ -180,7 +180,7 @@ export const GoogleAuthModal: React.FC<GoogleAuthModalProps> = ({
               s
             </div>
             <div>
-              <h2 className="text-sm font-serif font-bold text-[#351D1D] leading-tight">steer Evidence Studio</h2>
+              <h2 className="text-sm font-serif font-bold text-[#351D1D] leading-tight">MOTIVA Evidence Studio</h2>
               <p className="text-[11px] font-mono text-[#786A61]">Clinical Research Identity & Database</p>
             </div>
           </div>

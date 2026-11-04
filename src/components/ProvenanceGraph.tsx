@@ -348,7 +348,7 @@ export const ProvenanceGraph: React.FC<ProvenanceGraphProps> = ({
   const cardHeight = 84;
 
   return (
-    <div className="steer-provenance-page flex flex-col lg:flex-row h-[calc(100vh-3.5rem)] overflow-hidden bg-[#FAF6F0]">
+    <div className="motiva-provenance-page flex flex-col lg:flex-row h-[calc(100vh-3.5rem)] overflow-hidden bg-[#FAF6F0]">
       {/* Main Canvas Area */}
       <div
         className="flex-1 relative flex flex-col min-w-0 border-r border-[#E6CBBD] select-none overflow-hidden"
@@ -781,7 +781,7 @@ export const ProvenanceGraph: React.FC<ProvenanceGraphProps> = ({
                     Verified Instagram Deliverable
                   </span>
                   <p className="text-[11px] text-[#351D1D] leading-relaxed">
-                    Synthesized into Steer's calm editorial aesthetic. 100% traceable to peer-reviewed clinical data.
+                    Synthesized into MOTIVA's calm editorial aesthetic. 100% traceable to peer-reviewed clinical data.
                   </p>
                   <button
                     onClick={onNavigateToStudio}
@@ -820,7 +820,7 @@ export const ProvenanceGraph: React.FC<ProvenanceGraphProps> = ({
 
         {/* Footer Info */}
         <div className="p-4 border-t border-[#E6CBBD] bg-[#FAF6F0] text-[10px] font-mono text-[#786A61] flex items-center justify-between">
-          <span>steer / provenance</span>
+          <span>MOTIVA / provenance</span>
           <span className="flex items-center gap-1 text-[#416C49] font-bold">
             <CheckCircle2 className="w-3 h-3" />
             100% Deterministic DAG

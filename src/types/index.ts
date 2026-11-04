@@ -313,7 +313,7 @@ export interface ChangeImpactAnalysisResult {
 }
 
 // ============================================================================
-// STEER EVIDENCE RADAR DATA STRUCTURES
+// MOTIVA EVIDENCE RADAR DATA STRUCTURES
 // ============================================================================
 
 export type EvidenceStatus =

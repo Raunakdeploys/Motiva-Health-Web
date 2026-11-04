@@ -53,7 +53,7 @@ export const PostScheduler: React.FC<PostSchedulerProps> = ({
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'steer_editorial_plan.json';
+    a.download = 'MOTIVA_editorial_plan.json';
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -105,7 +105,7 @@ export const PostScheduler: React.FC<PostSchedulerProps> = ({
       </div>
 
       {/* 02. Cadence & Pipeline Metrics Bar */}
-      <div className="steer-calendar-metrics grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="motiva-calendar-metrics grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-4 space-y-1">
           <span className="text-[10px] font-mono uppercase text-[#B58777] block">Planned items</span>
           <div className="text-xl font-serif font-bold text-[#351D1D]">{scheduledPosts.length} items</div>
@@ -175,11 +175,11 @@ export const PostScheduler: React.FC<PostSchedulerProps> = ({
           return (
             <div
               key={post.id}
-              className="steer-calendar-entry bg-[#FFFDF9] border border-[#E6CBBD] p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-[#C04E2A] transition-colors shadow-xs"
+              className="motiva-calendar-entry bg-[#FFFDF9] border border-[#E6CBBD] p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-[#C04E2A] transition-colors shadow-xs"
             >
               {/* Left: Time & Format Badge */}
               <div className="flex items-start gap-4">
-                <div className="steer-calendar-day-index w-12 h-12 bg-[#F8F2EB] border border-[#E6CBBD] flex flex-col items-center justify-center shrink-0">
+                <div className="motiva-calendar-day-index w-12 h-12 bg-[#F8F2EB] border border-[#E6CBBD] flex flex-col items-center justify-center shrink-0">
                   <span className="text-[10px] font-mono text-[#B58777] uppercase font-bold">
                     DAY
                   </span>

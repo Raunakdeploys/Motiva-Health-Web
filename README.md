@@ -1,79 +1,75 @@
-# STEER | Metabolic Health, Made More Human
+# MOTIVA — Evidence-to-Publishing Studio
 
-**An interactive health-tech experience built for Steer’s doctor-led metabolic health ecosystem.**
+MOTIVA helps health researchers and clinical teams move from a research paper to responsible, reviewable content without losing the evidence trail.
 
-[Live Demo](https://steer-health-web.onrender.com/) · [Walkthrough Video](https://drive.google.com/file/d/10ek6yR_LQW4aoPN_WIHWp2vCTQa_USsX/view?usp=drive_link) · [GitHub Repository](https://github.com/Raunakdeploys/Steer-health-web)
+## The problem
 
----
+Research summaries are easy to generate and hard to trust: a polished sentence can hide a missing quote, a mismatched population, or a claim stronger than its source. Manual review is safer, but tracing every statement through a paper and rebuilding it for each format is slow.
 
-## The Problem
+## The solution
 
-Metabolic health is surrounded by complex science, conflicting information and generic advice. For many people, understanding what information matters—and what to do with it—can be difficult.
+MOTIVA makes the claim—not the summary—the unit of work. It extracts or accepts passages, drafts claims linked to those passages, runs deterministic validation checks, and holds content generation behind human approval. Generated deliverables retain their claim and evidence references so reviewers can inspect the path back to the source.
 
-Health communication needs to be more than informative. It needs to be accessible, engaging and responsible.
+**The differentiator:** AI can help draft and organize evidence; it cannot approve a claim. Only claims with human approval are eligible for content generation.
 
-## The Solution
+## Product workflow
 
-**Steer** is a web-based prototype exploring a more engaging approach to metabolic health communication.
+1. **Add research** — upload a paper or start from the included synthetic benchmark.
+2. **Inspect source text** — review extracted passages and OCR status against the original pages.
+3. **Draft and validate claims** — keep each claim connected to supporting passages and surface validation findings.
+4. **Make a human decision** — approve, flag, edit, or reject each claim; edits trigger re-validation and downstream invalidation where needed.
+5. **Create and plan** — generate social content from approved claims, review provenance, and organize deliverables in the publishing calendar.
 
-Built for Steer’s doctor-led health ecosystem, the project focuses on making the digital health experience easier to navigate and helping users engage with health-related information through an interactive interface.
+The workspace also includes a research library, evidence radar, provenance graph, claim review, evidence report, audit log, and media studio.
 
-Rather than treating health information as something people simply read, Steer explores how technology can make the experience more useful and approachable.
+## Demo safety
 
-## Core Experience
+The built-in benchmark is **synthetic teaching data**. Its source excerpts, claims, approvals, and planned posts are illustrative—not verified clinical evidence, real clinician sign-off, or medical advice. The app labels the sample throughout the workspace. Do not use its sample content for care decisions or publication.
 
-- **Interactive engagement:** A web-based experience designed around user interaction.
-- **Accessible communication:** An interface intended to make the experience easier to understand and navigate.
-- **Health-focused design:** Built for a metabolic health context, with responsible communication in mind.
-- **Browser-based access:** Designed to be experienced on a mobile device without requiring a native app installation.
+MOTIVA is a research communication tool, not a diagnostic or treatment system. A qualified professional remains responsible for clinical interpretation and approval.
 
-## How to Try It
+## Stack
 
-1. Open the live demo using the link above.
-2. Start the main experience from the landing screen.
-3. Follow the on-screen instructions and interact with the core feature.
-4. Complete the available user journey and observe the result.
+- React 19, TypeScript, Vite 8, Tailwind CSS 4
+- Express API, Firebase Authentication, and Neon PostgreSQL with Drizzle
+- Vercel AI SDK with Vercel AI Gateway for AI features in Vercel previews and deployments
+- Optional server-side Google GenAI key support for external hosting such as the included Render blueprint
 
-**Primary target device:** Mobile phone  
-**Platform:** Mobile web  
-**Recommended browser:** Latest stable Google Chrome on Android  
-**Installation:** No installation required when using the hosted web build.
+AI credentials belong on the server. Never commit a key, place one in a `VITE_` variable, or paste one into source code. The API key shared in chat should be revoked and replaced before use.
 
-## Submission Status
+## Run locally
 
-| Requirement | Resource |
-|---|---|
-| Playable web build | [Open Live Demo](https://steer-health-web.onrender.com/) |
-| Walkthrough | [Watch Demo](https://drive.google.com/file/d/10ek6yR_LQW4aoPN_WIHWp2vCTQa_USsX/view?usp=drive_link) |
-| Source code | [View GitHub Repository](https://github.com/Raunakdeploys/Steer-health-web) |
-| Research and references | Listed below |
+```bash
+npm install
+npm run dev
+```
 
-The live build should be used to assess the implemented functionality. Features that have not been verified in the submitted version should not be considered complete.
+The server starts the Express API and Vite development middleware together. Sign-in and cloud sync require the project’s Firebase configuration and a reachable Neon `DATABASE_URL`. The sample workspace can be explored without signing in; guest changes use the app’s browser storage, while signed-in account data syncs through the authenticated API.
 
-## Technology
+## AI configuration
 
-The project uses the framework, backend services, AI integrations and storage configured in the repository. Consult the source code and project configuration for the exact implementation.
+- **Vercel:** use the connected Vercel AI Gateway integration; it supplies runtime authentication, so a Gemini key is not required for the Vercel preview or deployment.
+- **External host / Render:** the current blueprint exposes `GEMINI_API_KEY` as a server-side environment variable. Keep it in the host’s secret settings, not in the repository or browser bundle. The existing Render service hostname is retained for deployment continuity; changing it requires a separate host/domain update.
 
-API credentials should be stored in server-side environment variables and must never be committed to source control.
+The project environment inventory checked for this update did not include a `GEMINI_API_KEY`. A key pasted in chat is not used by the app.
 
-## Research and References
+## Quality checks
 
-The project should be evaluated alongside reliable medical and technical sources relevant to its implemented features.
+```bash
+npm run lint
+npm run build
+npx tsx scripts/test-validation-engine.ts
+npx tsx scripts/test-radar-adversarial.ts
+```
 
-- [World Health Organization — Infodemic](https://www.who.int/health-topics/infodemic)
-- [World Health Organization — Publications](https://www.who.int/publications)
-- [PubMed — Biomedical Literature Database](https://pubmed.ncbi.nlm.nih.gov/)
+`/api/health` reports API, AI-provider, and Neon readiness without returning credentials. It is a service-health check, not proof that an individual model request will succeed.
 
-These are relevant background resources; add any specific papers, datasets, assets or technical references actually used during development.
+## Project resources
 
-## Safety and Scope
+- [Existing hosted deployment](https://steer-health-web.onrender.com/) — the app is MOTIVA-branded; the legacy service URL has not been renamed.
+- [Walkthrough video](https://drive.google.com/file/d/10ek6yR_LQW4aoPN_WIHWp2vCTQa_USsX/view?usp=drive_link)
+- [Source repository](https://github.com/Raunakdeploys/Steer-health-web)
 
-Steer is a prototype for a health-related digital experience. It does not replace professional medical advice, diagnosis or treatment. Clinical decisions must remain with qualified healthcare professionals.
+## Research and clinical references
 
-## What's Next?
-
-The next step is to validate the experience with intended users and Steer's clinical team, evaluate usability, address feedback, and strengthen reliability before wider deployment.
-
----
-
-**Built for Steer. Focused on clearer, more accessible metabolic health communication.**
+The sample benchmark includes references to published research for demonstration, but its embedded excerpts and derived sample claims are synthetic. Always verify source documents, population, endpoints, limitations, and claim wording before real-world use.

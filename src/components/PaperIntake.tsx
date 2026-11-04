@@ -181,7 +181,7 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
             </h2>
           </div>
           <span className="text-xs font-mono text-[#786A61]">
-            Problem Statement 2 • steerclub.com
+            Problem Statement 2 • MOTIVAclub.com
           </span>
         </div>
 

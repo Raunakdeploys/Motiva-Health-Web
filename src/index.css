@@ -72,7 +72,7 @@
   }
 
   .font-serif,
-  .steer-editorial {
+  .motiva-editorial {
     font-family: "Instrument Serif", Georgia, serif;
     font-optical-sizing: auto;
   }
@@ -130,14 +130,14 @@
   background: #a6a39a;
 }
 
-.steer-card {
+.motiva-card {
   border: 1px solid var(--line);
   border-radius: 16px;
   background: var(--surface);
   box-shadow: 0 1px 2px rgb(37 40 36 / 4%);
 }
 
-.steer-card-interactive {
+.motiva-card-interactive {
   border: 1px solid var(--line);
   border-radius: 16px;
   background: var(--surface);
@@ -145,13 +145,13 @@
   transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
 
-.steer-card-interactive:hover {
+.motiva-card-interactive:hover {
   transform: translateY(-1px);
   border-color: #c9b7ab;
   box-shadow: 0 10px 26px rgb(37 40 36 / 7%);
 }
 
-.steer-button-primary {
+.motiva-button-primary {
   border-radius: 10px;
   background: var(--accent);
   color: white;
@@ -159,25 +159,25 @@
   transition: background 160ms ease, transform 160ms ease;
 }
 
-.steer-button-primary:hover {
+.motiva-button-primary:hover {
   transform: translateY(-1px);
   background: var(--accent-strong);
 }
 
-.steer-app-shell {
+.motiva-app-shell {
   min-height: 100vh;
   background: var(--color-canvas);
   color: var(--ink);
 }
 
-.steer-sidebar {
+.motiva-sidebar {
   width: 232px;
   border-right: 1px solid var(--line);
   background: #fbfaf7;
   box-shadow: 5px 0 24px rgb(38 38 32 / 2%);
 }
 
-.steer-sidebar-header {
+.motiva-sidebar-header {
   display: flex;
   min-height: 74px;
   align-items: center;
@@ -188,7 +188,7 @@
   background: var(--surface);
 }
 
-.steer-brand-button {
+.motiva-brand-button {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -199,7 +199,7 @@
   text-align: left;
 }
 
-.steer-brand-mark {
+.motiva-brand-mark {
   display: grid;
   width: 34px;
   height: 34px;
@@ -214,7 +214,7 @@
   line-height: 1;
 }
 
-.steer-brand-name {
+.motiva-brand-name {
   display: flex;
   flex-direction: column;
   gap: 1px;
@@ -224,7 +224,7 @@
   line-height: 1.1;
 }
 
-.steer-brand-name small {
+.motiva-brand-name small {
   color: var(--muted);
   font-size: 9px;
   font-weight: 650;
@@ -232,7 +232,7 @@
   text-transform: uppercase;
 }
 
-.steer-sidebar-tag {
+.motiva-sidebar-tag {
   border: 1px solid var(--line);
   border-radius: 999px;
   padding: 5px 8px;
@@ -244,7 +244,7 @@
   text-transform: uppercase;
 }
 
-.steer-source-card {
+.motiva-source-card {
   display: flex;
   flex-direction: column;
   gap: 9px;
@@ -255,16 +255,16 @@
   background: var(--surface);
 }
 
-.steer-source-card-top,
-.steer-source-meta,
-.steer-source-switch-row {
+.motiva-source-card-top,
+.motiva-source-meta,
+.motiva-source-switch-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
 }
 
-.steer-source-card-top {
+.motiva-source-card-top {
   color: var(--muted);
   font-size: 9px;
   font-weight: 700;
@@ -272,7 +272,7 @@
   text-transform: uppercase;
 }
 
-.steer-source-state {
+.motiva-source-state {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -282,7 +282,7 @@
   letter-spacing: 0.04em;
 }
 
-.steer-source-state::before {
+.motiva-source-state::before {
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -290,7 +290,7 @@
   content: "";
 }
 
-.steer-source-title {
+.motiva-source-title {
   display: -webkit-box;
   overflow: hidden;
   border: 0;
@@ -307,24 +307,24 @@
   -webkit-line-clamp: 2;
 }
 
-.steer-source-title:hover {
+.motiva-source-title:hover {
   color: var(--accent);
 }
 
-.steer-source-meta {
+.motiva-source-meta {
   justify-content: flex-start;
   color: var(--muted);
   font-size: 10px;
 }
 
-.steer-source-switch-row {
+.motiva-source-switch-row {
   padding-top: 8px;
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 10px;
 }
 
-.steer-source-select {
+.motiva-source-select {
   max-width: 138px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -334,7 +334,7 @@
   font-size: 10px;
 }
 
-.steer-sidebar-nav {
+.motiva-sidebar-nav {
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -343,13 +343,13 @@
   padding: 12px 10px 18px;
 }
 
-.steer-nav-group {
+.motiva-nav-group {
   display: flex;
   flex-direction: column;
   gap: 3px;
 }
 
-.steer-nav-group-label {
+.motiva-nav-group-label {
   padding: 0 10px 6px;
   color: #8b877f;
   font-size: 9px;
@@ -358,7 +358,7 @@
   text-transform: uppercase;
 }
 
-.steer-nav-item {
+.motiva-nav-item {
   display: flex;
   min-height: 36px;
   align-items: center;
@@ -374,42 +374,42 @@
   transition: color 140ms ease, background 140ms ease, border-color 140ms ease;
 }
 
-.steer-nav-item:hover {
+.motiva-nav-item:hover {
   background: #f1efea;
   color: var(--ink);
 }
 
-.steer-nav-item-active {
+.motiva-nav-item-active {
   border-color: #ead9d1;
   background: #f5ece7;
   color: var(--accent);
   font-weight: 700;
 }
 
-.steer-nav-item-main {
+.motiva-nav-item-main {
   display: flex;
   min-width: 0;
   align-items: center;
   gap: 10px;
 }
 
-.steer-nav-item-icon {
+.motiva-nav-item-icon {
   flex: 0 0 auto;
   color: #85847c;
 }
 
-.steer-nav-item-active .steer-nav-item-icon {
+.motiva-nav-item-active .motiva-nav-item-icon {
   color: var(--accent);
 }
 
-.steer-nav-item-label {
+.motiva-nav-item-label {
   overflow: hidden;
   font-size: 11px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.steer-nav-badge {
+.motiva-nav-badge {
   flex: 0 0 auto;
   border-radius: 999px;
   padding: 2px 7px;
@@ -419,17 +419,17 @@
   font-weight: 700;
 }
 
-.steer-nav-badge-accent {
+.motiva-nav-badge-accent {
   background: #e8f0e9;
   color: var(--sage);
 }
 
-.steer-nav-item-active .steer-nav-badge {
+.motiva-nav-item-active .motiva-nav-badge {
   background: #ead8d0;
   color: var(--accent);
 }
 
-.steer-sidebar-footer {
+.motiva-sidebar-footer {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -438,7 +438,7 @@
   background: var(--surface);
 }
 
-.steer-sync-row {
+.motiva-sync-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -447,30 +447,30 @@
   font-size: 10px;
 }
 
-.steer-sync-label {
+.motiva-sync-label {
   display: inline-flex;
   align-items: center;
   gap: 7px;
 }
 
-.steer-sync-dot {
+.motiva-sync-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: var(--sage);
 }
 
-.steer-sync-dot[data-status="syncing"] {
+.motiva-sync-dot[data-status="syncing"] {
   background: var(--rust);
-  animation: steer-pulse 1.2s ease-in-out infinite;
+  animation: motiva-pulse 1.2s ease-in-out infinite;
 }
 
-.steer-sync-dot[data-status="offline"],
-.steer-sync-dot[data-status="error"] {
+.motiva-sync-dot[data-status="offline"],
+.motiva-sync-dot[data-status="error"] {
   background: #9c8a75;
 }
 
-.steer-demo-reset {
+.motiva-demo-reset {
   display: flex;
   align-items: center;
   gap: 7px;
@@ -484,12 +484,12 @@
   text-align: left;
 }
 
-.steer-demo-reset:hover {
+.motiva-demo-reset:hover {
   background: var(--surface-muted);
   color: var(--accent);
 }
 
-.steer-topbar {
+.motiva-topbar {
   min-height: 72px;
   border-bottom: 1px solid var(--line);
   background: rgb(255 254 250 / 92%);
@@ -497,22 +497,22 @@
   backdrop-filter: blur(14px);
 }
 
-.steer-topbar-left,
-.steer-topbar-right {
+.motiva-topbar-left,
+.motiva-topbar-right {
   display: flex;
   min-width: 0;
   align-items: center;
   gap: 12px;
 }
 
-.steer-topbar-title-wrap {
+.motiva-topbar-title-wrap {
   display: flex;
   min-width: 0;
   flex-direction: column;
   gap: 3px;
 }
 
-.steer-topbar-crumb {
+.motiva-topbar-crumb {
   display: flex;
   align-items: center;
   gap: 7px;
@@ -521,14 +521,14 @@
   line-height: 1;
 }
 
-.steer-topbar-crumb strong {
+.motiva-topbar-crumb strong {
   color: var(--accent);
   font-family: "Instrument Serif", Georgia, serif;
   font-size: 13px;
   font-style: italic;
 }
 
-.steer-topbar-heading {
+.motiva-topbar-heading {
   overflow: hidden;
   color: var(--ink);
   font-family: "DM Sans", system-ui, sans-serif;
@@ -538,7 +538,7 @@
   white-space: nowrap;
 }
 
-.steer-topbar-context {
+.motiva-topbar-context {
   overflow: hidden;
   color: var(--muted);
   font-size: 10px;
@@ -546,7 +546,7 @@
   white-space: nowrap;
 }
 
-.steer-icon-button {
+.motiva-icon-button {
   display: inline-grid;
   width: 36px;
   height: 36px;
@@ -560,13 +560,13 @@
   transition: background 140ms ease, border-color 140ms ease, color 140ms ease;
 }
 
-.steer-icon-button:hover {
+.motiva-icon-button:hover {
   border-color: #cfc8be;
   background: var(--surface-muted);
   color: var(--accent);
 }
 
-.steer-search-trigger {
+.motiva-search-trigger {
   display: flex;
   width: min(245px, 23vw);
   min-width: 138px;
@@ -582,12 +582,12 @@
   text-align: left;
 }
 
-.steer-search-trigger:hover {
+.motiva-search-trigger:hover {
   border-color: #cfc8be;
   background: var(--surface-muted);
 }
 
-.steer-search-trigger-label {
+.motiva-search-trigger-label {
   flex: 1;
   overflow: hidden;
   font-size: 10px;
@@ -595,7 +595,7 @@
   white-space: nowrap;
 }
 
-.steer-search-trigger kbd {
+.motiva-search-trigger kbd {
   flex: 0 0 auto;
   border: 1px solid var(--line);
   border-radius: 5px;
@@ -606,7 +606,7 @@
   font-size: 9px;
 }
 
-.steer-action-button {
+.motiva-action-button {
   display: inline-flex;
   min-height: 36px;
   align-items: center;
@@ -624,29 +624,29 @@
   transition: border-color 140ms ease, background 140ms ease, color 140ms ease, transform 140ms ease;
 }
 
-.steer-action-button:hover {
+.motiva-action-button:hover {
   transform: translateY(-1px);
   border-color: #cfc8be;
   background: var(--surface-muted);
 }
 
-.steer-action-button-primary {
+.motiva-action-button-primary {
   border-color: var(--accent);
   background: var(--accent);
   color: white;
 }
 
-.steer-action-button-primary:hover {
+.motiva-action-button-primary:hover {
   border-color: var(--accent-strong);
   background: var(--accent-strong);
   color: white;
 }
 
-.steer-quick-action {
+.motiva-quick-action {
   display: none;
 }
 
-.steer-status-pill {
+.motiva-status-pill {
   display: inline-flex;
   min-height: 30px;
   align-items: center;
@@ -661,7 +661,7 @@
   white-space: nowrap;
 }
 
-.steer-command-overlay {
+.motiva-command-overlay {
   position: fixed;
   z-index: 100;
   display: flex;
@@ -673,7 +673,7 @@
   inset: 0;
 }
 
-.steer-command-dialog {
+.motiva-command-dialog {
   width: min(560px, 100%);
   overflow: hidden;
   border: 1px solid var(--line);
@@ -682,7 +682,7 @@
   box-shadow: 0 24px 80px rgb(27 27 24 / 22%);
 }
 
-.steer-command-search {
+.motiva-command-search {
   display: flex;
   align-items: center;
   gap: 11px;
@@ -691,7 +691,7 @@
   color: #88877f;
 }
 
-.steer-command-search input {
+.motiva-command-search input {
   width: 100%;
   border: 0;
   outline: none;
@@ -700,11 +700,11 @@
   font-size: 13px;
 }
 
-.steer-command-search input:focus-visible {
+.motiva-command-search input:focus-visible {
   outline: none;
 }
 
-.steer-command-results {
+.motiva-command-results {
   display: flex;
   max-height: min(430px, 60vh);
   flex-direction: column;
@@ -713,7 +713,7 @@
   padding: 9px;
 }
 
-.steer-command-label {
+.motiva-command-label {
   padding: 8px 9px 5px;
   color: #8b877f;
   font-size: 9px;
@@ -722,7 +722,7 @@
   text-transform: uppercase;
 }
 
-.steer-command-item {
+.motiva-command-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -736,26 +736,26 @@
   text-align: left;
 }
 
-.steer-command-item:hover,
-.steer-command-item:focus-visible {
+.motiva-command-item:hover,
+.motiva-command-item:focus-visible {
   border-color: #ead9d1;
   background: #f6eeea;
   color: var(--accent);
 }
 
-.steer-command-item small {
+.motiva-command-item small {
   color: var(--muted);
   font-size: 10px;
 }
 
-.steer-command-empty {
+.motiva-command-empty {
   padding: 28px 12px;
   color: var(--muted);
   font-size: 12px;
   text-align: center;
 }
 
-.steer-dashboard {
+.motiva-dashboard {
   display: flex;
   width: min(1440px, 100%);
   flex-direction: column;
@@ -764,7 +764,7 @@
   padding: clamp(18px, 2.4vw, 34px);
 }
 
-.steer-dashboard-heading {
+.motiva-dashboard-heading {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -780,7 +780,7 @@
   background-size: 64px 64px;
 }
 
-.steer-dashboard-eyebrow {
+.motiva-dashboard-eyebrow {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -791,7 +791,7 @@
   text-transform: uppercase;
 }
 
-.steer-dashboard-heading h2 {
+.motiva-dashboard-heading h2 {
   margin: 10px 0 5px;
   color: var(--ink);
   font-size: clamp(27px, 3vw, 38px);
@@ -800,7 +800,7 @@
   line-height: 1.12;
 }
 
-.steer-dashboard-heading p {
+.motiva-dashboard-heading p {
   max-width: 560px;
   margin: 0;
   color: var(--muted);
@@ -808,7 +808,7 @@
   line-height: 1.65;
 }
 
-.steer-dashboard-actions {
+.motiva-dashboard-actions {
   display: flex;
   flex: 0 0 auto;
   flex-wrap: wrap;
@@ -816,7 +816,7 @@
   gap: 8px;
 }
 
-.steer-dashboard-button {
+.motiva-dashboard-button {
   display: inline-flex;
   min-height: 40px;
   align-items: center;
@@ -833,31 +833,31 @@
   transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
 }
 
-.steer-dashboard-button:hover {
+.motiva-dashboard-button:hover {
   transform: translateY(-1px);
   border-color: #cfc8be;
   background: var(--surface-muted);
 }
 
-.steer-dashboard-button-primary {
+.motiva-dashboard-button-primary {
   border-color: var(--accent);
   background: var(--accent);
   color: white;
 }
 
-.steer-dashboard-button-primary:hover {
+.motiva-dashboard-button-primary:hover {
   border-color: var(--accent-strong);
   background: var(--accent-strong);
   color: white;
 }
 
-.steer-dashboard-button:disabled {
+.motiva-dashboard-button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
   transform: none;
 }
 
-.steer-active-study {
+.motiva-active-study {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -869,14 +869,14 @@
   box-shadow: 0 1px 2px rgb(37 40 36 / 3%);
 }
 
-.steer-active-study-info {
+.motiva-active-study-info {
   display: flex;
   min-width: 0;
   flex-direction: column;
   gap: 5px;
 }
 
-.steer-active-study-label {
+.motiva-active-study-label {
   color: #89877f;
   font-size: 9px;
   font-weight: 750;
@@ -884,7 +884,7 @@
   text-transform: uppercase;
 }
 
-.steer-active-study-title {
+.motiva-active-study-title {
   overflow: hidden;
   color: var(--ink);
   font-family: "Instrument Serif", Georgia, serif;
@@ -894,7 +894,7 @@
   white-space: nowrap;
 }
 
-.steer-active-study-meta {
+.motiva-active-study-meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -903,20 +903,20 @@
   font-size: 10px;
 }
 
-.steer-active-study-controls {
+.motiva-active-study-controls {
   display: flex;
   flex: 0 0 auto;
   align-items: center;
   gap: 8px;
 }
 
-.steer-dashboard-kpis {
+.motiva-dashboard-kpis {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
 }
 
-.steer-metric-card {
+.motiva-metric-card {
   display: flex;
   min-height: 110px;
   flex-direction: column;
@@ -929,7 +929,7 @@
   box-shadow: 0 1px 2px rgb(37 40 36 / 3%);
 }
 
-.steer-metric-top {
+.motiva-metric-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -939,7 +939,7 @@
   font-weight: 650;
 }
 
-.steer-metric-icon {
+.motiva-metric-icon {
   display: grid;
   width: 29px;
   height: 29px;
@@ -950,22 +950,22 @@
   color: var(--accent);
 }
 
-.steer-metric-icon[data-tone="sage"] {
+.motiva-metric-icon[data-tone="sage"] {
   background: #eaf0e9;
   color: var(--sage);
 }
 
-.steer-metric-icon[data-tone="rust"] {
+.motiva-metric-icon[data-tone="rust"] {
   background: #f8ece7;
   color: var(--rust);
 }
 
-.steer-metric-icon[data-tone="forest"] {
+.motiva-metric-icon[data-tone="forest"] {
   background: #e6eee7;
   color: var(--forest);
 }
 
-.steer-metric-value {
+.motiva-metric-value {
   color: var(--ink);
   font-family: "Instrument Serif", Georgia, serif;
   font-size: 28px;
@@ -974,29 +974,29 @@
   line-height: 1;
 }
 
-.steer-metric-note {
+.motiva-metric-note {
   margin-top: 5px;
   color: #8a8981;
   font-size: 9px;
   line-height: 1.4;
 }
 
-.steer-dashboard-grid {
+.motiva-dashboard-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(236px, 0.85fr);
   align-items: start;
   gap: 16px;
 }
 
-.steer-dashboard-column,
-.steer-dashboard-rail {
+.motiva-dashboard-column,
+.motiva-dashboard-rail {
   display: flex;
   min-width: 0;
   flex-direction: column;
   gap: 16px;
 }
 
-.steer-panel {
+.motiva-panel {
   min-width: 0;
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -1005,7 +1005,7 @@
   box-shadow: 0 1px 2px rgb(37 40 36 / 3%);
 }
 
-.steer-panel-heading {
+.motiva-panel-heading {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -1013,7 +1013,7 @@
   margin-bottom: 15px;
 }
 
-.steer-panel-heading h3 {
+.motiva-panel-heading h3 {
   margin: 0;
   color: var(--ink);
   font-size: 17px;
@@ -1021,14 +1021,14 @@
   letter-spacing: -0.025em;
 }
 
-.steer-panel-heading p {
+.motiva-panel-heading p {
   margin: 5px 0 0;
   color: var(--muted);
   font-size: 10px;
   line-height: 1.5;
 }
 
-.steer-inline-link {
+.motiva-inline-link {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -1042,18 +1042,18 @@
   white-space: nowrap;
 }
 
-.steer-inline-link:hover {
+.motiva-inline-link:hover {
   color: var(--rust);
 }
 
-.steer-pipeline-steps {
+.motiva-pipeline-steps {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 7px;
   margin-bottom: 18px;
 }
 
-.steer-pipeline-step {
+.motiva-pipeline-step {
   position: relative;
   display: flex;
   min-width: 0;
@@ -1062,7 +1062,7 @@
   padding: 0 2px;
 }
 
-.steer-pipeline-step:not(:last-child)::after {
+.motiva-pipeline-step:not(:last-child)::after {
   position: absolute;
   top: 11px;
   right: -7px;
@@ -1072,7 +1072,7 @@
   content: "";
 }
 
-.steer-pipeline-dot {
+.motiva-pipeline-dot {
   position: relative;
   z-index: 1;
   display: grid;
@@ -1085,13 +1085,13 @@
   color: #8d8c84;
 }
 
-.steer-pipeline-step[data-complete="true"] .steer-pipeline-dot {
+.motiva-pipeline-step[data-complete="true"] .motiva-pipeline-dot {
   border-color: #d7e4d8;
   background: #eaf0e9;
   color: var(--sage);
 }
 
-.steer-pipeline-step strong {
+.motiva-pipeline-step strong {
   overflow: hidden;
   color: var(--ink);
   font-size: 9px;
@@ -1100,7 +1100,7 @@
   white-space: nowrap;
 }
 
-.steer-pipeline-step small {
+.motiva-pipeline-step small {
   overflow: hidden;
   color: var(--muted);
   font-size: 8px;
@@ -1108,7 +1108,7 @@
   text-overflow: ellipsis;
 }
 
-.steer-claim-breakdown {
+.motiva-claim-breakdown {
   display: flex;
   flex-direction: column;
   gap: 11px;
@@ -1116,7 +1116,7 @@
   padding-top: 14px;
 }
 
-.steer-claim-breakdown-title {
+.motiva-claim-breakdown-title {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1125,7 +1125,7 @@
   font-weight: 700;
 }
 
-.steer-status-row {
+.motiva-status-row {
   display: grid;
   grid-template-columns: minmax(96px, 0.8fr) minmax(60px, 1.4fr) 26px;
   align-items: center;
@@ -1134,36 +1134,36 @@
   font-size: 9px;
 }
 
-.steer-status-track {
+.motiva-status-track {
   height: 6px;
   overflow: hidden;
   border-radius: 999px;
   background: #efeee9;
 }
 
-.steer-status-fill {
+.motiva-status-fill {
   height: 100%;
   border-radius: inherit;
   background: var(--blue);
   transition: width 240ms ease;
 }
 
-.steer-status-fill[data-tone="sage"] {
+.motiva-status-fill[data-tone="sage"] {
   background: var(--sage);
 }
 
-.steer-status-fill[data-tone="rust"] {
+.motiva-status-fill[data-tone="rust"] {
   background: var(--rust);
 }
 
-.steer-status-count {
+.motiva-status-count {
   color: var(--ink);
   font-size: 10px;
   font-weight: 750;
   text-align: right;
 }
 
-.steer-queue-filters {
+.motiva-queue-filters {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
@@ -1173,7 +1173,7 @@
   background: var(--surface-muted);
 }
 
-.steer-queue-filter {
+.motiva-queue-filter {
   border: 0;
   border-radius: 7px;
   padding: 6px 8px;
@@ -1184,19 +1184,19 @@
   font-weight: 650;
 }
 
-.steer-queue-filter[aria-pressed="true"] {
+.motiva-queue-filter[aria-pressed="true"] {
   background: var(--surface);
   color: var(--accent);
   box-shadow: 0 1px 3px rgb(37 40 36 / 8%);
 }
 
-.steer-queue-list {
+.motiva-queue-list {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.steer-queue-item {
+.motiva-queue-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1208,19 +1208,19 @@
   transition: border-color 140ms ease, background 140ms ease;
 }
 
-.steer-queue-item:hover {
+.motiva-queue-item:hover {
   border-color: #d4c8bc;
   background: #fcfaf6;
 }
 
-.steer-queue-item-main {
+.motiva-queue-item-main {
   display: flex;
   min-width: 0;
   flex-direction: column;
   gap: 6px;
 }
 
-.steer-queue-item-meta {
+.motiva-queue-item-meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -1229,7 +1229,7 @@
   font-size: 8px;
 }
 
-.steer-status-badge {
+.motiva-status-badge {
   border-radius: 999px;
   padding: 3px 7px;
   background: #f1eee7;
@@ -1240,17 +1240,17 @@
   text-transform: uppercase;
 }
 
-.steer-status-badge[data-tone="sage"] {
+.motiva-status-badge[data-tone="sage"] {
   background: #eaf0e9;
   color: var(--sage);
 }
 
-.steer-status-badge[data-tone="rust"] {
+.motiva-status-badge[data-tone="rust"] {
   background: #f7eae5;
   color: var(--rust);
 }
 
-.steer-queue-claim {
+.motiva-queue-claim {
   display: -webkit-box;
   overflow: hidden;
   border: 0;
@@ -1267,11 +1267,11 @@
   -webkit-line-clamp: 2;
 }
 
-.steer-queue-claim:hover {
+.motiva-queue-claim:hover {
   color: var(--accent);
 }
 
-.steer-queue-action {
+.motiva-queue-action {
   display: inline-flex;
   flex: 0 0 auto;
   align-items: center;
@@ -1286,11 +1286,11 @@
   font-weight: 700;
 }
 
-.steer-queue-action:hover {
+.motiva-queue-action:hover {
   background: #ead8d0;
 }
 
-.steer-empty-inline {
+.motiva-empty-inline {
   display: flex;
   min-height: 104px;
   flex-direction: column;
@@ -1305,13 +1305,13 @@
   text-align: center;
 }
 
-.steer-next-steps {
+.motiva-next-steps {
   display: flex;
   flex-direction: column;
   gap: 7px;
 }
 
-.steer-next-step {
+.motiva-next-step {
   display: flex;
   width: 100%;
   align-items: center;
@@ -1326,12 +1326,12 @@
   transition: background 140ms ease, border-color 140ms ease;
 }
 
-.steer-next-step:hover {
+.motiva-next-step:hover {
   border-color: var(--line);
   background: var(--surface-muted);
 }
 
-.steer-next-step-icon {
+.motiva-next-step-icon {
   display: grid;
   width: 32px;
   height: 32px;
@@ -1342,7 +1342,7 @@
   color: var(--accent);
 }
 
-.steer-next-step-copy {
+.motiva-next-step-copy {
   display: flex;
   min-width: 0;
   flex: 1;
@@ -1350,7 +1350,7 @@
   gap: 3px;
 }
 
-.steer-next-step-copy strong {
+.motiva-next-step-copy strong {
   overflow: hidden;
   color: var(--ink);
   font-size: 10px;
@@ -1359,7 +1359,7 @@
   white-space: nowrap;
 }
 
-.steer-next-step-copy small {
+.motiva-next-step-copy small {
   overflow: hidden;
   color: var(--muted);
   font-size: 9px;
@@ -1367,13 +1367,13 @@
   white-space: nowrap;
 }
 
-.steer-library-list {
+.motiva-library-list {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.steer-library-item {
+.motiva-library-item {
   display: flex;
   width: 100%;
   align-items: flex-start;
@@ -1387,13 +1387,13 @@
   text-align: left;
 }
 
-.steer-library-item:hover,
-.steer-library-item[data-active="true"] {
+.motiva-library-item:hover,
+.motiva-library-item[data-active="true"] {
   border-color: var(--line);
   background: var(--surface-muted);
 }
 
-.steer-library-item-icon {
+.motiva-library-item-icon {
   display: grid;
   width: 27px;
   height: 27px;
@@ -1404,19 +1404,19 @@
   color: var(--muted);
 }
 
-.steer-library-item[data-active="true"] .steer-library-item-icon {
+.motiva-library-item[data-active="true"] .motiva-library-item-icon {
   background: #f2e7e1;
   color: var(--accent);
 }
 
-.steer-library-item-copy {
+.motiva-library-item-copy {
   display: flex;
   min-width: 0;
   flex-direction: column;
   gap: 3px;
 }
 
-.steer-library-item-copy strong {
+.motiva-library-item-copy strong {
   display: -webkit-box;
   overflow: hidden;
   color: var(--ink);
@@ -1428,12 +1428,12 @@
   -webkit-line-clamp: 2;
 }
 
-.steer-library-item-copy small {
+.motiva-library-item-copy small {
   color: var(--muted);
   font-size: 8px;
 }
 
-.steer-empty-state {
+.motiva-empty-state {
   display: flex;
   min-height: min(560px, calc(100vh - 150px));
   flex-direction: column;
@@ -1444,7 +1444,7 @@
   text-align: center;
 }
 
-.steer-empty-mark {
+.motiva-empty-mark {
   display: grid;
   width: 64px;
   height: 64px;
@@ -1455,7 +1455,7 @@
   color: var(--accent);
 }
 
-.steer-empty-state h2 {
+.motiva-empty-state h2 {
   margin: 0;
   color: var(--ink);
   font-size: clamp(27px, 4vw, 38px);
@@ -1463,7 +1463,7 @@
   letter-spacing: -0.04em;
 }
 
-.steer-empty-state p {
+.motiva-empty-state p {
   max-width: 490px;
   margin: 0;
   color: var(--muted);
@@ -1471,7 +1471,7 @@
   line-height: 1.7;
 }
 
-.steer-page-root {
+.motiva-page-root {
   display: flex;
   width: 100%;
   max-width: 1440px;
@@ -1481,27 +1481,27 @@
   padding: clamp(18px, 2.2vw, 34px);
 }
 
-.steer-page-root > :not([hidden]) ~ :not([hidden]) {
+.motiva-page-root > :not([hidden]) ~ :not([hidden]) {
   margin-top: 0 !important;
 }
 
-.steer-page-root > div[class*="bg-[#FFFDF9]"],
-.steer-page-root > section[class*="bg-[#FFFDF9]"] {
+.motiva-page-root > div[class*="bg-[#FFFDF9]"],
+.motiva-page-root > section[class*="bg-[#FFFDF9]"] {
   border-radius: 16px;
   box-shadow: 0 2px 8px rgb(37 40 36 / 3%);
 }
 
-.steer-page-root h1,
-.steer-page-root h2,
-.steer-page-root h3 {
+.motiva-page-root h1,
+.motiva-page-root h2,
+.motiva-page-root h3 {
   letter-spacing: -0.025em;
 }
 
-.steer-page-root button {
+.motiva-page-root button {
   transition-timing-function: ease;
 }
 
-.steer-intake-study-card {
+.motiva-intake-study-card {
   min-height: 190px;
   border-radius: 15px !important;
   background: var(--surface);
@@ -1510,60 +1510,60 @@
   transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
 }
 
-.steer-intake-study-card:hover {
+.motiva-intake-study-card:hover {
   transform: translateY(-2px);
   border-color: #cdb8ac;
   box-shadow: 0 10px 24px rgb(37 40 36 / 8%);
 }
 
-.steer-intake-study-card:focus-visible {
+.motiva-intake-study-card:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--rust), white 22%);
   outline-offset: 3px;
 }
 
-.steer-intake-study-card[aria-pressed="true"] {
+.motiva-intake-study-card[aria-pressed="true"] {
   border-color: var(--accent) !important;
   box-shadow: 0 0 0 2px rgb(103 43 40 / 8%);
 }
 
-.steer-studio {
+.motiva-studio {
   gap: 17px;
 }
 
-.steer-studio-header {
+.motiva-studio-header {
   border-radius: 16px;
   background: var(--surface);
   box-shadow: 0 2px 8px rgb(37 40 36 / 3%);
 }
 
-.steer-studio-header h2 {
+.motiva-studio-header h2 {
   font-size: clamp(20px, 2vw, 27px);
   letter-spacing: -0.035em;
 }
 
-.steer-studio-header p {
+.motiva-studio-header p {
   max-width: 600px;
   line-height: 1.6;
 }
 
-.steer-studies-panel {
+.motiva-studies-panel {
   border-radius: 16px;
   background: var(--surface);
   box-shadow: 0 2px 8px rgb(37 40 36 / 3%);
 }
 
-.steer-study-card {
+.motiva-study-card {
   min-height: 112px;
   border-radius: 12px !important;
   transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
 }
 
-.steer-study-card:hover {
+.motiva-study-card:hover {
   transform: translateY(-1px);
   box-shadow: 0 8px 22px rgb(37 40 36 / 7%);
 }
 
-.steer-studio-tabs {
+.motiva-studio-tabs {
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -1574,7 +1574,7 @@
   background: var(--surface);
 }
 
-.steer-studio-tabs > div:first-child {
+.motiva-studio-tabs > div:first-child {
   display: flex;
   min-width: 0;
   flex-wrap: nowrap;
@@ -1582,7 +1582,7 @@
   overflow-x: auto;
 }
 
-.steer-studio-tabs > div:first-child button {
+.motiva-studio-tabs > div:first-child button {
   flex: 0 0 auto;
   border: 0 !important;
   border-radius: 9px;
@@ -1591,12 +1591,12 @@
   font-size: 10px;
 }
 
-.steer-studio-tabs > div:first-child button[class*="border-[#C04E2A]"] {
+.motiva-studio-tabs > div:first-child button[class*="border-[#C04E2A]"] {
   background: #f5ece7 !important;
   color: var(--accent) !important;
 }
 
-.steer-studio-tabs > div:nth-child(2) {
+.motiva-studio-tabs > div:nth-child(2) {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
@@ -1604,12 +1604,12 @@
   border-top: 1px solid var(--line);
 }
 
-.steer-carousel-toolbar {
+.motiva-carousel-toolbar {
   border-radius: 14px;
   box-shadow: 0 2px 8px rgb(37 40 36 / 3%);
 }
 
-.steer-editor-panel {
+.motiva-editor-panel {
   border-radius: 14px;
   box-shadow: 0 2px 8px rgb(37 40 36 / 3%);
 }
@@ -1726,11 +1726,11 @@ pre {
   font-family: "DM Sans", system-ui, sans-serif !important;
 }
 
-.steer-profile-wrap {
+.motiva-profile-wrap {
   position: relative;
 }
 
-.steer-profile-avatar {
+.motiva-profile-avatar {
   display: grid;
   width: 22px;
   height: 22px;
@@ -1742,7 +1742,7 @@ pre {
   font-weight: 750;
 }
 
-.steer-profile-menu {
+.motiva-profile-menu {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
@@ -1755,7 +1755,7 @@ pre {
   box-shadow: 0 14px 40px rgb(37 40 36 / 14%);
 }
 
-.steer-profile-menu-header {
+.motiva-profile-menu-header {
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -1763,7 +1763,7 @@ pre {
   border-bottom: 1px solid var(--line);
 }
 
-.steer-profile-menu-header strong {
+.motiva-profile-menu-header strong {
   overflow: hidden;
   color: var(--ink);
   font-size: 12px;
@@ -1771,7 +1771,7 @@ pre {
   white-space: nowrap;
 }
 
-.steer-profile-menu-header span {
+.motiva-profile-menu-header span {
   overflow: hidden;
   color: var(--muted);
   font-size: 10px;
@@ -1779,7 +1779,7 @@ pre {
   white-space: nowrap;
 }
 
-.steer-profile-menu-header small {
+.motiva-profile-menu-header small {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -1789,7 +1789,7 @@ pre {
   font-weight: 650;
 }
 
-.steer-profile-menu-action {
+.motiva-profile-menu-action {
   display: flex;
   width: 100%;
   align-items: center;
@@ -1803,66 +1803,66 @@ pre {
   text-align: left;
 }
 
-.steer-profile-menu-action:hover {
+.motiva-profile-menu-action:hover {
   background: var(--surface-muted);
 }
 
-.steer-study-card-active {
+.motiva-study-card-active {
   border-color: var(--accent) !important;
   box-shadow: 0 8px 22px rgb(82 35 32 / 14%);
 }
 
-@keyframes steer-pulse {
+@keyframes motiva-pulse {
   50% {
     opacity: 0.45;
   }
 }
 
 @media (min-width: 1536px) {
-  .steer-quick-action {
+  .motiva-quick-action {
     display: inline-flex;
   }
 }
 
 @media (max-width: 1100px) {
-  .steer-topbar-left {
+  .motiva-topbar-left {
     flex: 1 1 0;
     max-width: 45%;
   }
 
-  .steer-topbar-right {
+  .motiva-topbar-right {
     flex: 0 0 auto;
     gap: 7px;
   }
 
-  .steer-topbar-context {
+  .motiva-topbar-context {
     max-width: 100%;
   }
 
-  .steer-dashboard-heading {
+  .motiva-dashboard-heading {
     align-items: flex-start;
   }
 
-  .steer-dashboard-grid {
+  .motiva-dashboard-grid {
     grid-template-columns: minmax(0, 1.2fr) minmax(220px, 0.8fr);
   }
 
-  .steer-status-pill {
+  .motiva-status-pill {
     display: none;
   }
 }
 
 @media (max-width: 850px) {
-  .steer-dashboard-heading {
+  .motiva-dashboard-heading {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .steer-dashboard-grid {
+  .motiva-dashboard-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .steer-dashboard-rail {
+  .motiva-dashboard-rail {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: start;
@@ -1870,103 +1870,103 @@ pre {
 }
 
 @media (max-width: 850px) and (min-width: 768px) {
-  .steer-search-trigger {
+  .motiva-search-trigger {
     width: 38px;
     min-width: 38px;
     justify-content: center;
     padding: 0;
   }
 
-  .steer-search-trigger-label,
-  .steer-search-trigger kbd,
-  .steer-auth-trigger > span {
+  .motiva-search-trigger-label,
+  .motiva-search-trigger kbd,
+  .motiva-auth-trigger > span {
     display: none;
   }
 }
 
 @media (max-width: 767px) {
-  .steer-page-root {
+  .motiva-page-root {
     gap: 16px;
     padding: 16px 14px 28px;
   }
 
-  .steer-sidebar {
+  .motiva-sidebar {
     width: min(290px, calc(100vw - 40px));
   }
 
-  .steer-topbar {
+  .motiva-topbar {
     min-height: 62px;
   }
 
-  .steer-topbar-left,
-  .steer-topbar-right {
+  .motiva-topbar-left,
+  .motiva-topbar-right {
     gap: 7px;
   }
 
-  .steer-topbar-context,
-  .steer-search-trigger-label,
-  .steer-search-trigger kbd {
+  .motiva-topbar-context,
+  .motiva-search-trigger-label,
+  .motiva-search-trigger kbd {
     display: none;
   }
 
-  .steer-search-trigger {
+  .motiva-search-trigger {
     width: 36px;
     min-width: 36px;
     justify-content: center;
     padding: 0;
   }
 
-  .steer-dashboard {
+  .motiva-dashboard {
     gap: 15px;
     padding: 18px 14px 28px;
   }
 
-  .steer-dashboard-kpis {
+  .motiva-dashboard-kpis {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
   }
 
-  .steer-metric-card {
+  .motiva-metric-card {
     min-height: 100px;
     padding: 11px;
   }
 
-  .steer-active-study {
+  .motiva-active-study {
     align-items: flex-start;
     flex-direction: column;
     padding: 14px;
   }
 
-  .steer-active-study-title {
+  .motiva-active-study-title {
     white-space: normal;
   }
 
-  .steer-pipeline-steps {
+  .motiva-pipeline-steps {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
   }
 
-  .steer-pipeline-step:not(:last-child)::after {
+  .motiva-pipeline-step:not(:last-child)::after {
     display: none;
   }
 
-  .steer-dashboard-rail {
+  .motiva-dashboard-rail {
     display: flex;
   }
 
-  .steer-panel {
+  .motiva-panel {
     padding: 14px;
   }
 
-  .steer-queue-item {
+  .motiva-queue-item {
     align-items: flex-start;
   }
 
-  .steer-queue-action {
+  .motiva-queue-action {
     align-self: center;
   }
 
-  .steer-studio {
+  .motiva-studio {
     padding: 14px;
   }
 }
@@ -1975,24 +1975,24 @@ pre {
   min-height: 100vh;
 }
 
-.steer-app-shell {
+.motiva-app-shell {
   background: var(--porcelain);
 }
 
-.steer-sidebar {
+.motiva-sidebar {
   width: 232px;
   border-right-color: var(--line);
   background: var(--surface);
   box-shadow: none;
 }
 
-.steer-sidebar-header {
+.motiva-sidebar-header {
   min-height: 76px;
   border-bottom-color: var(--line);
   background: var(--surface);
 }
 
-.steer-brand-mark {
+.motiva-brand-mark {
   width: 36px;
   height: 36px;
   border-radius: 12px;
@@ -2000,24 +2000,24 @@ pre {
   font-family: "Instrument Serif", Georgia, serif;
 }
 
-.steer-brand-name {
+.motiva-brand-name {
   font-size: 17px;
   letter-spacing: -0.055em;
 }
 
-.steer-brand-name small {
+.motiva-brand-name small {
   color: var(--muted);
   font-size: 9px;
   letter-spacing: 0.14em;
 }
 
-.steer-sidebar-tag {
+.motiva-sidebar-tag {
   border-color: var(--line);
   background: var(--surface-muted);
   color: var(--muted);
 }
 
-.steer-source-card {
+.motiva-source-card {
   gap: 11px;
   margin: 14px 12px 9px;
   border-color: var(--line);
@@ -2025,119 +2025,119 @@ pre {
   background: #f7f9f6;
 }
 
-.steer-source-card-top,
-.steer-source-meta,
-.steer-source-switch-row,
-.steer-nav-group-label,
-.steer-sync-row {
+.motiva-source-card-top,
+.motiva-source-meta,
+.motiva-source-switch-row,
+.motiva-nav-group-label,
+.motiva-sync-row {
   color: var(--muted);
 }
 
-.steer-source-title {
+.motiva-source-title {
   color: var(--ink);
   font-size: 14px;
   line-height: 1.4;
 }
 
-.steer-source-title:hover,
-.steer-nav-item-active,
-.steer-nav-item-active .steer-nav-item-icon {
+.motiva-source-title:hover,
+.motiva-nav-item-active,
+.motiva-nav-item-active .motiva-nav-item-icon {
   color: var(--forest);
 }
 
-.steer-source-select,
-.steer-command-search input,
-.steer-route-canvas input:not([type="checkbox"]):not([type="radio"]),
-.steer-route-canvas select,
-.steer-route-canvas textarea {
+.motiva-source-select,
+.motiva-command-search input,
+.motiva-route-canvas input:not([type="checkbox"]):not([type="radio"]),
+.motiva-route-canvas select,
+.motiva-route-canvas textarea {
   border-color: var(--line);
   border-radius: 10px;
   background-color: var(--surface);
   color: var(--ink);
 }
 
-.steer-sidebar-nav {
+.motiva-sidebar-nav {
   gap: 20px;
   padding-top: 15px;
 }
 
-.steer-nav-group-label {
+.motiva-nav-group-label {
   font-size: 9px;
   letter-spacing: 0.13em;
 }
 
-.steer-nav-item {
+.motiva-nav-item {
   min-height: 38px;
   border-radius: 10px;
   color: #56615a;
   transition: color 160ms ease, background 160ms ease, border-color 160ms ease, transform 160ms ease;
 }
 
-.steer-nav-item:hover {
+.motiva-nav-item:hover {
   background: #f1f5f1;
   color: var(--ink);
 }
 
-.steer-nav-item-active {
+.motiva-nav-item-active {
   border-color: #cfdbd0;
   background: #eaf1eb;
   color: var(--forest);
 }
 
-.steer-nav-item-label {
+.motiva-nav-item-label {
   font-size: 11px;
   font-weight: 600;
 }
 
-.steer-nav-badge {
+.motiva-nav-badge {
   background: #eef2ed;
   color: #56615a;
 }
 
-.steer-nav-badge-accent,
-.steer-nav-item-active .steer-nav-badge {
+.motiva-nav-badge-accent,
+.motiva-nav-item-active .motiva-nav-badge {
   background: var(--sage-soft);
   color: var(--forest);
 }
 
-.steer-sidebar-footer {
+.motiva-sidebar-footer {
   border-top-color: var(--line);
   background: var(--surface);
 }
 
-.steer-topbar {
+.motiva-topbar {
   min-height: 76px;
   border-bottom-color: var(--line);
   background: rgb(247 248 245 / 94%);
   box-shadow: 0 1px 0 rgb(36 72 60 / 3%);
 }
 
-.steer-topbar-crumb {
+.motiva-topbar-crumb {
   color: var(--muted);
   font-size: 10px;
 }
 
-.steer-topbar-crumb strong {
+.motiva-topbar-crumb strong {
   color: var(--forest);
   font-family: "Instrument Serif", Georgia, serif;
   font-size: 15px;
 }
 
-.steer-topbar-heading {
+.motiva-topbar-heading {
   color: var(--ink);
   font-size: 15px;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
-.steer-topbar-context {
+.motiva-topbar-context {
   color: var(--muted);
   font-size: 10px;
 }
 
-.steer-icon-button,
-.steer-search-trigger,
-.steer-action-button {
+.motiva-icon-button,
+.motiva-search-trigger,
+.motiva-action-button {
   border-color: var(--line);
   border-radius: 11px;
   background: var(--surface);
@@ -2145,101 +2145,101 @@ pre {
   transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, color 160ms ease;
 }
 
-.steer-icon-button:hover,
-.steer-search-trigger:hover,
-.steer-action-button:hover {
+.motiva-icon-button:hover,
+.motiva-search-trigger:hover,
+.motiva-action-button:hover {
   border-color: #bdcbbf;
   background: #f6f9f6;
   color: var(--forest);
 }
 
-.steer-search-trigger {
+.motiva-search-trigger {
   height: 38px;
   background: rgb(255 255 255 / 86%);
 }
 
-.steer-search-trigger kbd {
+.motiva-search-trigger kbd {
   border-color: var(--line);
   background: var(--surface-muted);
   color: var(--muted);
 }
 
-.steer-action-button-primary,
-.steer-action-button-primary:hover {
+.motiva-action-button-primary,
+.motiva-action-button-primary:hover {
   border-color: var(--forest);
   background: var(--forest);
   color: #fff;
 }
 
-.steer-status-pill {
+.motiva-status-pill {
   border-color: var(--line);
   background: var(--surface);
   color: #56615a;
 }
 
-.steer-command-overlay {
+.motiva-command-overlay {
   background: rgb(25 39 31 / 30%);
 }
 
-.steer-command-dialog,
-.steer-profile-menu {
+.motiva-command-dialog,
+.motiva-profile-menu {
   border-color: var(--line);
   border-radius: 18px;
   box-shadow: 0 24px 72px rgb(25 39 31 / 16%);
 }
 
-.steer-command-item:hover,
-.steer-command-item:focus-visible {
+.motiva-command-item:hover,
+.motiva-command-item:focus-visible {
   border-color: #cfdbd0;
   background: #f1f5f1;
   color: var(--forest);
 }
 
-.steer-route-canvas {
+.motiva-route-canvas {
   background: var(--porcelain);
   color: var(--ink);
   scroll-padding-top: 88px;
 }
 
-.steer-route-canvas button:not(:disabled) {
+.motiva-route-canvas button:not(:disabled) {
   transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
 }
 
-.steer-route-canvas button:not(:disabled):active {
+.motiva-route-canvas button:not(:disabled):active {
   transform: translateY(1px) scale(0.985);
 }
 
-.steer-route-canvas button:disabled {
+.motiva-route-canvas button:disabled {
   cursor: not-allowed;
   opacity: 0.56;
 }
 
-.steer-route-canvas input,
-.steer-route-canvas select,
-.steer-route-canvas textarea {
+.motiva-route-canvas input,
+.motiva-route-canvas select,
+.motiva-route-canvas textarea {
   min-height: 38px;
   padding-inline: 11px;
 }
 
-.steer-route-canvas textarea {
+.motiva-route-canvas textarea {
   padding-block: 10px;
   line-height: 1.55;
 }
 
-.steer-route-canvas input::placeholder,
-.steer-route-canvas textarea::placeholder {
+.motiva-route-canvas input::placeholder,
+.motiva-route-canvas textarea::placeholder {
   color: var(--muted-soft);
   opacity: 1;
 }
 
-.steer-route-canvas table {
+.motiva-route-canvas table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
   color: var(--ink);
 }
 
-.steer-route-canvas th {
+.motiva-route-canvas th {
   background: #f2f5f1;
   color: #626d65;
   font-size: 10px;
@@ -2248,128 +2248,128 @@ pre {
   text-transform: uppercase;
 }
 
-.steer-route-canvas td,
-.steer-route-canvas th {
+.motiva-route-canvas td,
+.motiva-route-canvas th {
   border-bottom: 1px solid var(--line);
   padding: 11px 12px;
   text-align: left;
   vertical-align: top;
 }
 
-.steer-page-root {
+.motiva-page-root {
   width: min(1480px, 100%);
   gap: 22px;
   padding: clamp(20px, 2.5vw, 38px);
 }
 
-.steer-page-root h1,
-.steer-page-root h2,
-.steer-page-root h3,
-.steer-page-root h4 {
+.motiva-page-root h1,
+.motiva-page-root h2,
+.motiva-page-root h3,
+.motiva-page-root h4 {
   color: var(--ink);
   font-family: "DM Sans", system-ui, sans-serif;
   letter-spacing: -0.035em;
 }
 
-.steer-page-root p {
+.motiva-page-root p {
   line-height: 1.65;
 }
 
-.steer-page-root > div[class*="bg-[#FFFDF9]"],
-.steer-page-root > section[class*="bg-[#FFFDF9]"],
-.steer-page-root [class*="steer-editor-panel"] {
+.motiva-page-root > div[class*="bg-[#FFFDF9]"],
+.motiva-page-root > section[class*="bg-[#FFFDF9]"],
+.motiva-page-root [class*="motiva-editor-panel"] {
   border-color: var(--line);
   border-radius: 16px;
   box-shadow: 0 1px 2px rgb(37 46 41 / 3%);
 }
 
-.steer-intake-page > section:first-child h2,
-.steer-media-page > div:first-child h2,
-.steer-submission-page > div:first-child h1 {
+.motiva-intake-page > section:first-child h2,
+.motiva-media-page > div:first-child h2,
+.motiva-submission-page > div:first-child h1 {
   font-family: "Instrument Serif", Georgia, serif;
   font-weight: 400;
   letter-spacing: -0.025em;
 }
 
-.steer-intake-study-card {
+.motiva-intake-study-card {
   min-height: 210px;
   border-radius: 14px !important;
   padding: 20px;
   box-shadow: 0 1px 2px rgb(37 46 41 / 3%);
 }
 
-.steer-intake-study-card:hover {
+.motiva-intake-study-card:hover {
   border-color: #aec2b2;
   box-shadow: 0 12px 28px rgb(36 72 60 / 8%);
 }
 
-.steer-intake-study-card[aria-pressed="true"] {
+.motiva-intake-study-card[aria-pressed="true"] {
   border-color: var(--forest) !important;
   box-shadow: 0 0 0 2px rgb(36 72 60 / 9%);
 }
 
-.steer-review-page > div:first-child,
-.steer-investigation-page > div:first-child,
-.steer-validation-page > div:first-child,
-.steer-audit-page > div:first-child,
-.steer-media-page > div:first-child {
+.motiva-review-page > div:first-child,
+.motiva-investigation-page > div:first-child,
+.motiva-validation-page > div:first-child,
+.motiva-audit-page > div:first-child,
+.motiva-media-page > div:first-child {
   border-color: var(--line);
   border-radius: 16px;
   background: var(--surface);
   box-shadow: none;
 }
 
-.steer-review-page,
-.steer-investigation-page,
-.steer-validation-page,
-.steer-audit-page,
-.steer-media-page,
-.steer-submission-page,
-.steer-intake-page {
+.motiva-review-page,
+.motiva-investigation-page,
+.motiva-validation-page,
+.motiva-audit-page,
+.motiva-media-page,
+.motiva-submission-page,
+.motiva-intake-page {
   max-width: 1480px;
 }
 
-.steer-submission-page > div:first-child {
+.motiva-submission-page > div:first-child {
   border: 0;
   border-radius: 18px;
   background: var(--forest) !important;
   box-shadow: none;
 }
 
-.steer-studio-header,
-.steer-studies-panel,
-.steer-carousel-toolbar,
-.steer-editor-panel {
+.motiva-studio-header,
+.motiva-studies-panel,
+.motiva-carousel-toolbar,
+.motiva-editor-panel {
   border-color: var(--line);
   border-radius: 16px;
   box-shadow: 0 1px 2px rgb(37 46 41 / 3%);
 }
 
-.steer-studio-tabs {
+.motiva-studio-tabs {
   border-color: var(--line);
   border-radius: 14px;
   background: var(--surface);
 }
 
-.steer-studio-tabs > div:first-child button[class*="border-[#C04E2A]"] {
+.motiva-studio-tabs > div:first-child button[class*="border-[#C04E2A]"] {
   background: var(--sage-soft) !important;
   color: var(--forest) !important;
 }
 
-.steer-study-card {
+.motiva-study-card {
   border-radius: 14px !important;
 }
 
-.steer-study-card:hover {
+.motiva-study-card:hover {
   box-shadow: 0 10px 26px rgb(36 72 60 / 8%);
 }
 
-.steer-dashboard {
+.motiva-dashboard {
   gap: 22px;
   padding: clamp(22px, 2.8vw, 42px);
 }
 
-.steer-dashboard-heading {
+.motiva-dashboard-heading {
   align-items: center;
   border: 0;
   border-bottom: 1px solid var(--line);
@@ -2379,13 +2379,13 @@ pre {
   background-image: none;
 }
 
-.steer-dashboard-eyebrow {
+.motiva-dashboard-eyebrow {
   color: var(--forest);
   font-size: 10px;
   letter-spacing: 0.14em;
 }
 
-.steer-dashboard-heading h2 {
+.motiva-dashboard-heading h2 {
   max-width: 760px;
   margin: 12px 0 8px;
   font-family: "Instrument Serif", Georgia, serif;
@@ -2395,18 +2395,18 @@ pre {
   line-height: 1.02;
 }
 
-.steer-dashboard-heading p {
+.motiva-dashboard-heading p {
   max-width: 600px;
   color: #667169;
   font-size: 13px;
   line-height: 1.65;
 }
 
-.steer-dashboard-actions {
+.motiva-dashboard-actions {
   gap: 9px;
 }
 
-.steer-dashboard-button {
+.motiva-dashboard-button {
   min-height: 42px;
   border-color: var(--line);
   border-radius: 11px;
@@ -2416,19 +2416,19 @@ pre {
   font-size: 11px;
 }
 
-.steer-dashboard-button:hover {
+.motiva-dashboard-button:hover {
   border-color: #b8c8bb;
   background: #f4f8f4;
 }
 
-.steer-dashboard-button-primary,
-.steer-dashboard-button-primary:hover {
+.motiva-dashboard-button-primary,
+.motiva-dashboard-button-primary:hover {
   border-color: var(--forest);
   background: var(--forest);
   color: #fff;
 }
 
-.steer-active-study {
+.motiva-active-study {
   align-items: center;
   border: 1px solid var(--line);
   border-left: 3px solid var(--forest);
@@ -2438,13 +2438,13 @@ pre {
   box-shadow: 0 2px 8px rgb(37 46 41 / 3%);
 }
 
-.steer-active-study-label {
+.motiva-active-study-label {
   color: #667169;
   font-size: 9px;
   letter-spacing: 0.14em;
 }
 
-.steer-active-study-title {
+.motiva-active-study-title {
   display: -webkit-box;
   overflow: hidden;
   font-family: "Instrument Serif", Georgia, serif;
@@ -2457,16 +2457,16 @@ pre {
   -webkit-line-clamp: 2;
 }
 
-.steer-active-study-meta {
+.motiva-active-study-meta {
   color: var(--muted);
   font-size: 11px;
 }
 
-.steer-dashboard-kpis {
+.motiva-dashboard-kpis {
   gap: 12px;
 }
 
-.steer-metric-card {
+.motiva-metric-card {
   min-height: 132px;
   border-color: var(--line);
   border-radius: 15px;
@@ -2476,23 +2476,23 @@ pre {
   transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
 }
 
-.steer-metric-card:hover {
+.motiva-metric-card:hover {
   transform: translateY(-2px);
   border-color: #c5d2c7;
   box-shadow: 0 12px 28px rgb(36 72 60 / 7%);
 }
 
-.steer-metric-card[data-prominent="true"] {
+.motiva-metric-card[data-prominent="true"] {
   border-color: #c4d6c7;
   background: #edf3ee;
 }
 
-.steer-metric-top {
+.motiva-metric-top {
   color: #68736b;
   font-size: 11px;
 }
 
-.steer-metric-icon {
+.motiva-metric-icon {
   width: 34px;
   height: 34px;
   border-radius: 11px;
@@ -2500,22 +2500,22 @@ pre {
   color: var(--forest);
 }
 
-.steer-metric-icon[data-tone="sage"] {
+.motiva-metric-icon[data-tone="sage"] {
   background: #dce8df;
   color: var(--forest);
 }
 
-.steer-metric-icon[data-tone="rust"] {
+.motiva-metric-icon[data-tone="rust"] {
   background: #f6e9e2;
   color: #925d45;
 }
 
-.steer-metric-icon[data-tone="forest"] {
+.motiva-metric-icon[data-tone="forest"] {
   background: #e6eee7;
   color: var(--forest);
 }
 
-.steer-metric-value {
+.motiva-metric-value {
   color: var(--ink);
   font-family: "DM Sans", system-ui, sans-serif;
   font-size: 34px;
@@ -2524,24 +2524,24 @@ pre {
   letter-spacing: -0.055em;
 }
 
-.steer-metric-note {
+.motiva-metric-note {
   margin-top: 6px;
   color: #6f7971;
   font-size: 10px;
   line-height: 1.45;
 }
 
-.steer-dashboard-grid {
+.motiva-dashboard-grid {
   grid-template-columns: minmax(0, 1.45fr) minmax(278px, 0.8fr);
   gap: 20px;
 }
 
-.steer-dashboard-column,
-.steer-dashboard-rail {
+.motiva-dashboard-column,
+.motiva-dashboard-rail {
   gap: 18px;
 }
 
-.steer-panel {
+.motiva-panel {
   border-color: var(--line);
   border-radius: 16px;
   padding: 19px;
@@ -2549,36 +2549,36 @@ pre {
   box-shadow: 0 1px 2px rgb(37 46 41 / 3%);
 }
 
-.steer-panel-heading {
+.motiva-panel-heading {
   margin-bottom: 17px;
 }
 
-.steer-panel-heading h3 {
+.motiva-panel-heading h3 {
   font-size: 16px;
   font-weight: 700;
   letter-spacing: -0.03em;
 }
 
-.steer-panel-heading p {
+.motiva-panel-heading p {
   color: var(--muted);
   font-size: 11px;
 }
 
-.steer-inline-link {
+.motiva-inline-link {
   color: var(--forest);
   font-size: 10px;
 }
 
-.steer-inline-link:hover {
+.motiva-inline-link:hover {
   color: #41644f;
 }
 
-.steer-pipeline-steps {
+.motiva-pipeline-steps {
   gap: 8px;
   margin: 3px 0 20px;
 }
 
-.steer-pipeline-step {
+.motiva-pipeline-step {
   min-height: 95px;
   border: 0;
   border-radius: 12px;
@@ -2589,30 +2589,30 @@ pre {
   text-align: left;
 }
 
-.steer-pipeline-step:hover .steer-pipeline-dot,
-.steer-pipeline-step:focus-visible .steer-pipeline-dot {
+.motiva-pipeline-step:hover .motiva-pipeline-dot,
+.motiva-pipeline-step:focus-visible .motiva-pipeline-dot {
   border-color: #9db6a2;
   box-shadow: 0 0 0 4px rgb(36 72 60 / 8%);
 }
 
-.steer-pipeline-step[data-current="true"] .steer-pipeline-dot {
+.motiva-pipeline-step[data-current="true"] .motiva-pipeline-dot {
   border-color: var(--forest);
   background: var(--forest);
   color: #fff;
   box-shadow: 0 0 0 4px rgb(36 72 60 / 10%);
 }
 
-.steer-pipeline-step[data-complete="true"]:not([data-current="true"]) .steer-pipeline-dot {
+.motiva-pipeline-step[data-complete="true"]:not([data-current="true"]) .motiva-pipeline-dot {
   border-color: #c8d9cb;
   background: var(--sage-soft);
   color: var(--forest);
 }
 
-.steer-pipeline-step[data-complete="true"]::after {
+.motiva-pipeline-step[data-complete="true"]::after {
   background: #8ea895;
 }
 
-.steer-pipeline-dot {
+.motiva-pipeline-dot {
   width: 32px;
   height: 32px;
   border-color: #d8e1d9;
@@ -2621,7 +2621,7 @@ pre {
   transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease, color 180ms ease;
 }
 
-.steer-pipeline-step strong {
+.motiva-pipeline-step strong {
   overflow: visible;
   color: var(--ink);
   font-size: 10px;
@@ -2630,7 +2630,7 @@ pre {
   white-space: normal;
 }
 
-.steer-pipeline-step small {
+.motiva-pipeline-step small {
   color: #6f7971;
   font-size: 9px;
   line-height: 1.4;
@@ -2638,108 +2638,108 @@ pre {
   white-space: normal;
 }
 
-.steer-claim-breakdown {
+.motiva-claim-breakdown {
   gap: 12px;
   border-top-color: var(--line);
 }
 
-.steer-status-track {
+.motiva-status-track {
   height: 7px;
   background: #edf1ed;
 }
 
-.steer-status-fill,
-.steer-status-fill[data-tone="sage"] {
+.motiva-status-fill,
+.motiva-status-fill[data-tone="sage"] {
   background: var(--forest);
 }
 
-.steer-status-fill[data-tone="rust"] {
+.motiva-status-fill[data-tone="rust"] {
   background: var(--clay);
 }
 
-.steer-queue-filters {
+.motiva-queue-filters {
   border-color: var(--line);
   border-radius: 10px;
   background: #f4f7f3;
 }
 
-.steer-queue-filter {
+.motiva-queue-filter {
   min-height: 31px;
   border-radius: 7px;
   color: #667169;
   font-size: 9px;
 }
 
-.steer-queue-filter[aria-pressed="true"] {
+.motiva-queue-filter[aria-pressed="true"] {
   background: var(--surface);
   color: var(--forest);
   box-shadow: 0 1px 2px rgb(37 46 41 / 7%);
 }
 
-.steer-queue-list {
+.motiva-queue-list {
   gap: 8px;
 }
 
-.steer-queue-item {
+.motiva-queue-item {
   border-color: var(--line);
   border-radius: 13px;
   padding: 13px 14px;
   background: #fff;
 }
 
-.steer-queue-item:hover {
+.motiva-queue-item:hover {
   border-color: #bfd0c2;
   background: #fbfdfb;
 }
 
-.steer-queue-claim {
+.motiva-queue-claim {
   font-family: "Instrument Serif", Georgia, serif;
   font-size: 13px;
   line-height: 1.45;
 }
 
-.steer-queue-action {
+.motiva-queue-action {
   border-radius: 9px;
   background: #edf3ee;
   color: var(--forest);
 }
 
-.steer-queue-action:hover {
+.motiva-queue-action:hover {
   background: #dce8df;
 }
 
-.steer-status-badge[data-tone="sage"],
-.steer-status-badge[data-tone="forest"] {
+.motiva-status-badge[data-tone="sage"],
+.motiva-status-badge[data-tone="forest"] {
   background: #e6eee7;
   color: var(--forest);
 }
 
-.steer-status-badge[data-tone="rust"] {
+.motiva-status-badge[data-tone="rust"] {
   background: #f6e9e2;
   color: #925d45;
 }
 
-.steer-next-steps {
+.motiva-next-steps {
   gap: 5px;
 }
 
-.steer-next-step {
+.motiva-next-step {
   min-height: 58px;
   border-radius: 12px;
   padding: 10px;
 }
 
-.steer-next-step:hover {
+.motiva-next-step:hover {
   border-color: #d5e0d6;
   background: #f6f9f6;
 }
 
-.steer-next-step[data-recommended="true"] {
+.motiva-next-step[data-recommended="true"] {
   border-color: #cfddcf;
   background: #edf3ee;
 }
 
-.steer-next-step-icon {
+.motiva-next-step-icon {
   width: 36px;
   height: 36px;
   border-radius: 11px;
@@ -2747,57 +2747,57 @@ pre {
   color: var(--forest);
 }
 
-.steer-next-step-copy strong {
+.motiva-next-step-copy strong {
   font-size: 11px;
 }
 
-.steer-next-step-copy small {
+.motiva-next-step-copy small {
   color: #6f7971;
   font-size: 10px;
 }
 
-.steer-library-item {
+.motiva-library-item {
   border-radius: 11px;
 }
 
-.steer-library-item[data-active="true"] {
+.motiva-library-item[data-active="true"] {
   border-color: #d3dfd4;
   background: #f0f5f0;
 }
 
-.steer-library-item-icon {
+.motiva-library-item-icon {
   background: #f0f4ef;
   color: #617368;
 }
 
-.steer-library-item[data-active="true"] .steer-library-item-icon {
+.motiva-library-item[data-active="true"] .motiva-library-item-icon {
   background: #dce8df;
   color: var(--forest);
 }
 
-.steer-empty-state {
+.motiva-empty-state {
   border-color: var(--line);
   border-radius: 18px;
   background: var(--surface);
   box-shadow: 0 4px 18px rgb(37 46 41 / 4%);
 }
 
-.steer-empty-state h2 {
+.motiva-empty-state h2 {
   font-family: "Instrument Serif", Georgia, serif;
   font-size: clamp(30px, 4vw, 42px);
   font-weight: 400;
 }
 
-.steer-empty-state p {
+.motiva-empty-state p {
   color: #667169;
   font-size: 13px;
 }
 
-.steer-route-canvas > * {
-  animation: steer-route-enter 240ms ease both;
+.motiva-route-canvas > * {
+  animation: motiva-route-enter 240ms ease both;
 }
 
-@keyframes steer-route-enter {
+@keyframes motiva-route-enter {
   from {
     opacity: 0;
     transform: translateY(5px);
@@ -2888,75 +2888,75 @@ pre {
 }
 
 @media (max-width: 1100px) {
-  .steer-dashboard-grid {
+  .motiva-dashboard-grid {
     grid-template-columns: minmax(0, 1.25fr) minmax(250px, 0.75fr);
   }
 }
 
 @media (max-width: 850px) {
-  .steer-dashboard-grid {
+  .motiva-dashboard-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .steer-dashboard-rail {
+  .motiva-dashboard-rail {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 767px) {
-  .steer-sidebar {
+  .motiva-sidebar {
     width: min(300px, calc(100vw - 34px));
   }
 
-  .steer-topbar {
+  .motiva-topbar {
     min-height: 64px;
   }
 
-  .steer-topbar-heading {
+  .motiva-topbar-heading {
     font-size: 14px;
   }
 
-  .steer-dashboard {
+  .motiva-dashboard {
     gap: 18px;
     padding: 22px 15px 30px;
   }
 
-  .steer-dashboard-heading {
+  .motiva-dashboard-heading {
     gap: 18px;
     padding: 4px 0 20px;
   }
 
-  .steer-dashboard-heading h2 {
+  .motiva-dashboard-heading h2 {
     font-size: clamp(32px, 9vw, 42px);
   }
 
-  .steer-dashboard-kpis {
+  .motiva-dashboard-kpis {
     gap: 9px;
   }
 
-  .steer-metric-card {
+  .motiva-metric-card {
     min-height: 116px;
     padding: 13px;
   }
 
-  .steer-metric-value {
+  .motiva-metric-value {
     font-size: 30px;
   }
 
-  .steer-dashboard-grid {
+  .motiva-dashboard-grid {
     gap: 16px;
   }
 
-  .steer-dashboard-rail {
+  .motiva-dashboard-rail {
     display: flex;
   }
 
-  .steer-panel {
+  .motiva-panel {
     padding: 16px;
   }
 
-  .steer-pipeline-steps {
+  .motiva-pipeline-steps {
     display: flex;
     gap: 14px;
     overflow-x: auto;
@@ -2964,25 +2964,25 @@ pre {
     scroll-snap-type: x proximity;
   }
 
-  .steer-pipeline-step {
+  .motiva-pipeline-step {
     min-width: 82px;
     min-height: 91px;
     flex: 0 0 82px;
     scroll-snap-align: start;
   }
 
-  .steer-pipeline-step:not(:last-child)::after {
+  .motiva-pipeline-step:not(:last-child)::after {
     display: block;
     right: -14px;
     left: 34px;
   }
 
-  .steer-page-root {
+  .motiva-page-root {
     gap: 18px;
     padding: 18px 14px 30px;
   }
 
-  .steer-intake-study-card {
+  .motiva-intake-study-card {
     min-height: 176px;
   }
 }
@@ -2998,28 +2998,28 @@ pre {
   }
 }
 
-.steer-source-page > div:first-child,
-.steer-investigation-page > div:first-child,
-.steer-review-page > div:first-child,
-.steer-validation-page > div:first-child,
-.steer-audit-page > div:first-child,
-.steer-media-page > div:first-child,
-.steer-calendar-page > div:first-child,
-.steer-report-page > div:first-child {
+.motiva-source-page > div:first-child,
+.motiva-investigation-page > div:first-child,
+.motiva-review-page > div:first-child,
+.motiva-validation-page > div:first-child,
+.motiva-audit-page > div:first-child,
+.motiva-media-page > div:first-child,
+.motiva-calendar-page > div:first-child,
+.motiva-report-page > div:first-child {
   border-left: 3px solid var(--forest);
   border-radius: 16px;
   box-shadow: 0 8px 24px rgb(37 46 41 / 4%);
 }
 
-.steer-intake-page > section:first-child h2,
-.steer-source-page > div:first-child h2,
-.steer-investigation-page > div:first-child h2,
-.steer-review-page > div:first-child h2,
-.steer-validation-page > div:first-child h2,
-.steer-audit-page > div:first-child h2,
-.steer-media-page > div:first-child h2,
-.steer-calendar-page > div:first-child h2,
-.steer-report-page > div:first-child h2 {
+.motiva-intake-page > section:first-child h2,
+.motiva-source-page > div:first-child h2,
+.motiva-investigation-page > div:first-child h2,
+.motiva-review-page > div:first-child h2,
+.motiva-validation-page > div:first-child h2,
+.motiva-audit-page > div:first-child h2,
+.motiva-media-page > div:first-child h2,
+.motiva-calendar-page > div:first-child h2,
+.motiva-report-page > div:first-child h2 {
   font-family: "Instrument Serif", Georgia, serif;
   font-size: clamp(21px, 2vw, 28px);
   font-weight: 400;
@@ -3027,51 +3027,51 @@ pre {
   line-height: 1.12;
 }
 
-.steer-intake-page > section:first-child h2 {
+.motiva-intake-page > section:first-child h2 {
   max-width: 760px;
 }
 
-.steer-intake-study-card h3 {
+.motiva-intake-study-card h3 {
   font-size: 15px;
   line-height: 1.4;
 }
 
-.steer-source-page > div:nth-child(2) > div {
+.motiva-source-page > div:nth-child(2) > div {
   border-color: var(--line);
   border-radius: 16px;
 }
 
-.steer-source-page > div:nth-child(2) > div:last-child {
+.motiva-source-page > div:nth-child(2) > div:last-child {
   box-shadow: 0 10px 28px rgb(37 46 41 / 5%);
 }
 
-.steer-investigation-page > div:first-child > div:last-child,
-.steer-review-page > div:first-child > div:last-child {
+.motiva-investigation-page > div:first-child > div:last-child,
+.motiva-review-page > div:first-child > div:last-child {
   justify-content: flex-end;
   gap: 8px;
 }
 
-.steer-review-page > div:first-child > div:last-child {
+.motiva-review-page > div:first-child > div:last-child {
   max-width: 700px;
 }
 
-.steer-radar-page > div:first-child,
-.steer-radar-page > div:nth-child(2) {
+.motiva-radar-page > div:first-child,
+.motiva-radar-page > div:nth-child(2) {
   border-radius: 18px;
 }
 
-.steer-radar-page > div:nth-child(2) [class*="grid"] > div {
+.motiva-radar-page > div:nth-child(2) [class*="grid"] > div {
   border-radius: 14px;
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
-.steer-radar-page > div:nth-child(2) [class*="grid"] > div:hover {
+.motiva-radar-page > div:nth-child(2) [class*="grid"] > div:hover {
   transform: translateY(-2px);
   border-color: #c5d2c7;
   box-shadow: 0 12px 26px rgb(36 72 60 / 7%);
 }
 
-.steer-media-page > div:nth-child(2) {
+.motiva-media-page > div:nth-child(2) {
   position: sticky;
   top: 0;
   z-index: 10;
@@ -3083,22 +3083,22 @@ pre {
   backdrop-filter: blur(14px);
 }
 
-.steer-media-page > div:nth-child(2) button {
+.motiva-media-page > div:nth-child(2) button {
   min-height: 40px;
   border-radius: 10px;
 }
 
-.steer-media-page > div:nth-child(3) {
+.motiva-media-page > div:nth-child(3) {
   border-radius: 18px;
 }
 
-.steer-calendar-metrics {
+.motiva-calendar-metrics {
   gap: 0 !important;
   border-block: 1px solid var(--line);
   background: var(--surface);
 }
 
-.steer-calendar-metrics > div {
+.motiva-calendar-metrics > div {
   border: 0 !important;
   border-right: 1px solid var(--line) !important;
   border-radius: 0 !important;
@@ -3106,52 +3106,52 @@ pre {
   box-shadow: none !important;
 }
 
-.steer-calendar-metrics > div:first-child {
+.motiva-calendar-metrics > div:first-child {
   border-left: 1px solid var(--line) !important;
 }
 
-.steer-calendar-entry {
+.motiva-calendar-entry {
   border-radius: 15px;
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
-.steer-calendar-entry:hover {
+.motiva-calendar-entry:hover {
   transform: translateY(-1px);
   border-color: #b8cbbd !important;
   box-shadow: 0 10px 26px rgb(36 72 60 / 7%);
 }
 
-.steer-calendar-day-index {
+.motiva-calendar-day-index {
   border-radius: 12px;
   background: var(--surface-muted) !important;
 }
 
-.steer-submission-page > div:nth-child(3) > div {
+.motiva-submission-page > div:nth-child(3) > div {
   border-color: var(--line);
   border-radius: 17px;
   box-shadow: 0 2px 8px rgb(37 46 41 / 3%);
   transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
 }
 
-.steer-submission-page > div:nth-child(3) > div:hover {
+.motiva-submission-page > div:nth-child(3) > div:hover {
   transform: translateY(-2px);
   border-color: #c5d2c7;
   box-shadow: 0 14px 30px rgb(36 72 60 / 8%);
 }
 
-.steer-submission-page > div:nth-child(3) > div h3 {
+.motiva-submission-page > div:nth-child(3) > div h3 {
   font-family: "Instrument Serif", Georgia, serif;
   font-size: 20px;
   font-weight: 400;
   line-height: 1.2;
 }
 
-.steer-report-page > div:nth-child(2) {
+.motiva-report-page > div:nth-child(2) {
   border-radius: 18px;
   box-shadow: 0 8px 28px rgb(37 46 41 / 4%);
 }
 
-.steer-report-page > div:nth-child(2) > div:first-child h1 {
+.motiva-report-page > div:nth-child(2) > div:first-child h1 {
   font-family: "Instrument Serif", Georgia, serif;
   font-size: clamp(27px, 3vw, 40px);
   font-weight: 400;
@@ -3159,15 +3159,15 @@ pre {
   line-height: 1.08;
 }
 
-.steer-audit-page table tbody tr {
+.motiva-audit-page table tbody tr {
   transition: background-color 160ms ease;
 }
 
-.steer-audit-page table tbody tr:hover {
+.motiva-audit-page table tbody tr:hover {
   background: #f4f7f3;
 }
 
-.steer-provenance-page {
+.motiva-provenance-page {
   height: calc(100vh - 76px);
   height: calc(100dvh - 76px);
   min-height: 520px;
@@ -3175,33 +3175,33 @@ pre {
   color: var(--ink);
 }
 
-.steer-provenance-page > div:first-child {
+.motiva-provenance-page > div:first-child {
   border-color: var(--line) !important;
   background: var(--porcelain) !important;
 }
 
-.steer-provenance-page > div:last-child {
+.motiva-provenance-page > div:last-child {
   border-color: var(--line) !important;
   background: var(--surface) !important;
 }
 
 @media (max-width: 1023px) {
-  .steer-source-page > div:nth-child(2) > div:last-child {
+  .motiva-source-page > div:nth-child(2) > div:last-child {
     position: static;
   }
 
-  .steer-provenance-page {
+  .motiva-provenance-page {
     height: auto;
     min-height: calc(100dvh - 64px);
     overflow: visible !important;
   }
 
-  .steer-provenance-page > div:first-child {
+  .motiva-provenance-page > div:first-child {
     min-height: 56vh;
     flex: 0 0 56vh;
   }
 
-  .steer-provenance-page > div:last-child {
+  .motiva-provenance-page > div:last-child {
     max-height: 42vh;
     flex: 0 0 auto;
     overflow-y: auto;
@@ -3209,62 +3209,387 @@ pre {
 }
 
 @media (max-width: 640px) {
-  .steer-page-root {
+  .motiva-page-root {
     gap: 16px;
     padding: 18px 14px 28px;
   }
 
-  .steer-calendar-metrics > div {
+  .motiva-calendar-metrics > div {
     padding: 13px 11px;
   }
 
-  .steer-calendar-metrics > div:nth-child(even) {
+  .motiva-calendar-metrics > div:nth-child(even) {
     border-right: 0 !important;
   }
 
-  .steer-calendar-metrics > div:nth-child(n + 3) {
+  .motiva-calendar-metrics > div:nth-child(n + 3) {
     border-top: 1px solid var(--line) !important;
   }
 
-  .steer-review-page > div:first-child > div:last-child {
+  .motiva-review-page > div:first-child > div:last-child {
     max-width: none;
     justify-content: flex-start;
   }
 }
 
 @media (max-width: 767px) {
-  .steer-topbar-left {
+  .motiva-topbar-left {
     flex: 1 1 auto;
     max-width: none;
   }
 
-  .steer-topbar-title-wrap {
+  .motiva-topbar-title-wrap {
     flex: 1 1 auto;
     gap: 2px;
   }
 
-  .steer-topbar-crumb {
+  .motiva-topbar-crumb {
     display: none;
   }
 
-  .steer-topbar-heading {
+  .motiva-topbar-heading {
     max-width: 100%;
     font-size: 14px;
   }
 
-  .steer-active-study-title {
+  .motiva-active-study-title {
     display: block;
     overflow: visible;
     white-space: normal;
   }
 
-  .steer-topbar-right {
+  .motiva-topbar-right {
     gap: 6px;
   }
 
-  .steer-topbar-right .steer-action-button-primary,
-  .steer-profile-trigger {
+  .motiva-topbar-right .motiva-action-button-primary,
+  .motiva-profile-trigger {
     width: 36px;
     padding-inline: 0;
+  }
+}
+
+.motiva-sidebar {
+  width: 256px;
+}
+
+.motiva-sidebar-header {
+  min-height: 80px;
+  padding-inline: 20px;
+}
+
+.motiva-brand-name {
+  font-size: 18px;
+}
+
+.motiva-brand-name small,
+.motiva-sidebar-tag {
+  font-size: 10px;
+}
+
+.motiva-source-card {
+  gap: 11px;
+  margin: 16px 14px 10px;
+  padding: 15px;
+}
+
+.motiva-source-card-top,
+.motiva-source-meta,
+.motiva-source-switch-row {
+  font-size: 12px;
+}
+
+.motiva-source-title {
+  font-size: 15px;
+}
+
+.motiva-source-select {
+  font-size: 12px;
+}
+
+.motiva-sidebar-nav {
+  gap: 20px;
+  padding: 16px 12px 20px;
+}
+
+.motiva-nav-group-label {
+  font-size: 11px;
+}
+
+.motiva-nav-item {
+  min-height: 40px;
+  padding: 9px 10px;
+}
+
+.motiva-nav-item-label {
+  font-size: 13px;
+}
+
+.motiva-nav-badge {
+  font-size: 11px;
+}
+
+.motiva-topbar {
+  min-height: 78px;
+}
+
+.motiva-topbar-crumb {
+  font-size: 12px;
+}
+
+.motiva-topbar-heading {
+  font-size: 16px;
+}
+
+.motiva-topbar-context,
+.motiva-search-trigger-label,
+.motiva-action-button {
+  font-size: 13px;
+}
+
+.motiva-search-trigger,
+.motiva-action-button {
+  min-height: 40px;
+}
+
+.motiva-status-pill {
+  font-size: 10px;
+}
+
+.motiva-dashboard {
+  gap: 24px;
+}
+
+.motiva-dashboard-heading {
+  gap: 28px;
+  padding: clamp(24px, 3vw, 36px);
+}
+
+.motiva-dashboard-eyebrow {
+  font-size: 10px;
+}
+
+.motiva-dashboard-heading p {
+  max-width: 640px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.motiva-dashboard-button {
+  min-height: 44px;
+  padding-inline: 15px;
+  font-size: 12px;
+}
+
+.motiva-active-study {
+  gap: 22px;
+  padding: 19px 20px;
+}
+
+.motiva-active-study-label {
+  font-size: 10px;
+}
+
+.motiva-active-study-title {
+  font-size: 18px;
+}
+
+.motiva-active-study-meta,
+.motiva-metric-top {
+  font-size: 13px;
+}
+
+.motiva-dashboard-kpis {
+  gap: 14px;
+}
+
+.motiva-metric-card {
+  min-height: 120px;
+  padding: 17px;
+}
+
+.motiva-metric-value {
+  font-size: 32px;
+}
+
+.motiva-metric-note {
+  font-size: 12px;
+}
+
+.motiva-dashboard-grid,
+.motiva-dashboard-column,
+.motiva-dashboard-rail {
+  gap: 18px;
+}
+
+.motiva-panel {
+  padding: 20px;
+}
+
+.motiva-panel-heading h3 {
+  font-size: 19px;
+}
+
+.motiva-panel-heading p {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.motiva-inline-link {
+  font-size: 13px;
+}
+
+.motiva-empty-state {
+  min-height: min(680px, calc(100dvh - 150px));
+  gap: 20px;
+  padding: clamp(30px, 5vw, 56px) 24px;
+}
+
+.motiva-empty-state h2 {
+  max-width: 760px;
+  font-size: clamp(32px, 4.5vw, 46px);
+  line-height: 1.08;
+}
+
+.motiva-empty-state > p {
+  max-width: 680px;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.motiva-value-card {
+  width: min(900px, 100%);
+  margin-top: 10px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: clamp(18px, 2.2vw, 26px);
+  background: var(--surface);
+  text-align: left;
+}
+
+.motiva-value-card-heading h3 {
+  margin: 6px 0 18px;
+  color: var(--ink);
+  font-size: 20px;
+  letter-spacing: -0.025em;
+}
+
+.motiva-value-kicker {
+  color: var(--sage);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.motiva-value-flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: value-step;
+}
+
+.motiva-value-flow li {
+  display: flex;
+  min-height: 100px;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+  background: var(--surface-muted);
+  counter-increment: value-step;
+}
+
+.motiva-value-flow li::before {
+  color: var(--rust);
+  content: "0" counter(value-step);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+}
+
+.motiva-value-flow strong {
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.motiva-value-flow span {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.motiva-value-note {
+  margin: 16px 0 0;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .motiva-value-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .motiva-sidebar {
+    width: min(300px, calc(100vw - 44px));
+  }
+
+  .motiva-dashboard {
+    gap: 18px;
+    padding: 16px 14px 28px;
+  }
+
+  .motiva-dashboard-heading {
+    align-items: flex-start;
+    gap: 18px;
+    padding: 22px 18px;
+  }
+
+  .motiva-dashboard-heading p,
+  .motiva-empty-state > p {
+    font-size: 14px;
+  }
+
+  .motiva-value-card {
+    padding: 18px;
+  }
+
+  .motiva-value-flow {
+    grid-template-columns: 1fr;
+  }
+
+  .motiva-value-flow li {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .motiva-sidebar {
+    transform: translateX(-100%);
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 200ms ease-out, visibility 0s linear 200ms;
+  }
+
+  .motiva-sidebar.motiva-sidebar-open {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition: transform 200ms ease-out;
+  }
+}
+
+@media (min-width: 768px) {
+  .motiva-sidebar {
+    transform: none;
+    visibility: visible;
+    pointer-events: auto;
   }
 }

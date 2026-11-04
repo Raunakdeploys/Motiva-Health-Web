@@ -55,16 +55,16 @@ const MetricCard: React.FC<MetricCardProps> = ({
   tone = 'forest',
   prominent = false,
 }) => (
-  <article className="steer-metric-card" data-tone={tone} data-prominent={prominent}>
-    <div className="steer-metric-top">
+  <article className="motiva-metric-card" data-tone={tone} data-prominent={prominent}>
+    <div className="motiva-metric-top">
       <span>{label}</span>
-      <span className="steer-metric-icon" data-tone={tone}>
+      <span className="motiva-metric-icon" data-tone={tone}>
         <Icon size={15} aria-hidden="true" />
       </span>
     </div>
     <div>
-      <div className="steer-metric-value">{value}</div>
-      <div className="steer-metric-note">{note}</div>
+      <div className="motiva-metric-value">{value}</div>
+      <div className="motiva-metric-note">{note}</div>
     </div>
   </article>
 );
@@ -139,54 +139,67 @@ export const Workspace: React.FC<WorkspaceProps> = ({
 
   if (papers.length === 0) {
     return (
-      <div className="steer-dashboard">
-        <section className="steer-empty-state" aria-labelledby="workspace-empty-title">
-          <div className="steer-empty-mark">
+      <div className="motiva-dashboard">
+        <section className="motiva-empty-state" aria-labelledby="workspace-empty-title">
+          <div className="motiva-empty-mark">
             <BookOpen size={28} aria-hidden="true" />
           </div>
-          <div className="steer-dashboard-eyebrow">Steer evidence workspace</div>
-          <h2 id="workspace-empty-title">Start with a source you trust.</h2>
+          <div className="motiva-dashboard-eyebrow">MOTIVA evidence workspace</div>
+          <h2 id="workspace-empty-title">Turn health research into responsible content.</h2>
           <p>
-            Bring in a clinical paper to trace its evidence, review claims, and shape them into
-            clear, responsible content.
+            MOTIVA turns clinical papers into source-linked claim drafts, checks them with transparent
+            rules, and keeps human approval in the loop before content generation.
           </p>
-          <div className="steer-dashboard-actions">
+          <div className="motiva-dashboard-actions">
             <button
               type="button"
-              className="steer-dashboard-button steer-dashboard-button-primary"
+              className="motiva-dashboard-button motiva-dashboard-button-primary"
               onClick={() => onNavigate('papers')}
             >
               <FileUp size={15} aria-hidden="true" />
               Upload a research paper
             </button>
-            <button type="button" className="steer-dashboard-button" onClick={onOpenDemo}>
+            <button type="button" className="motiva-dashboard-button" onClick={onOpenDemo}>
               <Sparkles size={15} aria-hidden="true" />
-              Explore the sample workspace
+              Load interactive sample
             </button>
           </div>
+          <section className="motiva-value-card" aria-labelledby="motiva-value-title">
+            <div className="motiva-value-card-heading">
+              <span className="motiva-value-kicker">The evidence trail is the product</span>
+              <h3 id="motiva-value-title">Not another paper summarizer</h3>
+            </div>
+            <ol className="motiva-value-flow">
+              <li><strong>Start with a study</strong><span>Upload a paper or choose a sample.</span></li>
+              <li><strong>Trace every claim</strong><span>Keep the supporting passage attached.</span></li>
+              <li><strong>Review like a human</strong><span>Rule checks surface issues; people decide.</span></li>
+              <li><strong>Create from approvals</strong><span>Only human-approved claims enter content.</span></li>
+            </ol>
+            <p className="motiva-value-note">AI can speed up a draft. It cannot approve one.</p>
+          </section>
         </section>
       </div>
     );
   }
 
   return (
-    <div className="steer-dashboard">
-      <section className="steer-dashboard-heading" aria-labelledby="workspace-title">
+    <div className="motiva-dashboard">
+      <section className="motiva-dashboard-heading" aria-labelledby="workspace-title">
         <div>
-          <div className="steer-dashboard-eyebrow">
-            <span className="steer-source-state" aria-hidden="true" />
+          <div className="motiva-dashboard-eyebrow">
+            <span className="motiva-source-state" aria-hidden="true" />
             Evidence workspace
           </div>
           <h2 id="workspace-title">One clear view from paper to publish.</h2>
           <p>
-            Follow the evidence, keep review moving, and turn approved research into content your
-            audience can trust.
+            Every claim stays linked to its source passage. MOTIVA runs rule checks, then waits for a
+            human approval before that claim can enter content generation.
           </p>
         </div>
-        <div className="steer-dashboard-actions">
+        <div className="motiva-dashboard-actions">
           <button
             type="button"
-            className="steer-dashboard-button"
+            className="motiva-dashboard-button"
             onClick={() => onNavigate('papers')}
           >
             <FileUp size={15} aria-hidden="true" />
@@ -194,7 +207,7 @@ export const Workspace: React.FC<WorkspaceProps> = ({
           </button>
           <button
             type="button"
-            className="steer-dashboard-button steer-dashboard-button-primary"
+            className="motiva-dashboard-button motiva-dashboard-button-primary"
             onClick={() => onNavigate(primaryAction.tab)}
           >
             {primaryAction.label}
@@ -204,27 +217,27 @@ export const Workspace: React.FC<WorkspaceProps> = ({
       </section>
 
       {activePaper && (
-        <section className="steer-active-study" aria-label="Active study">
-          <div className="steer-active-study-info">
-            <span className="steer-active-study-label">Currently working on</span>
-            <span className="steer-active-study-title" title={activePaper.title}>
+        <section className="motiva-active-study" aria-label="Active study">
+          <div className="motiva-active-study-info">
+            <span className="motiva-active-study-label">Currently working on</span>
+            <span className="motiva-active-study-title" title={activePaper.title}>
               {activePaper.title}
             </span>
-            <span className="steer-active-study-meta">
+            <span className="motiva-active-study-meta">
               <span>{activePaper.journal || 'Journal not specified'}</span>
               <span aria-hidden="true">·</span>
               <span>{activePaper.year}</span>
               <span aria-hidden="true">·</span>
               <span>{currentPassages.length} passages</span>
-              {activePaper.is_demo && <span className="steer-status-badge">Sample study</span>}
+              {activePaper.is_demo && <span className="motiva-status-badge">Sample study</span>}
             </span>
           </div>
-          <div className="steer-active-study-controls">
+          <div className="motiva-active-study-controls">
             {papers.length > 1 && (
               <label className="relative flex items-center">
                 <span className="sr-only">Switch active study</span>
                 <select
-                  className="steer-source-select appearance-none"
+                  className="motiva-source-select appearance-none"
                   value={activePaper.paper_id}
                   onChange={(event) => onSwitchPaper(event.target.value)}
                 >
@@ -239,7 +252,7 @@ export const Workspace: React.FC<WorkspaceProps> = ({
             )}
             <button
               type="button"
-              className="steer-dashboard-button"
+              className="motiva-dashboard-button"
               onClick={() => onNavigate('source')}
             >
               <FileText size={14} aria-hidden="true" />
@@ -249,7 +262,7 @@ export const Workspace: React.FC<WorkspaceProps> = ({
         </section>
       )}
 
-      <section className="steer-dashboard-kpis" aria-label="Active study metrics">
+      <section className="motiva-dashboard-kpis" aria-label="Active study metrics">
         <MetricCard
           icon={BookOpen}
           label="Research sources"
@@ -282,20 +295,20 @@ export const Workspace: React.FC<WorkspaceProps> = ({
         />
       </section>
 
-      <div className="steer-dashboard-grid">
-        <div className="steer-dashboard-column">
-          <section className="steer-panel" aria-labelledby="pipeline-heading">
-            <div className="steer-panel-heading">
+      <div className="motiva-dashboard-grid">
+        <div className="motiva-dashboard-column">
+          <section className="motiva-panel" aria-labelledby="pipeline-heading">
+            <div className="motiva-panel-heading">
               <div>
                 <h3 id="pipeline-heading">Evidence pipeline</h3>
                 <p>Every deliverable stays connected to its original research.</p>
               </div>
-              <button type="button" className="steer-inline-link" onClick={() => onNavigate('provenance')}>
+              <button type="button" className="motiva-inline-link" onClick={() => onNavigate('provenance')}>
                 View provenance <ArrowRight size={13} aria-hidden="true" />
               </button>
             </div>
 
-            <div className="steer-pipeline-steps" role="group" aria-label="Evidence workflow stages">
+            <div className="motiva-pipeline-steps" role="group" aria-label="Evidence workflow stages">
               {pipeline.map((step, index) => {
                 const Icon = step.icon;
                 const isCurrent = index === currentStepIndex;
@@ -303,7 +316,7 @@ export const Workspace: React.FC<WorkspaceProps> = ({
                 return (
                   <button
                     type="button"
-                    className="steer-pipeline-step"
+                    className="motiva-pipeline-step"
                     data-complete={step.complete}
                     data-current={isCurrent}
                     key={step.label}
@@ -311,7 +324,7 @@ export const Workspace: React.FC<WorkspaceProps> = ({
                     aria-current={isCurrent ? 'step' : undefined}
                     aria-label={`${step.label}: ${step.detail}. Open ${step.label.toLowerCase()} workspace.`}
                   >
-                    <span className="steer-pipeline-dot" aria-hidden="true">
+                    <span className="motiva-pipeline-dot" aria-hidden="true">
                       {step.complete ? <CheckCircle2 size={15} /> : <Icon size={14} />}
                     </span>
                     <strong>{step.label}</strong>
@@ -321,8 +334,8 @@ export const Workspace: React.FC<WorkspaceProps> = ({
               })}
             </div>
 
-            <div className="steer-claim-breakdown" aria-label="Claim review status">
-              <div className="steer-claim-breakdown-title">
+            <div className="motiva-claim-breakdown" aria-label="Claim review status">
+              <div className="motiva-claim-breakdown-title">
                 <span>Claim review status</span>
                 <span>{currentClaims.length} total</span>
               </div>
@@ -331,10 +344,10 @@ export const Workspace: React.FC<WorkspaceProps> = ({
                 { label: 'Needs review', count: pendingClaims.length, tone: 'forest' },
                 { label: 'Flagged or blocked', count: flaggedClaims.length + blockedClaims.length, tone: 'rust' },
               ].map((status) => (
-                <div className="steer-status-row" key={status.label}>
+                <div className="motiva-status-row" key={status.label}>
                   <span>{status.label}</span>
                   <div
-                    className="steer-status-track"
+                    className="motiva-status-track"
                     role="progressbar"
                     aria-label={`${status.label} claims`}
                     aria-valuemin={0}
@@ -342,27 +355,27 @@ export const Workspace: React.FC<WorkspaceProps> = ({
                     aria-valuenow={status.count}
                   >
                     <div
-                      className="steer-status-fill"
+                      className="motiva-status-fill"
                       data-tone={status.tone}
                       style={{ width: `${(status.count / totalClaimCount) * 100}%` }}
                     />
                   </div>
-                  <span className="steer-status-count">{status.count}</span>
+                  <span className="motiva-status-count">{status.count}</span>
                 </div>
               ))}
             </div>
           </section>
 
-          <section className="steer-panel" aria-labelledby="queue-heading">
-            <div className="steer-panel-heading">
+          <section className="motiva-panel" aria-labelledby="queue-heading">
+            <div className="motiva-panel-heading">
               <div>
                 <h3 id="queue-heading">Editorial work queue</h3>
                 <p>Focus on the claims that need a human decision next.</p>
               </div>
-              <div className="steer-queue-filters" role="group" aria-label="Filter claims">
+              <div className="motiva-queue-filters" role="group" aria-label="Filter claims">
                 <button
                   type="button"
-                  className="steer-queue-filter"
+                  className="motiva-queue-filter"
                   aria-pressed={filterState === 'ATTENTION'}
                   onClick={() => setFilterState('ATTENTION')}
                 >
@@ -370,7 +383,7 @@ export const Workspace: React.FC<WorkspaceProps> = ({
                 </button>
                 <button
                   type="button"
-                  className="steer-queue-filter"
+                  className="motiva-queue-filter"
                   aria-pressed={filterState === 'APPROVED'}
                   onClick={() => setFilterState('APPROVED')}
                 >
@@ -378,7 +391,7 @@ export const Workspace: React.FC<WorkspaceProps> = ({
                 </button>
                 <button
                   type="button"
-                  className="steer-queue-filter"
+                  className="motiva-queue-filter"
                   aria-pressed={filterState === 'ALL'}
                   onClick={() => setFilterState('ALL')}
                 >
@@ -388,7 +401,7 @@ export const Workspace: React.FC<WorkspaceProps> = ({
             </div>
 
             {displayedClaims.length === 0 ? (
-              <div className="steer-empty-inline">
+              <div className="motiva-empty-inline">
                 <CheckCircle2 size={18} aria-hidden="true" />
                 <span>
                   {filterState === 'ATTENTION'
@@ -397,22 +410,22 @@ export const Workspace: React.FC<WorkspaceProps> = ({
                 </span>
               </div>
             ) : (
-              <div className="steer-queue-list">
+              <div className="motiva-queue-list">
                 {displayedClaims.slice(0, 5).map((claim) => {
                   const status = getClaimStatus(claim);
 
                   return (
-                    <article className="steer-queue-item" key={claim.claim_id}>
-                      <div className="steer-queue-item-main">
-                        <div className="steer-queue-item-meta">
-                          <span className="steer-status-badge" data-tone={status.tone}>
+                    <article className="motiva-queue-item" key={claim.claim_id}>
+                      <div className="motiva-queue-item-main">
+                        <div className="motiva-queue-item-meta">
+                          <span className="motiva-status-badge" data-tone={status.tone}>
                             {status.label}
                           </span>
                           <span>{claim.study_design}</span>
                         </div>
                         <button
                           type="button"
-                          className="steer-queue-claim"
+                          className="motiva-queue-claim"
                           onClick={() => {
                             onSelectClaimForReview?.(claim);
                             onNavigate('desk');
@@ -423,7 +436,7 @@ export const Workspace: React.FC<WorkspaceProps> = ({
                       </div>
                       <button
                         type="button"
-                        className="steer-queue-action"
+                        className="motiva-queue-action"
                         onClick={() => {
                           onSelectClaimForReview?.(claim);
                           onNavigate('desk');
@@ -440,23 +453,23 @@ export const Workspace: React.FC<WorkspaceProps> = ({
           </section>
         </div>
 
-        <aside className="steer-dashboard-rail" aria-label="Workspace actions and library">
-          <section className="steer-panel">
-            <div className="steer-panel-heading">
+        <aside className="motiva-dashboard-rail" aria-label="Workspace actions and library">
+          <section className="motiva-panel">
+            <div className="motiva-panel-heading">
               <div>
                 <h3>Next in your workflow</h3>
                 <p>Useful actions based on this study.</p>
               </div>
             </div>
-            <div className="steer-next-steps">
+            <div className="motiva-next-steps">
               <button
                 type="button"
-                className="steer-next-step"
+                className="motiva-next-step"
                 data-recommended={primaryAction.tab === 'review'}
                 onClick={() => onNavigate('review')}
               >
-                <span className="steer-next-step-icon"><ShieldCheck size={15} aria-hidden="true" /></span>
-                <span className="steer-next-step-copy">
+                <span className="motiva-next-step-icon"><ShieldCheck size={15} aria-hidden="true" /></span>
+                <span className="motiva-next-step-copy">
                   <strong>Review claims</strong>
                   <small>{pendingClaims.length} waiting for approval</small>
                 </span>
@@ -464,28 +477,28 @@ export const Workspace: React.FC<WorkspaceProps> = ({
               </button>
               <button
                 type="button"
-                className="steer-next-step"
+                className="motiva-next-step"
                 data-recommended={primaryAction.tab === 'studio'}
                 onClick={() => onNavigate('studio')}
               >
-                <span className="steer-next-step-icon"><Sparkles size={15} aria-hidden="true" /></span>
-                <span className="steer-next-step-copy">
+                <span className="motiva-next-step-icon"><Sparkles size={15} aria-hidden="true" /></span>
+                <span className="motiva-next-step-copy">
                   <strong>Create content</strong>
                   <small>{approvedClaims.length} approved claims available</small>
                 </span>
                 <ArrowRight size={13} aria-hidden="true" />
               </button>
-              <button type="button" className="steer-next-step" onClick={() => onNavigate('schedule')}>
-                <span className="steer-next-step-icon"><Calendar size={15} aria-hidden="true" /></span>
-                <span className="steer-next-step-copy">
+              <button type="button" className="motiva-next-step" onClick={() => onNavigate('schedule')}>
+                <span className="motiva-next-step-icon"><Calendar size={15} aria-hidden="true" /></span>
+                <span className="motiva-next-step-copy">
                   <strong>Plan publishing</strong>
                   <small>Review the 7-day calendar</small>
                 </span>
                 <ArrowRight size={13} aria-hidden="true" />
               </button>
-              <button type="button" className="steer-next-step" onClick={() => onNavigate('radar')}>
-                <span className="steer-next-step-icon"><Radio size={15} aria-hidden="true" /></span>
-                <span className="steer-next-step-copy">
+              <button type="button" className="motiva-next-step" onClick={() => onNavigate('radar')}>
+                <span className="motiva-next-step-icon"><Radio size={15} aria-hidden="true" /></span>
+                <span className="motiva-next-step-copy">
                   <strong>Find a new angle</strong>
                   <small>Explore audience questions</small>
                 </span>
@@ -494,27 +507,27 @@ export const Workspace: React.FC<WorkspaceProps> = ({
             </div>
           </section>
 
-          <section className="steer-panel" aria-labelledby="library-heading">
-            <div className="steer-panel-heading">
+          <section className="motiva-panel" aria-labelledby="library-heading">
+            <div className="motiva-panel-heading">
               <div>
                 <h3 id="library-heading">Research library</h3>
                 <p>{papers.length} {papers.length === 1 ? 'study' : 'studies'} in this workspace</p>
               </div>
-              <button type="button" className="steer-inline-link" onClick={() => onNavigate('papers')}>
+              <button type="button" className="motiva-inline-link" onClick={() => onNavigate('papers')}>
                 Manage <ArrowRight size={13} aria-hidden="true" />
               </button>
             </div>
-            <div className="steer-library-list">
+            <div className="motiva-library-list">
               {papers.slice(0, 4).map((paper) => (
                 <button
                   type="button"
-                  className="steer-library-item"
+                  className="motiva-library-item"
                   data-active={paper.paper_id === activePaper?.paper_id}
                   key={paper.paper_id}
                   onClick={() => onSwitchPaper(paper.paper_id)}
                 >
-                  <span className="steer-library-item-icon"><BookOpen size={14} aria-hidden="true" /></span>
-                  <span className="steer-library-item-copy">
+                  <span className="motiva-library-item-icon"><BookOpen size={14} aria-hidden="true" /></span>
+                  <span className="motiva-library-item-copy">
                     <strong>{paper.title}</strong>
                     <small>{paper.year} · {paper.journal || 'Research paper'}</small>
                   </span>
@@ -523,14 +536,14 @@ export const Workspace: React.FC<WorkspaceProps> = ({
             </div>
           </section>
 
-          <section className="steer-panel">
-            <div className="steer-panel-heading">
+          <section className="motiva-panel">
+            <div className="motiva-panel-heading">
               <div>
                 <h3>Trust, built in</h3>
                 <p>Keep every published statement grounded in evidence.</p>
               </div>
             </div>
-            <button type="button" className="steer-inline-link" onClick={() => onNavigate('report')}>
+            <button type="button" className="motiva-inline-link" onClick={() => onNavigate('report')}>
               <ShieldCheck size={14} aria-hidden="true" />
               Open evidence report <ArrowRight size={13} aria-hidden="true" />
             </button>

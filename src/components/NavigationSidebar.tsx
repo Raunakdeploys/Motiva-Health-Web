@@ -136,55 +136,56 @@ export const NavigationSidebar: React.FC<NavigationSidebarProps> = ({
 
   return (
     <aside
-      className={`steer-sidebar fixed inset-y-0 left-0 z-40 flex h-screen flex-col transition-transform duration-200 ease-out md:translate-x-0 ${
-        isOpenMobile ? 'translate-x-0 shadow-2xl' : '-translate-x-full md:translate-x-0'
+      id="motiva-navigation"
+      className={`motiva-sidebar fixed inset-y-0 left-0 z-40 flex h-screen flex-col transition-transform duration-200 ease-out ${
+        isOpenMobile ? 'motiva-sidebar-open shadow-2xl' : ''
       }`}
-      aria-label="Steer workspace navigation"
+      aria-label="MOTIVA workspace navigation"
     >
-      <div className="steer-sidebar-header">
+      <div className="motiva-sidebar-header">
         <button
           type="button"
-          className="steer-brand-button"
+          className="motiva-brand-button"
           onClick={() => handleNavClick('workspace')}
-          aria-label="Steer overview"
+          aria-label="MOTIVA overview"
         >
-          <span className="steer-brand-mark" aria-hidden="true">s</span>
-          <span className="steer-brand-name">
-            steer
+          <span className="motiva-brand-mark" aria-hidden="true">M</span>
+          <span className="motiva-brand-name">
+            MOTIVA
             <small>evidence studio</small>
           </span>
         </button>
-        <span className="steer-sidebar-tag">Health</span>
+        <span className="motiva-sidebar-tag">Health</span>
       </div>
 
-      <div className="steer-source-card">
-        <div className="steer-source-card-top">
+      <div className="motiva-source-card">
+        <div className="motiva-source-card-top">
           <span>Active study</span>
-          {activePaper && <span className="steer-source-state">{activePaper.is_demo ? 'Sample' : 'Ready'}</span>}
+          {activePaper && <span className="motiva-source-state">{activePaper.is_demo ? 'Sample' : 'Ready'}</span>}
         </div>
         {activePaper ? (
           <>
             <button
               type="button"
-              className="steer-source-title"
+              className="motiva-source-title"
               onClick={() => handleNavClick('papers')}
               title={activePaper.title}
             >
               {activePaper.title}
             </button>
-            <div className="steer-source-meta">
+            <div className="motiva-source-meta">
               <span>{activePaper.year}</span>
               <span aria-hidden="true">·</span>
               <span className="truncate">{activePaper.journal || 'Journal not specified'}</span>
             </div>
             {papers.length > 1 && (
-              <div className="steer-source-switch-row">
+              <div className="motiva-source-switch-row">
                 <span>Switch study</span>
                 <select
                   aria-label="Switch active study"
                   value={activePaper.paper_id}
                   onChange={(event) => onSwitchPaper(event.target.value)}
-                  className="steer-source-select"
+                  className="motiva-source-select"
                 >
                   {papers.map((paper) => (
                     <option key={paper.paper_id} value={paper.paper_id}>
@@ -196,17 +197,17 @@ export const NavigationSidebar: React.FC<NavigationSidebarProps> = ({
             )}
           </>
         ) : (
-          <button type="button" className="steer-inline-link" onClick={() => handleNavClick('papers')}>
+          <button type="button" className="motiva-inline-link" onClick={() => handleNavClick('papers')}>
             <Plus size={14} aria-hidden="true" />
             Add your first paper
           </button>
         )}
       </div>
 
-      <nav className="steer-sidebar-nav" aria-label="Primary">
+      <nav className="motiva-sidebar-nav" aria-label="Primary">
         {groups.map((group) => (
-          <div className="steer-nav-group" key={group.label}>
-            <span className="steer-nav-group-label">{group.label}</span>
+          <div className="motiva-nav-group" key={group.label}>
+            <span className="motiva-nav-group-label">{group.label}</span>
             {group.items.map((item) => {
               const Icon = item.icon;
               const isActive = currentTab === item.id;
@@ -216,16 +217,16 @@ export const NavigationSidebar: React.FC<NavigationSidebarProps> = ({
                   type="button"
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`steer-nav-item${isActive ? ' steer-nav-item-active' : ''}`}
+                  className={`motiva-nav-item${isActive ? ' motiva-nav-item-active' : ''}`}
                   aria-current={isActive ? 'page' : undefined}
                 >
-                  <span className="steer-nav-item-main">
-                    <Icon className="steer-nav-item-icon" size={15} aria-hidden="true" />
-                    <span className="steer-nav-item-label">{item.label}</span>
+                  <span className="motiva-nav-item-main">
+                    <Icon className="motiva-nav-item-icon" size={15} aria-hidden="true" />
+                    <span className="motiva-nav-item-label">{item.label}</span>
                   </span>
                   {item.badge && (
                     <span
-                      className={`steer-nav-badge${item.badgeTone === 'sage' ? ' steer-nav-badge-accent' : ''}`}
+                      className={`motiva-nav-badge${item.badgeTone === 'sage' ? ' motiva-nav-badge-accent' : ''}`}
                     >
                       {item.badge}
                     </span>
@@ -237,16 +238,16 @@ export const NavigationSidebar: React.FC<NavigationSidebarProps> = ({
         ))}
       </nav>
 
-      <footer className="steer-sidebar-footer">
-        <div className="steer-sync-row" title={`Database status: ${sqlSyncStatus}`}>
-          <span className="steer-sync-label">
+      <footer className="motiva-sidebar-footer">
+        <div className="motiva-sync-row" title={`Database status: ${sqlSyncStatus}`}>
+          <span className="motiva-sync-label">
             <Database size={13} aria-hidden="true" />
             {syncLabels[sqlSyncStatus]}
           </span>
-          <span className="steer-sync-dot" data-status={sqlSyncStatus} aria-hidden="true" />
+          <span className="motiva-sync-dot" data-status={sqlSyncStatus} aria-hidden="true" />
         </div>
         {onOpenDemo && (
-          <button type="button" className="steer-demo-reset" onClick={onOpenDemo}>
+          <button type="button" className="motiva-demo-reset" onClick={onOpenDemo}>
             <RefreshCw size={13} aria-hidden="true" />
             Restore sample workspace
           </button>

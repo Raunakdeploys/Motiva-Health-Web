@@ -41,27 +41,19 @@ export const SubmissionPacket: React.FC<SubmissionPacketProps> = ({
   const [copiedCanvaFormat, setCopiedCanvaFormat] = useState(false);
 
   const loomScriptText = `[0:00 - 0:25] THE PROBLEM & VISION
-"Hi Steer team! I'm presenting our automated research-to-Instagram pipeline for Problem Statement 2. Today, dense metabolic papers sit unused while creating Instagram posts takes 6 hours by hand. We built a repeatable engine where a research paper goes in, and doctor-verified, scroll-stopping content comes out in Steer's exact voice—with 100% of the science surviving the trip."
+"MOTIVA is a prototype for helping research teams keep source evidence visible as candidate claims move toward draft content. The goal is to reduce repetitive work without replacing expert review."
 
-[0:25 - 0:55] THE PIPELINE IN ACTION (3 PAPERS INGESTED)
-"We ingested 3 landmark metabolic papers:
-1. Wilding et al. on GLP-1 and muscle loss
-2. Dr. Anoop Misra's paper on the South Asian 'thin-fat' phenotype and 3 PM insulin crashes
-3. Hall et al. on adaptive thermogenesis after crash diets.
-Watch how our ingestion engine extracts exact verbatim sentences with PDF page coordinates, and passes them to our 12-rule deterministic validation engine. If a claim lacks an exact quote or overgeneralizes to all humans, it is blocked or flagged."
+[0:25 - 0:55] THE PIPELINE IN ACTION
+"The bundled benchmark is synthetic. It demonstrates how passages can be linked to claims and how deterministic checks can flag missing quotes, mismatched populations, or overreach. Passing a rule check is not proof that a claim is true."
 
-[0:55 - 1:25] THE 3 FINISHED DELIVERABLES
-"From these approved claims, we automatically generated:
-1. A 7-slide Instagram Carousel in Steer's exact palette—cream background, rust headlines, deep maroon emotional accents, and an Indian diet slide featuring rotis, paneer, and dal.
-2. A single-image editorial static post with founder field notes.
-3. A 9:16 vertical AI Reel with animated karaoke subtitles and real-time synthesized voiceover!
-Notice our bonus features: instant toggle between English and Hinglish, and full Canva Bulk Create export."
+[0:55 - 1:25] ILLUSTRATIVE FORMATS
+"This packet shows example carousel, static, and reel formats to demonstrate the workflow. They are not clinically reviewed outputs, medical advice, or content that should be published. A real workflow must retain its source citations and limitations."
 
-[1:25 - 1:45] THE DOCTOR REVIEW GATE & EFFORT METRICS
-"Crucially, nothing goes live without doctor sign-off. If a doctor edits an upstream claim in our Investigation Desk, change-impact propagation automatically invalidates the downstream slide and alerts the editor. We measured the human effort: from 6.5 hours down to 4.2 minutes of doctor verification per paper."
+[1:25 - 1:45] THE HUMAN REVIEW GATE
+"A qualified human reviewer remains responsible for each decision. Reviewers can approve, flag, edit, or reject a claim; edits require downstream content to be checked again before use."
 
 [1:45 - 2:00] THE OUTCOME
-"We also built the Post Scheduler that outputs a full 7-day Instagram content calendar. This isn't a prototype—it's a production-ready weekly publishing engine for Steer. Thank you!"`;
+"The prototype includes a publishing calendar and export interactions. Model reliability, production readiness, and time savings have not been evaluated. Thank you!"`;
 
   const handleCopyLoomScript = () => {
     navigator.clipboard.writeText(loomScriptText);
@@ -74,7 +66,7 @@ Notice our bonus features: instant toggle between English and Hinglish, and full
     const csvRows = carousels[0]?.slides
       .map(
         (s) =>
-          `"${s.slide_number}","${s.layout}","${s.headline.replace(/"/g, '""')}","${s.body_text.replace(/"/g, '""')}","${(s.finding || '').replace(/"/g, '""')}","${(s.caveat_or_limitation || '').replace(/"/g, '""')}","${(s.source_citation || '').replace(/"/g, '""')}","steerclub.com"`
+          `"${s.slide_number}","${s.layout}","${s.headline.replace(/"/g, '""')}","${s.body_text.replace(/"/g, '""')}","${(s.finding || '').replace(/"/g, '""')}","${(s.caveat_or_limitation || '').replace(/"/g, '""')}","${(s.source_citation || '').replace(/"/g, '""')}","MOTIVAclub.com"`
       )
       .join('\n') || '';
 
@@ -93,7 +85,7 @@ Notice our bonus features: instant toggle between English and Hinglish, and full
               HACKATHON SUBMISSION PACKET
             </span>
             <span className="text-xs font-mono text-[#E6CBBD]">
-              Problem Statement 2: From research paper to Instagram, automated
+              Prototype walkthrough: from research to reviewed content
             </span>
           </div>
 
@@ -101,34 +93,38 @@ Notice our bonus features: instant toggle between English and Hinglish, and full
             <span className="text-[#E6CBBD]">Candidate: Raunak Roy</span>
             <span>·</span>
             <span className="text-[#C04E2A] bg-[#F5EBDF] px-2 py-0.5 rounded-xs font-bold">
-              Ready to Submit
+              Prototype Walkthrough
             </span>
           </div>
         </div>
 
         <div className="space-y-2">
           <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#F5EBDF]">
-            steer / Research to Instagram Automated Engine
+            MOTIVA / Evidence-to-Content Prototype
           </h1>
           <p className="text-xs sm:text-sm text-[#E6CBBD] max-w-3xl leading-relaxed">
-            A doctor-led, AI-powered pipeline that turns dense metabolic health research (GLP-1 mechanisms, South Asian "thin-fat" phenotype, and metabolic adaptation) into scroll-stopping Instagram carousels, statics, and AI-generated reels in Steer's calm editorial voice.
+            An evidence-linked workflow prototype for organizing source passages, checking candidate claims, and preparing drafts for qualified human review. This packet contains synthetic examples, not clinically approved content.
           </p>
         </div>
       </div>
 
-      {/* 02. The 3 Finished Posts Showcase */}
+      <div className="mb-6 rounded-md border border-[#D9B66F] bg-[#FBF4E7] px-4 py-3 text-sm leading-relaxed text-[#5E4821]" role="note">
+        Illustrative synthetic examples only. No clinician review or approval is represented; do not use these drafts as medical advice or publish them.
+      </div>
+
+      {/* 02. Illustrative format examples */}
       <div className="space-y-4">
         <div className="flex items-center justify-between border-b border-[#E6CBBD] pb-2">
           <div>
             <h2 className="font-serif text-xl font-bold text-[#351D1D]">
-              01. The 3 Finished Posts (Grounded in Metabolic Science)
+              01. Illustrative content formats
             </h2>
             <p className="text-xs text-[#B58777]">
-              Submission requirement: finished posts with clear audience message and clinical reasoning.
+              Synthetic examples demonstrate the workflow; they are not evidence-backed or approved posts.
             </p>
           </div>
           <span className="text-[10px] font-mono text-[#C04E2A] bg-[#C04E2A]/10 px-2 py-1 rounded-xs font-bold">
-            All 3 Formats Ready
+            Sample content
           </span>
         </div>
 
@@ -141,29 +137,29 @@ Notice our bonus features: instant toggle between English and Hinglish, and full
                   <Layers className="w-3 h-3" />
                   Format 1: Carousel (7 Slides)
                 </span>
-                <span className="text-[10px] font-mono text-[#416C49] font-bold">Doctor Approved</span>
+                <span className="text-[10px] font-mono text-[#786A61] font-bold">Illustrative sample</span>
               </div>
 
               <h3 className="font-serif text-base font-bold text-[#351D1D]">
-                "GLP-1, muscle loss, and the weight regain trap."
+                "Example carousel: one study result with its caveat."
               </h3>
 
               <div className="space-y-2 text-xs">
                 <div className="p-2.5 bg-[#F8F2EB] border border-[#E6CBBD] space-y-1">
                   <span className="text-[9px] font-mono uppercase text-[#B58777] font-bold block">
-                    Target Audience Message
+                    Illustrative message template
                   </span>
                   <p className="text-[#351D1D] font-medium leading-snug">
-                    "Before you take a weight loss injection, protect your muscle with protein and strength habits so your metabolic rate doesn't crash."
+                    "Illustrative draft: summarize a study finding in plain language and link readers to its source."
                   </p>
                 </div>
 
                 <div className="p-2.5 bg-[#F8F2EB] border border-[#E6CBBD] space-y-1">
                   <span className="text-[9px] font-mono uppercase text-[#B58777] font-bold block">
-                    Clinical Reasoning & Grounding
+                    Evidence note required
                   </span>
                   <p className="text-[#786A61] text-[11px] leading-snug">
-                    Wilding et al. (NEJM DXA sub-study) showed 39.2% of lost weight was lean muscle, reducing RMR by 185 kcal/day. Indian biology starts with lower baseline muscle, making rebound rapid unless 1.3g/kg protein is prescribed.
+                    Template only: attach the exact supporting passage, study population, endpoint, and limitations before review. This example is not sourced.
                   </p>
                 </div>
               </div>
@@ -173,7 +169,7 @@ Notice our bonus features: instant toggle between English and Hinglish, and full
               onClick={() => onNavigateToStudio('carousel', 'paper_glp1_muscle_2024')}
               className="w-full py-2 bg-[#F8F2EB] hover:bg-[#E6CBBD]/40 border border-[#E6CBBD] text-xs font-semibold text-[#351D1D] rounded-xs flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
             >
-              <span>Inspect Finished Carousel</span>
+              <span>View Sample Carousel</span>
               <ArrowRight className="w-3 h-3 text-[#C04E2A]" />
             </button>
           </div>
@@ -186,29 +182,29 @@ Notice our bonus features: instant toggle between English and Hinglish, and full
                   <Video className="w-3 h-3" />
                   Format 2: AI Video Reel (9:16)
                 </span>
-                <span className="text-[10px] font-mono text-[#416C49] font-bold">Doctor Approved</span>
+                <span className="text-[10px] font-mono text-[#786A61] font-bold">Illustrative sample</span>
               </div>
 
               <h3 className="font-serif text-base font-bold text-[#351D1D]">
-                "Why Indians Get That 3 PM Desk Slump"
+                "Example reel: explain a research finding without personal medical advice."
               </h3>
 
               <div className="space-y-2 text-xs">
                 <div className="p-2.5 bg-[#F8F2EB] border border-[#E6CBBD] space-y-1">
                   <span className="text-[9px] font-mono uppercase text-[#B58777] font-bold block">
-                    Target Audience Message
+                    Illustrative message template
                   </span>
                   <p className="text-[#351D1D] font-medium leading-snug">
-                    "Your 3 PM desk crash isn't laziness—it's reactive hypoglycemia from how white rice and rotis spike insulin in Indian bodies."
+                    "Illustrative draft: describe only the population and outcome examined in the study."
                   </p>
                 </div>
 
                 <div className="p-2.5 bg-[#F8F2EB] border border-[#E6CBBD] space-y-1">
                   <span className="text-[9px] font-mono uppercase text-[#B58777] font-bold block">
-                    Clinical Reasoning & Grounding
+                    Evidence note required
                   </span>
                   <p className="text-[#786A61] text-[11px] leading-snug">
-                    Misra et al. (Diabetes Care) continuous glucose telemetry in 320 Indian adults proved 42% higher glucose spikes from refined staples, followed by reactive hypoglycemia at 180 min.
+                    Template only: verify the source, population, measurements, and caveats before drafting. Do not infer individual diagnosis or treatment advice.
                   </p>
                 </div>
               </div>
@@ -218,7 +214,7 @@ Notice our bonus features: instant toggle between English and Hinglish, and full
               onClick={() => onNavigateToStudio('reel', 'paper_south_asian_phenotype_2024')}
               className="w-full py-2 bg-[#F8F2EB] hover:bg-[#E6CBBD]/40 border border-[#E6CBBD] text-xs font-semibold text-[#351D1D] rounded-xs flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
             >
-              <span>Play AI Video Reel</span>
+              <span>View Sample Reel</span>
               <ArrowRight className="w-3 h-3 text-[#C04E2A]" />
             </button>
           </div>
@@ -231,29 +227,29 @@ Notice our bonus features: instant toggle between English and Hinglish, and full
                   <FileText className="w-3 h-3" />
                   Format 3: Static Post (1080×1080)
                 </span>
-                <span className="text-[10px] font-mono text-[#416C49] font-bold">Doctor Approved</span>
+                <span className="text-[10px] font-mono text-[#786A61] font-bold">Illustrative sample</span>
               </div>
 
               <h3 className="font-serif text-base font-bold text-[#351D1D]">
-                "When you starve yourself, your metabolism strikes back."
+                "Example static post: pair a study limitation with its finding."
               </h3>
 
               <div className="space-y-2 text-xs">
                 <div className="p-2.5 bg-[#F8F2EB] border border-[#E6CBBD] space-y-1">
                   <span className="text-[9px] font-mono uppercase text-[#B58777] font-bold block">
-                    Target Audience Message
+                    Illustrative message template
                   </span>
                   <p className="text-[#351D1D] font-medium leading-snug">
-                    "Stop blaming your willpower for weight regain after crash diets. It is biological adaptive thermogenesis defending your body from what it thinks is a famine."
+                    "Illustrative draft: distinguish what a study observed from what it cannot establish."
                   </p>
                 </div>
 
                 <div className="p-2.5 bg-[#F8F2EB] border border-[#E6CBBD] space-y-1">
                   <span className="text-[9px] font-mono uppercase text-[#B58777] font-bold block">
-                    Clinical Reasoning & Grounding
+                    Evidence note required
                   </span>
                   <p className="text-[#786A61] text-[11px] leading-snug">
-                    Hall et al. (AJCN whole-room indirect calorimetry) demonstrated a -380 kcal/day drop in resting burn persisting at 52 weeks, alongside 24% higher hunger hormone ghrelin.
+                    Template only: cite the specific source and check its methods, timeframe, uncertainty, and limitations. This example is not sourced.
                   </p>
                 </div>
               </div>
@@ -263,90 +259,40 @@ Notice our bonus features: instant toggle between English and Hinglish, and full
               onClick={() => onNavigateToStudio('static', 'paper_metabolic_adaptation_2024')}
               className="w-full py-2 bg-[#F8F2EB] hover:bg-[#E6CBBD]/40 border border-[#E6CBBD] text-xs font-semibold text-[#351D1D] rounded-xs flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
             >
-              <span>Inspect Static Post</span>
+              <span>View Sample Static Post</span>
               <ArrowRight className="w-3 h-3 text-[#C04E2A]" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* 03. The Effort: Human Time Benchmark (6.5 hours -> 4.2 minutes) */}
       <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-6 space-y-4 shadow-xs">
-        <div className="flex items-center justify-between border-b border-[#E6CBBD] pb-3">
+        <div className="flex items-center justify-between border-b border-[#E6CBBD] pb-3 gap-3">
           <div>
             <h2 className="font-serif text-xl font-bold text-[#351D1D]">
-              02. The Effort: Measured Human Time per Paper
+              02. Human review stays in the loop
             </h2>
             <p className="text-xs text-[#B58777]">
-              Comparative breakdown showing how the Steer pipeline achieves a 93% reduction in turnaround time.
+              This prototype has not been measured for time savings or clinical outcomes; the sample carries no reviewer approval.
             </p>
           </div>
-          <span className="text-xs font-mono font-bold text-[#416C49] bg-[#416C49]/10 px-2.5 py-1 rounded-xs">
-            93% Time Saved
+          <span className="text-xs font-mono font-bold text-[#315A49] bg-[#315A49]/10 px-2.5 py-1 rounded-xs">
+            Human decision required
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
-          {/* Before: Manual Process */}
-          <div className="p-4 bg-[#F8F2EB] border border-[#E6CBBD] space-y-3">
-            <div className="flex items-center justify-between border-b border-[#E6CBBD] pb-2 font-mono">
-              <span className="text-[#661414] font-bold uppercase">Before (Manual Process)</span>
-              <span className="text-[#661414] font-bold">~6 Hours 30 Mins</span>
-            </div>
-
-            <ul className="space-y-2 text-[#786A61]">
-              <li className="flex justify-between">
-                <span>1. Reading 15-page scientific PDF & extracting numbers:</span>
-                <span className="font-mono text-[#351D1D]">90 mins</span>
-              </li>
-              <li className="flex justify-between">
-                <span>2. Medical doctor fact-checking claims from scratch:</span>
-                <span className="font-mono text-[#351D1D]">75 mins</span>
-              </li>
-              <li className="flex justify-between">
-                <span>3. Writing carousel copy in Steer voice + Hinglish:</span>
-                <span className="font-mono text-[#351D1D]">60 mins</span>
-              </li>
-              <li className="flex justify-between">
-                <span>4. Designing 7 slides in Canva by hand:</span>
-                <span className="font-mono text-[#351D1D]">90 mins</span>
-              </li>
-              <li className="flex justify-between">
-                <span>5. Video reel scripting, voice recording, & subtitles:</span>
-                <span className="font-mono text-[#351D1D]">75 mins</span>
-              </li>
-            </ul>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+          <div className="p-4 bg-[#F8F2EB] border border-[#E6CBBD] space-y-2">
+            <h3 className="font-semibold text-[#351D1D]">Evidence checks</h3>
+            <p className="text-[#786A61] leading-relaxed">
+              Deterministic checks can surface missing source links, quote mismatches, and overgeneralization. A passing result is not proof that a claim is accurate.
+            </p>
           </div>
-
-          {/* After: Steer Automated Pipeline */}
-          <div className="p-4 bg-[#416C49]/5 border border-[#416C49]/30 space-y-3">
-            <div className="flex items-center justify-between border-b border-[#416C49]/20 pb-2 font-mono">
-              <span className="text-[#416C49] font-bold uppercase">With Steer Pipeline</span>
-              <span className="text-[#416C49] font-bold">4.2 Minutes (Total Human Time)</span>
-            </div>
-
-            <ul className="space-y-2 text-[#351D1D]">
-              <li className="flex justify-between">
-                <span>1. PDF Ingestion & OCR Anchor Extraction:</span>
-                <span className="font-mono text-[#416C49] font-semibold">12 sec (Automated)</span>
-              </li>
-              <li className="flex justify-between">
-                <span>2. 12-Rule Deterministic Validation Engine:</span>
-                <span className="font-mono text-[#416C49] font-semibold">4 sec (Automated)</span>
-              </li>
-              <li className="flex justify-between">
-                <span>3. Steer Voice Multi-Format Generation (Carousel, Static, Reel):</span>
-                <span className="font-mono text-[#416C49] font-semibold">18 sec (Automated)</span>
-              </li>
-              <li className="flex justify-between">
-                <span>4. Doctor Review Gate (One-click approve with highlighted source):</span>
-                <span className="font-mono text-[#416C49] font-bold">3.5 mins (Human Doctor)</span>
-              </li>
-              <li className="flex justify-between">
-                <span>5. 7-Day Instagram Scheduler & Canva Export:</span>
-                <span className="font-mono text-[#416C49] font-semibold">15 sec (Automated)</span>
-              </li>
-            </ul>
+          <div className="p-4 bg-[#315A49]/5 border border-[#315A49]/20 space-y-2">
+            <h3 className="font-semibold text-[#351D1D]">Qualified human review</h3>
+            <p className="text-[#786A61] leading-relaxed">
+              A reviewer must inspect the source and context, then approve, flag, edit, or reject each claim. Re-check affected drafts after any upstream edit and before publication.
+            </p>
           </div>
         </div>
       </div>
@@ -359,7 +305,7 @@ Notice our bonus features: instant toggle between English and Hinglish, and full
               03. The Pipeline: Architecture & Automations
             </h2>
             <p className="text-xs text-[#B58777]">
-              End-to-end flow from raw scientific PDF to published Instagram media.
+              Conceptual flow from source evidence to reviewed content; publishing still requires human approval.
             </p>
           </div>
           <button
@@ -385,7 +331,7 @@ Notice our bonus features: instant toggle between English and Hinglish, and full
           <div className="p-3 bg-[#F8F2EB] border border-[#E6CBBD] space-y-1">
             <span className="font-mono font-bold text-[#C04E2A] text-[10px] block">STEP 2: EXTRACT</span>
             <h4 className="font-semibold text-[#351D1D]">Grounded Claim Miner</h4>
-            <p className="text-[11px] text-[#786A61]">Gemini 3.8 Flash extracts structured claims with mandatory verbatim supporting quotes and population anchors.</p>
+            <p className="text-[11px] text-[#786A61]">AI-assisted extraction proposes candidate claims and source quotes; a reviewer must confirm them against the paper.</p>
           </div>
 
           <div className="p-3 bg-[#F8F2EB] border border-[#E6CBBD] space-y-1">
@@ -396,8 +342,8 @@ Notice our bonus features: instant toggle between English and Hinglish, and full
 
           <div className="p-3 bg-[#F8F2EB] border border-[#E6CBBD] space-y-1">
             <span className="font-mono font-bold text-[#C04E2A] text-[10px] block">STEP 4: REVIEW GATE</span>
-            <h4 className="font-semibold text-[#351D1D]">Doctor Approval</h4>
-            <p className="text-[11px] text-[#786A61]">Steer doctors review claims in the Investigation Desk. Changes automatically propagate and invalidate dependent slides.</p>
+              <h4 className="font-semibold text-[#351D1D]">Human Review</h4>
+            <p className="text-[11px] text-[#786A61]">Qualified reviewers inspect claim evidence. Changes can invalidate dependent drafts, which must be reviewed again.</p>
           </div>
 
           <div className="p-3 bg-[#F8F2EB] border border-[#E6CBBD] space-y-1">
@@ -438,10 +384,10 @@ Notice our bonus features: instant toggle between English and Hinglish, and full
         </div>
       </div>
 
-      {/* 06. Steer Brand Constitution Compliance Matrix */}
+      {/* 06. MOTIVA Brand Constitution Compliance Matrix */}
       <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-6 space-y-4 shadow-xs">
         <h2 className="font-serif text-xl font-bold text-[#351D1D] border-b border-[#E6CBBD] pb-2">
-          05. Steer Brand Constitution & Guidelines Compliance Matrix
+          05. MOTIVA Brand Constitution & Guidelines Compliance Matrix
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
@@ -460,7 +406,7 @@ Notice our bonus features: instant toggle between English and Hinglish, and full
           <div className="p-3 bg-[#F8F2EB] border border-[#E6CBBD] space-y-1">
             <span className="font-mono text-[10px] text-[#C04E2A] font-bold block">INDIAN CALIBRATION</span>
             <div className="font-semibold text-[#351D1D]">Rotis, Chai & Desk Jobs</div>
-            <p className="text-[10px] text-[#786A61]">Contextualized for South Asian metabolism and family dinners.</p>
+            <p className="text-[10px] text-[#786A61]">              Population context should follow the cited study; do not generalize across individuals.</p>
           </div>
 
           <div className="p-3 bg-[#F8F2EB] border border-[#E6CBBD] space-y-1">

@@ -21,6 +21,7 @@ interface TopBarProps {
   currentTab: ActiveTab;
   onSelectTab?: (tab: ActiveTab) => void;
   activePaper: PaperRecord | null;
+  isMobileSidebarOpen: boolean;
   onToggleSidebarMobile: () => void;
   isInspectorOpen: boolean;
   onToggleInspector: () => void;
@@ -69,6 +70,7 @@ export const TopBar: React.FC<TopBarProps> = ({
   currentTab,
   onSelectTab,
   activePaper,
+  isMobileSidebarOpen,
   onToggleSidebarMobile,
   isInspectorOpen,
   onToggleInspector,
@@ -130,39 +132,41 @@ export const TopBar: React.FC<TopBarProps> = ({
 
   return (
     <>
-      <header className="steer-topbar sticky top-0 z-30 flex items-center justify-between gap-3 px-3 sm:px-5 xl:px-7">
-        <div className="steer-topbar-left">
+      <header className="motiva-topbar sticky top-0 z-30 flex items-center justify-between gap-3 px-3 sm:px-5 xl:px-7">
+        <div className="motiva-topbar-left">
           <button
             type="button"
             onClick={onToggleSidebarMobile}
-            className="steer-icon-button md:hidden"
-            aria-label="Open navigation menu"
+            className="motiva-icon-button md:hidden"
+            aria-label={isMobileSidebarOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-controls="motiva-navigation"
+            aria-expanded={isMobileSidebarOpen}
           >
             <Menu size={17} aria-hidden="true" />
           </button>
-          <div className="steer-topbar-title-wrap">
-            <div className="steer-topbar-crumb">
-              <strong>steer</strong>
+          <div className="motiva-topbar-title-wrap">
+            <div className="motiva-topbar-crumb">
+              <strong>MOTIVA</strong>
               <span aria-hidden="true">/</span>
               <span>Health research workspace</span>
             </div>
-            <h1 className="steer-topbar-heading">{tabInfo.title}</h1>
-            <span className="steer-topbar-context">
+            <h1 className="motiva-topbar-heading">{tabInfo.title}</h1>
+            <span className="motiva-topbar-context">
               {activePaper ? `${activePaper.title} · ${activePaper.year}` : tabInfo.subtitle}
             </span>
           </div>
         </div>
 
-        <div className="steer-topbar-right">
+        <div className="motiva-topbar-right">
           <button
             type="button"
-            className="steer-search-trigger"
+            className="motiva-search-trigger"
             onClick={() => setIsCommandOpen(true)}
             aria-label="Search workspace pages, Control or Command K"
             aria-haspopup="dialog"
           >
             <Search size={14} aria-hidden="true" />
-            <span className="steer-search-trigger-label">Search pages and tools</span>
+            <span className="motiva-search-trigger-label">Search pages and tools</span>
             <kbd>⌘ K</kbd>
           </button>
 
@@ -170,7 +174,7 @@ export const TopBar: React.FC<TopBarProps> = ({
             <button
               type="button"
               onClick={onQuickAction}
-              className="steer-action-button steer-quick-action"
+              className="motiva-action-button motiva-quick-action"
             >
               {quickActionLabel}
               <ArrowRight size={13} aria-hidden="true" />
@@ -181,16 +185,17 @@ export const TopBar: React.FC<TopBarProps> = ({
             <button
               type="button"
               onClick={onOpenSimulator}
-              className="steer-action-button steer-action-button-primary"
-              title="Open the clinical trial simulator"
+              className="motiva-action-button motiva-action-button-primary"
+              title="Open the illustrative scenario sandbox"
+              aria-label="Open the illustrative scenario sandbox"
             >
               <Sparkles size={14} aria-hidden="true" />
-              <span className="hidden xl:inline">Trial simulator</span>
+              <span className="hidden xl:inline">Scenario sandbox</span>
             </button>
           )}
 
-          <div className="steer-status-pill" title={`Database status: ${syncLabels[sqlSyncStatus]}`}>
-            <span className="steer-sync-dot" data-status={sqlSyncStatus} aria-hidden="true" />
+          <div className="motiva-status-pill" title={`Database status: ${syncLabels[sqlSyncStatus]}`}>
+            <span className="motiva-sync-dot" data-status={sqlSyncStatus} aria-hidden="true" />
             <Database size={13} aria-hidden="true" />
             {syncLabels[sqlSyncStatus]}
           </div>
@@ -199,7 +204,7 @@ export const TopBar: React.FC<TopBarProps> = ({
             <button
               type="button"
               onClick={onToggleInspector}
-              className={`steer-action-button${isInspectorOpen ? ' steer-action-button-primary' : ''}`}
+              className={`motiva-action-button${isInspectorOpen ? ' motiva-action-button-primary' : ''}`}
               title={isInspectorOpen ? 'Close evidence inspector' : 'Open evidence inspector'}
               aria-pressed={isInspectorOpen}
             >
@@ -209,11 +214,11 @@ export const TopBar: React.FC<TopBarProps> = ({
           )}
 
           {user ? (
-            <div className="steer-profile-wrap">
+            <div className="motiva-profile-wrap">
               <button
                 type="button"
                 onClick={() => setUserDropdownOpen((open) => !open)}
-                className="steer-action-button steer-profile-trigger"
+                className="motiva-action-button motiva-profile-trigger"
                 aria-expanded={userDropdownOpen}
                 aria-haspopup="menu"
                 aria-label="Open account menu"
@@ -221,7 +226,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                 {user.photoURL ? (
                   <img src={user.photoURL} alt="" className="size-5 rounded-full object-cover" />
                 ) : (
-                  <span className="steer-profile-avatar" aria-hidden="true">
+                  <span className="motiva-profile-avatar" aria-hidden="true">
                     {(user.displayName || user.email || 'S').charAt(0).toUpperCase()}
                   </span>
                 )}
@@ -232,9 +237,9 @@ export const TopBar: React.FC<TopBarProps> = ({
               </button>
 
               {userDropdownOpen && (
-                <div className="steer-profile-menu" role="menu">
-                  <div className="steer-profile-menu-header">
-                    <strong>{user.displayName || 'Steer researcher'}</strong>
+                <div className="motiva-profile-menu" role="menu">
+                  <div className="motiva-profile-menu-header">
+                    <strong>{user.displayName || 'MOTIVA researcher'}</strong>
                     <span>{user.email}</span>
                     <small><Database size={12} aria-hidden="true" /> {syncLabels[sqlSyncStatus]}</small>
                   </div>
@@ -242,7 +247,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                     type="button"
                     role="menuitem"
                     onClick={signOutUser}
-                    className="steer-profile-menu-action"
+                    className="motiva-profile-menu-action"
                   >
                     <LogOut size={14} aria-hidden="true" />
                     Sign out
@@ -258,7 +263,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                 else setIsAuthModalOpen(true);
               }}
               disabled={authLoading}
-              className="steer-action-button steer-auth-trigger"
+              className="motiva-action-button motiva-auth-trigger"
               title="Sign in to sync research across devices"
             >
               <UserIcon size={14} aria-hidden="true" />
@@ -270,23 +275,23 @@ export const TopBar: React.FC<TopBarProps> = ({
 
       {isCommandOpen && (
         <div
-          className="steer-command-overlay"
+          className="motiva-command-overlay"
           onMouseDown={(event) => {
             if (event.target === event.currentTarget) setIsCommandOpen(false);
           }}
         >
           <section
-            className="steer-command-dialog"
+            className="motiva-command-dialog"
             role="dialog"
             aria-modal="true"
-            aria-labelledby="steer-command-title"
+            aria-labelledby="motiva-command-title"
           >
-            <h2 id="steer-command-title" className="sr-only">Search workspace pages</h2>
-            <div className="steer-command-search">
+            <h2 id="motiva-command-title" className="sr-only">Search workspace pages</h2>
+            <div className="motiva-command-search">
               <Search size={17} aria-hidden="true" />
-              <label className="sr-only" htmlFor="steer-command-input">Search workspace sections</label>
+              <label className="sr-only" htmlFor="motiva-command-input">Search workspace sections</label>
               <input
-                id="steer-command-input"
+                id="motiva-command-input"
                 ref={searchInputRef}
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
@@ -299,20 +304,20 @@ export const TopBar: React.FC<TopBarProps> = ({
               />
               <button
                 type="button"
-                className="steer-icon-button"
+                className="motiva-icon-button"
                 onClick={() => setIsCommandOpen(false)}
                 aria-label="Close search"
               >
                 <X size={15} aria-hidden="true" />
               </button>
             </div>
-            <div className="steer-command-results">
-              <span className="steer-command-label">Workspace sections</span>
+            <div className="motiva-command-results">
+              <span className="motiva-command-label">Workspace sections</span>
               {searchResults.length > 0 ? (
                 searchResults.map((item) => (
                   <button
                     type="button"
-                    className="steer-command-item"
+                    className="motiva-command-item"
                     key={item.id}
                     onClick={() => openPage(item.id)}
                     aria-current={item.id === currentTab ? 'page' : undefined}
@@ -322,7 +327,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                   </button>
                 ))
               ) : (
-                <div className="steer-command-empty">No sections match “{searchQuery}”.</div>
+                <div className="motiva-command-empty">No sections match “{searchQuery}”.</div>
               )}
             </div>
           </section>

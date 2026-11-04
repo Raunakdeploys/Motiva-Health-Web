@@ -1,7 +1,7 @@
-# Steer Evidence Studio - Architecture & System Design
+# MOTIVA Evidence Studio - Architecture & System Design
 
 ## Overview
-Steer Evidence Studio helps researchers turn scientific papers into traceable evidence records, claims for human review, and responsible content drafts. AI-assisted extraction and deterministic checks support review; they do not replace clinical judgment or independently verify a paper.
+MOTIVA Evidence Studio helps researchers turn scientific papers into traceable evidence records, claims for human review, and responsible content drafts. AI-assisted extraction and deterministic checks support review; they do not replace clinical judgment or independently verify a paper.
 
 ## Technology Stack
 - **Frontend**: React 19, TypeScript, Tailwind CSS v4, Lucide Icons, Vite

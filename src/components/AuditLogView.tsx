@@ -15,7 +15,7 @@ export const AuditLogView: React.FC<AuditLogViewProps> = ({ logs, onRefresh }) =
     const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(logs, null, 2));
     const a = document.createElement('a');
     a.href = dataStr;
-    a.download = `steer_audit_report_${Date.now()}.json`;
+    a.download = `MOTIVA_audit_report_${Date.now()}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -36,7 +36,7 @@ export const AuditLogView: React.FC<AuditLogViewProps> = ({ logs, onRefresh }) =
     const encodedUri = encodeURI(csvContent);
     const a = document.createElement('a');
     a.href = encodedUri;
-    a.download = `steer_audit_report_${Date.now()}.csv`;
+    a.download = `MOTIVA_audit_report_${Date.now()}.csv`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

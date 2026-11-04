@@ -82,7 +82,7 @@ export const SelfTestRunner: React.FC = () => {
         passed: true,
         message: 'Video Engine Online: 9:16 H.264 stream synthesized and verified.',
         videoUrl: data.videoUri,
-        details: `Engine: ${data.engine || 'steer-video-renderer'} · Content-Type: ${contentType} · Accept-Ranges: ${acceptsRanges || 'bytes'} · Status: ${streamRes.status}`,
+        details: `Engine: ${data.engine || 'motiva-video-renderer'} · Content-Type: ${contentType} · Accept-Ranges: ${acceptsRanges || 'bytes'} · Status: ${streamRes.status}`,
       });
     } catch (err: any) {
       setVideoTestStatus({
