@@ -266,6 +266,54 @@ function buildPaperResult(
 }
 
 /**
+ * Full-document extraction for the research analyst: every page, line structure preserved
+ * (keeps table rows intact), AI OCR for scanned/low-text pages. Text only leaves the browser,
+ * so the server never holds the PDF binary in memory.
+ */
+export async function extractPdfPagesForResearch(
+  file: File,
+  onProgress?: (percent: number, message: string) => void
+): Promise<{ pageCount: number; pages: { page: number; text: string; method: 'text' | 'ocr' }[]; warnings: string[] }> {
+  const warnings: string[] = [];
+  const pdfDoc = await pdfjsLib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
+  const pages: { page: number; text: string; method: 'text' | 'ocr' }[] = [];
+  let ocrCount = 0;
+  for (let i = 1; i <= pdfDoc.numPages; i++) {
+    onProgress?.(Math.round((i / pdfDoc.numPages) * 100), `Reading page ${i} of ${pdfDoc.numPages}`);
+    const page = await pdfDoc.getPage(i);
+    const content = await page.getTextContent();
+    const lines: { y: number; parts: string[] }[] = [];
+    for (const item of content.items as any[]) {
+      if (!('str' in item) || !item.str.trim()) continue;
+      const y = Math.round(item.transform[5]);
+      const line = lines.find((l) => Math.abs(l.y - y) <= 2);
+      if (line) line.parts.push(item.str); else lines.push({ y, parts: [item.str] });
+    }
+    let text = lines.sort((a, b) => b.y - a.y).map((l) => l.parts.join(' ').replace(/\s{2,}/g, ' ')).join('\n');
+    let method: 'text' | 'ocr' = 'text';
+    if (text.replace(/\s/g, '').length < 150) {
+      if (ocrCount < 20) {
+        ocrCount++;
+        onProgress?.(Math.round((i / pdfDoc.numPages) * 100), `Running OCR on scanned page ${i}`);
+        try {
+          const ocr = await transcribePageWithAI(page, i);
+          if (ocr.length > text.length) { text = ocr; method = 'ocr'; }
+        } catch (error) {
+          warnings.push(`OCR failed on page ${i}: ${error instanceof Error ? error.message : 'unavailable'}`);
+        }
+      } else if (ocrCount === 20) {
+        ocrCount++;
+        warnings.push('OCR is limited to 20 pages per document.');
+      }
+    }
+    pages.push({ page: i, text: text.slice(0, 60_000), method });
+    page.cleanup();
+  }
+  await pdfDoc.destroy();
+  return { pageCount: pages.length, pages, warnings };
+}
+
+/**
  * Creates manual paper entry when user pastes text from a research paper
  */
 export function createManualPaperEntry(
