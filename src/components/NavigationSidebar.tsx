@@ -130,7 +130,7 @@ export const NavigationSidebar: React.FC<NavigationSidebarProps> = ({
   const syncLabels = {
     synced: 'Cloud data synced',
     syncing: 'Syncing changes',
-    offline: 'Local workspace',
+    offline: 'Sign in to sync',
     error: 'Sync needs attention',
   };
 

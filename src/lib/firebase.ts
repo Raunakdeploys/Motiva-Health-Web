@@ -12,14 +12,10 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
 import { firebaseConfig } from './firebase-config.ts';
 
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const db = firebaseConfig.firestoreDatabaseId
-  ? getFirestore(app, firebaseConfig.firestoreDatabaseId)
-  : getFirestore(app);
 
 // Configure local browser persistence for uninterrupted user sessions
 setPersistence(auth, browserLocalPersistence).catch((err) => {

@@ -9,15 +9,6 @@ import {
   StaticPostContent,
 } from './types';
 import {
-  getActivePaperId,
-  getSavedCarousels,
-  getSavedClaims,
-  getSavedPapers,
-  getSavedPassages,
-  getSavedReels,
-  getSavedScheduledPosts,
-  getSavedStaticPosts,
-  resetToDemoWorkspace,
   saveCarousels,
   saveClaims,
   savePapers,
@@ -27,16 +18,19 @@ import {
   saveStaticPosts,
   setActivePaperId,
 } from './utils/storage';
+import type { AuditLogEntry } from './utils/storage';
 import { runValidationEngine } from './utils/validationEngine';
 import { generateClientSteerContent } from './utils/contentGenerator';
 import { useAuth } from './context/AuthContext';
 import {
+  authenticatedApiFetch,
   fetchUserDataFromSql,
   savePaperToSql,
   deletePaperFromSql,
   saveClaimToSql,
   deleteClaimFromSql,
   saveDeliverableToSql,
+  saveScheduledPostsToSql,
   seedDemoToSql,
 } from './utils/sqlApiClient';
 import { NavigationSidebar, type ActiveTab } from './components/NavigationSidebar';
@@ -81,101 +75,71 @@ export default function App() {
   const [staticPosts, setStaticPosts] = useState<StaticPostContent[]>([]);
   const [reels, setReels] = useState<ReelContent[]>([]);
   const [scheduledPosts, setScheduledPosts] = useState<ScheduledPost[]>([]);
+  const [auditLogs, setAuditLogs] = useState<AuditLogEntry[]>([]);
+  const [loadedUserId, setLoadedUserId] = useState('');
 
   // Selection & Inspector State
   const [selectedClaimId, setSelectedClaimId] = useState<string | null>(null);
   const [highlightEvidenceId, setHighlightEvidenceId] = useState<string | null>(null);
   const [sqlSyncStatus, setSqlSyncStatus] = useState<'synced' | 'syncing' | 'offline' | 'error'>('synced');
 
-  // Initialize from LocalStorage
-  useEffect(() => {
-    const loadedPapers = getSavedPapers();
-    const loadedPassages = getSavedPassages();
-    const loadedClaims = getSavedClaims();
-    const loadedCarousels = getSavedCarousels();
-    const loadedStatic = getSavedStaticPosts();
-    const loadedReels = getSavedReels();
-    const loadedScheduled = getSavedScheduledPosts();
-    const loadedActiveId = getActivePaperId();
-
-    setPapers(loadedPapers);
-    setPassages(loadedPassages);
-    setClaims(loadedClaims);
-    setCarousels(loadedCarousels);
-    setStaticPosts(loadedStatic);
-    setReels(loadedReels);
-    setScheduledPosts(loadedScheduled);
-    setActivePaperIdState(loadedActiveId || loadedPapers[0]?.paper_id || '');
-    if (loadedClaims.length > 0) {
-      setSelectedClaimId(loadedClaims[0].claim_id);
-    }
-  }, []);
-
   const performSqlSync = React.useCallback(async (token: string) => {
     setSqlSyncStatus('syncing');
     try {
       const data = await fetchUserDataFromSql(token);
-      if (data.papers.length > 0) {
-        setPapers(data.papers);
-        savePapers(data.papers);
+      const loadedPapers = data.papers || [];
+      const loadedPassages = data.passages || [];
+      const loadedClaims = data.claims || [];
 
-        const resolvedPassages = data.passages && data.passages.length > 0 ? data.passages : getSavedPassages();
-        setPassages(resolvedPassages);
-        savePassages(resolvedPassages);
-
-        const resolvedClaims = data.claims && data.claims.length > 0 ? data.claims : getSavedClaims();
-        setClaims(resolvedClaims);
-        saveClaims(resolvedClaims);
-
-        const resolvedCarousels = data.carousels && data.carousels.length > 0 ? data.carousels : getSavedCarousels();
-        setCarousels(resolvedCarousels);
-        saveCarousels(resolvedCarousels);
-
-        const resolvedStatic = data.staticPosts && data.staticPosts.length > 0 ? data.staticPosts : getSavedStaticPosts();
-        setStaticPosts(resolvedStatic);
-        saveStaticPosts(resolvedStatic);
-
-        const resolvedReels = data.reels && data.reels.length > 0 ? data.reels : getSavedReels();
-        setReels(resolvedReels);
-        saveReels(resolvedReels);
-
-        setActivePaperIdState(data.papers[0].paper_id);
-        if (resolvedClaims.length > 0) {
-          setSelectedClaimId(resolvedClaims[0].claim_id);
-        }
-        setSqlSyncStatus('synced');
-      } else {
-        const localPapers = getSavedPapers();
-        if (localPapers.length > 0) {
-          const localPassages = getSavedPassages();
-          const localClaims = getSavedClaims();
-          for (const p of localPapers) {
-            await savePaperToSql(
-              token,
-              p,
-              localPassages.filter((pass) => pass.paper_id === p.paper_id)
-            );
-          }
-          for (const c of localClaims) {
-            await saveClaimToSql(token, c);
-          }
-        }
-        setSqlSyncStatus('synced');
-      }
-    } catch (err) {
-      console.warn('Cloud SQL / Firestore sync warning:', err);
+      setPapers(loadedPapers);
+      setPassages(loadedPassages);
+      setClaims(loadedClaims);
+      setCarousels(data.carousels || []);
+      setStaticPosts(data.staticPosts || []);
+      setReels(data.reels || []);
+      setScheduledPosts(data.scheduledPosts || []);
+      setAuditLogs(data.auditLogs || []);
+      setActivePaperIdState((current) =>
+        loadedPapers.some((paper) => paper.paper_id === current) ? current : (loadedPapers[0]?.paper_id || '')
+      );
+      setSelectedClaimId(loadedClaims[0]?.claim_id || null);
+      setLoadedUserId(user?.uid || '');
+      setSqlSyncStatus('synced');
+    } catch (error) {
+      console.warn('Could not load account data:', error instanceof Error ? error.message : 'Unknown error');
       setSqlSyncStatus('error');
     }
-  }, []);
+  }, [user?.uid]);
 
-  // Sync with Cloud SQL / Firestore when user is authenticated with Google or email
+  useEffect(() => {
+    setLoadedUserId('');
+    setPapers([]);
+    setPassages([]);
+    setClaims([]);
+    setCarousels([]);
+    setStaticPosts([]);
+    setReels([]);
+    setScheduledPosts([]);
+    setAuditLogs([]);
+    setActivePaperIdState('');
+    setSelectedClaimId(null);
+  }, [user?.uid]);
+
   useEffect(() => {
     if (!idToken) {
       setSqlSyncStatus('offline');
       return;
     }
-    performSqlSync(idToken);
+    void performSqlSync(idToken);
   }, [idToken, performSqlSync]);
+
+  useEffect(() => {
+    if (!idToken || !user?.uid || loadedUserId !== user.uid) return;
+    saveScheduledPostsToSql(idToken, scheduledPosts).catch((error) => {
+      console.error('Could not save the editorial plan:', error instanceof Error ? error.message : 'Unknown error');
+      setSqlSyncStatus('error');
+    });
+  }, [idToken, loadedUserId, scheduledPosts, user?.uid]);
 
   const activePaper = papers.find((p) => p.paper_id === activePaperId) || papers[0] || null;
 
@@ -213,173 +177,122 @@ export default function App() {
     null;
 
   // Handlers
-  const handleAddPaper = async (newPaper: PaperRecord, newPassages: EvidencePassage[]) => {
-    const updatedPapers = [newPaper, ...papers.filter((p) => p.paper_id !== newPaper.paper_id)];
+  const handleAddPaper = async (
+    newPaper: PaperRecord,
+    newPassages: EvidencePassage[]
+  ): Promise<string> => {
+    const updatedPapers = [newPaper, ...papers.filter((paper) => paper.paper_id !== newPaper.paper_id)];
     const updatedPassages = [
       ...newPassages,
-      ...passages.filter((p) => p.paper_id !== newPaper.paper_id),
+      ...passages.filter((passage) => passage.paper_id !== newPaper.paper_id),
     ];
 
     setPapers(updatedPapers);
     setPassages(updatedPassages);
     setActivePaperIdState(newPaper.paper_id);
-
+    setActivePaperId(newPaper.paper_id);
     savePapers(updatedPapers);
     savePassages(updatedPassages);
-    setActivePaperId(newPaper.paper_id);
+    setCurrentTab('source');
 
     if (idToken) {
-      savePaperToSql(idToken, newPaper, newPassages).catch((err) =>
-        console.error('Failed to save paper to Cloud SQL:', err)
+      savePaperToSql(idToken, newPaper, newPassages).catch((error) =>
+        console.error('Failed to save paper to Cloud SQL:', error)
       );
     }
 
-    setCurrentTab('source');
+    const usablePassages = newPassages.filter(
+      (passage) => passage.extraction_status !== 'NO_TEXT' && passage.char_count > 0
+    );
+    if (usablePassages.length === 0) {
+      return 'Document added, but no searchable text was found. Add excerpts manually or re-upload with AI OCR enabled.';
+    }
 
-    // Automatically trigger AI claim extraction and content generation for the newly uploaded document
     try {
-      const claimsRes = await fetch('/api/generate-claims', {
+      const response = await authenticatedApiFetch('/api/generate-claims', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           paper_id: newPaper.paper_id,
           paper_title: newPaper.title,
-          passages: newPassages.map((p) => ({
-            evidence_id: p.evidence_id,
-            pdf_page_index: p.pdf_page_index,
-            verbatim_text: p.verbatim_text,
-            section: p.section,
+          passages: usablePassages.map((passage) => ({
+            evidence_id: passage.evidence_id,
+            pdf_page_index: passage.pdf_page_index,
+            verbatim_text: passage.verbatim_text,
+            section: passage.section,
+            extraction_status: passage.extraction_status,
           })),
         }),
       });
-      let claimsData: any = null;
-      try {
-        if (claimsRes.ok) {
-          claimsData = await claimsRes.json();
-        }
-      } catch (jsonErr) {
-        console.warn('Claims JSON parse notice:', jsonErr);
+
+      if (!response.ok) {
+        throw new Error(`Claim drafting returned ${response.status}.`);
       }
 
-      let generatedClaims: ClaimRecord[] = [];
-      if (claimsData?.claims && Array.isArray(claimsData.claims) && claimsData.claims.length > 0) {
-        generatedClaims = claimsData.claims;
-      } else if (newPassages.length > 0) {
-        const cleanTitle = newPaper.title.replace(/\.pdf$/i, '').replace(/[_-]+/g, ' ').trim();
-        const firstPassage = newPassages[0];
-        const secondPassage = newPassages[1] || firstPassage;
-        generatedClaims = [
-          {
-            claim_id: `claim_${newPaper.paper_id}_auto_1`,
-            paper_id: newPaper.paper_id,
-            claim_text: firstPassage.verbatim_text.length > 200 ? firstPassage.verbatim_text.substring(0, 195) + '...' : firstPassage.verbatim_text,
-            exact_supporting_quote: firstPassage.verbatim_text.substring(0, 150),
-            population: 'Clinical Trial Cohort',
-            study_design: 'Peer-Reviewed Study',
-            intervention_or_exposure: 'Targeted Protocol',
-            comparison: 'Baseline Cohort',
-            outcome: 'Primary Clinical Biomarkers',
-            numbers_and_units: 'Documented in published trial data',
-            limitations: 'Monitored under physician guidance.',
-            certainty_notes: 'Derived directly from verbatim source passage.',
-            risk_flags: [],
-            review_status: 'READY_FOR_HUMAN_REVIEW' as const,
-            reviewer_note: 'Extracted from verbatim document text.',
-            evidence_ids: [firstPassage.evidence_id],
-            updated_at: new Date().toISOString(),
-          },
-          ...(newPassages.length > 1 ? [{
-            claim_id: `claim_${newPaper.paper_id}_auto_2`,
-            paper_id: newPaper.paper_id,
-            claim_text: secondPassage.verbatim_text.length > 200 ? secondPassage.verbatim_text.substring(0, 195) + '...' : secondPassage.verbatim_text,
-            exact_supporting_quote: secondPassage.verbatim_text.substring(0, 150),
-            population: 'Clinical Trial Cohort',
-            study_design: 'Peer-Reviewed Study',
-            intervention_or_exposure: 'Targeted Protocol',
-            comparison: 'Baseline Cohort',
-            outcome: 'Secondary Clinical Biomarkers',
-            numbers_and_units: 'Documented in published trial data',
-            limitations: 'Monitored under physician guidance.',
-            certainty_notes: 'Derived directly from verbatim source passage.',
-            risk_flags: [],
-            review_status: 'READY_FOR_HUMAN_REVIEW' as const,
-            reviewer_note: 'Extracted from verbatim document text.',
-            evidence_ids: [secondPassage.evidence_id],
-            updated_at: new Date().toISOString(),
-          }] : []),
-        ];
+      const claimsData = await response.json();
+      if (!Array.isArray(claimsData?.claims) || claimsData.claims.length === 0) {
+        return 'Document saved. No draft claims were returned; nothing was fabricated or marked approved.';
       }
 
-      if (generatedClaims.length > 0) {
-        const updatedClaims = [
-          ...generatedClaims,
-          ...claims.filter((c) => c.paper_id !== newPaper.paper_id),
-        ];
-        setClaims(updatedClaims);
-        saveClaims(updatedClaims);
-        setSelectedClaimId(generatedClaims[0].claim_id);
+      const draftedClaims: ClaimRecord[] = claimsData.claims.map((claim: ClaimRecord) => {
+        const draft = {
+          ...claim,
+          paper_id: newPaper.paper_id,
+          review_status: 'DRAFT' as const,
+        };
+        const validation = runValidationEngine(draft, newPassages, claims);
+        return {
+          ...draft,
+          validation_findings: validation.findings,
+          validation_checks: validation.checks,
+          review_status: validation.calculatedStatus,
+        };
+      });
+      const updatedClaims = [
+        ...draftedClaims,
+        ...claims.filter((claim) => claim.paper_id !== newPaper.paper_id),
+      ];
+      setClaims(updatedClaims);
+      saveClaims(updatedClaims);
+      setSelectedClaimId(draftedClaims[0]?.claim_id || null);
 
-        let contentData: any = null;
-        try {
-          const contentRes = await fetch('/api/generate-content', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              paper_id: newPaper.paper_id,
-              paper_title: newPaper.title,
-              approved_claims: generatedClaims,
-            }),
-          });
-          if (contentRes.ok) {
-            contentData = await contentRes.json();
-          }
-        } catch (fetchErr) {
-          console.warn('API /api/generate-content fallback during upload:', fetchErr);
-        }
-
-        if (!contentData || !contentData.carousel) {
-          contentData = generateClientSteerContent(newPaper, generatedClaims, 0);
-        }
-
-        if (contentData) {
-          if (contentData.carousel) {
-            const updatedCarousels = [
-              contentData.carousel,
-              ...carousels.filter((c) => c.paper_id !== newPaper.paper_id),
-            ];
-            setCarousels(updatedCarousels);
-            saveCarousels(updatedCarousels);
-            if (idToken) {
-              saveDeliverableToSql(idToken, newPaper.paper_id, 'CAROUSEL', contentData.carousel.id, contentData.carousel).catch(console.error);
-            }
-          }
-          if (contentData.static_post) {
-            const updatedStaticPosts = [
-              contentData.static_post,
-              ...staticPosts.filter((s) => s.paper_id !== newPaper.paper_id),
-            ];
-            setStaticPosts(updatedStaticPosts);
-            saveStaticPosts(updatedStaticPosts);
-            if (idToken) {
-              saveDeliverableToSql(idToken, newPaper.paper_id, 'STATIC', contentData.static_post.id, contentData.static_post).catch(console.error);
-            }
-          }
-          if (contentData.reel) {
-            const updatedReels = [
-              contentData.reel,
-              ...reels.filter((r) => r.paper_id !== newPaper.paper_id),
-            ];
-            setReels(updatedReels);
-            saveReels(updatedReels);
-            if (idToken) {
-              saveDeliverableToSql(idToken, newPaper.paper_id, 'REEL', contentData.reel.id, contentData.reel).catch(console.error);
-            }
-          }
-          syncCalendarWithDeliverables(newPaper.paper_id, newPaper.title, contentData.carousel, contentData.static_post, contentData.reel);
-        }
+      if (idToken) {
+        draftedClaims.forEach((claim) => {
+          saveClaimToSql(idToken, claim).catch((error) =>
+            console.error('Failed to persist AI-drafted claim:', error)
+          );
+        });
       }
-    } catch (autoErr) {
-      console.warn('Auto-generation pipeline notice:', autoErr);
+
+      return `${draftedClaims.length} evidence-linked draft claim${draftedClaims.length === 1 ? '' : 's'} created. A clinician must review them before content generation.`;
+    } catch (error) {
+      console.warn('Claim drafting unavailable:', error);
+      return 'Document saved. AI claim drafting is unavailable right now; no synthetic claims or content were created.';
+    }
+  };
+
+  const handleVerifyPassage = (passage: EvidencePassage) => {
+    const verifiedPassage: EvidencePassage = {
+      ...passage,
+      extraction_status: 'OCR_VERIFIED',
+      reviewed_at: new Date().toISOString(),
+      reviewed_by: user?.displayName || 'Local reviewer',
+    };
+    const updatedPassages = passages.map((item) =>
+      item.evidence_id === passage.evidence_id ? verifiedPassage : item
+    );
+    setPassages(updatedPassages);
+    savePassages(updatedPassages);
+
+    if (idToken) {
+      const paper = papers.find((item) => item.paper_id === passage.paper_id);
+      if (paper) {
+        savePaperToSql(
+          idToken,
+          paper,
+          updatedPassages.filter((item) => item.paper_id === paper.paper_id)
+        ).catch((err) => console.error('Failed to persist OCR review:', err));
+      }
     }
   };
 
@@ -618,157 +531,11 @@ export default function App() {
     }
   };
 
-  const syncCalendarWithDeliverables = (
-    paperId: string,
-    paperTitle: string,
-    c: CarouselContent,
-    s: StaticPostContent,
-    r: ReelContent
-  ) => {
-    setScheduledPosts((prev) => {
-      const days = ['Monday', 'Wednesday', 'Friday'];
-      const slots = [
-        '11:30 AM IST · Educational Carousel (Feed)',
-        '1:00 PM IST · Key Finding Static Post',
-        '7:00 PM IST · Prime-Time AI Reel (Video)',
-      ];
-      const baseDate = new Date();
-      const updatedList = [...prev];
-
-      // 1. Carousel slot
-      const existingCIndex = updatedList.findIndex((p) => p.paper_id === paperId && p.format === 'CAROUSEL');
-      const cPost: ScheduledPost = {
-        id: existingCIndex >= 0 ? updatedList[existingCIndex].id : `sched_${paperId}_carousel_${Date.now()}`,
-        paper_id: paperId,
-        paper_title: paperTitle,
-        title: c.title,
-        format: 'CAROUSEL',
-        scheduled_for: new Date(baseDate.getTime() + 1 * 86400000).toISOString(),
-        slot_label: `${days[0]} ${slots[0]}`,
-        status: 'DOCTOR_APPROVED',
-        caption: c.caption,
-        hashtags: c.hashtags,
-        deliverable_id: c.id,
-        hook: c.slides[0]?.headline || c.title,
-        language: 'EN',
-      };
-      if (existingCIndex >= 0) {
-        updatedList[existingCIndex] = cPost;
-      } else {
-        updatedList.push(cPost);
-      }
-
-      // 2. Static post slot
-      const existingSIndex = updatedList.findIndex((p) => p.paper_id === paperId && p.format === 'STATIC');
-      const sPost: ScheduledPost = {
-        id: existingSIndex >= 0 ? updatedList[existingSIndex].id : `sched_${paperId}_static_${Date.now()}`,
-        paper_id: paperId,
-        paper_title: paperTitle,
-        title: s.headline,
-        format: 'STATIC',
-        scheduled_for: new Date(baseDate.getTime() + 3 * 86400000).toISOString(),
-        slot_label: `${days[1]} ${slots[1]}`,
-        status: 'DOCTOR_APPROVED',
-        caption: s.caption,
-        hashtags: s.hashtags,
-        deliverable_id: s.id,
-        hook: s.headline,
-        language: 'EN',
-      };
-      if (existingSIndex >= 0) {
-        updatedList[existingSIndex] = sPost;
-      } else {
-        updatedList.push(sPost);
-      }
-
-      // 3. Reel slot
-      const existingRIndex = updatedList.findIndex((p) => p.paper_id === paperId && p.format === 'REEL');
-      const rPost: ScheduledPost = {
-        id: existingRIndex >= 0 ? updatedList[existingRIndex].id : `sched_${paperId}_reel_${Date.now()}`,
-        paper_id: paperId,
-        paper_title: paperTitle,
-        title: r.title,
-        format: 'REEL',
-        scheduled_for: new Date(baseDate.getTime() + 5 * 86400000).toISOString(),
-        slot_label: `${days[2]} ${slots[2]}`,
-        status: 'READY_TO_PUBLISH',
-        caption: r.caption,
-        hashtags: r.hashtags,
-        deliverable_id: r.id,
-        hook: r.scenes[0]?.voiceover_script || r.title,
-        language: 'EN',
-      };
-      if (existingRIndex >= 0) {
-        updatedList[existingRIndex] = rPost;
-      } else {
-        updatedList.push(rPost);
-      }
-
-      saveScheduledPosts(updatedList);
-      return updatedList;
-    });
-  };
-
   const handleGenerateAllContent = async (variationIndex?: number): Promise<void> => {
     if (!activePaper) return;
     
-    // Auto-approve available paper claims or synthesize verified baseline claims if none exist
-    let claimsToUse = approvedClaims;
-    if (claimsToUse.length === 0 && currentPaperClaims.length > 0) {
-      const eligibleClaims = currentPaperClaims.filter(
-        (c) => c.review_status !== 'REJECTED' && c.review_status !== 'FLAGGED'
-      );
-      if (eligibleClaims.length > 0) {
-        claimsToUse = eligibleClaims.map((c) => ({
-          ...c,
-          review_status: 'HUMAN_APPROVED' as const,
-          reviewer_note: 'Auto-approved for Steer social editorial generation.',
-        }));
-        setClaims((prev) => {
-          const updated = prev.map((c) => {
-            const match = claimsToUse.find((m) => m.claim_id === c.claim_id);
-            return match || c;
-          });
-          saveClaims(updated);
-          return updated;
-        });
-      }
-    }
-
-    // Bulletproof: If paper has NO claims at all, synthesize verified baseline claim from study data
-    if (claimsToUse.length === 0) {
-      const cleanTitle = activePaper.title.replace(/\.pdf$/i, '').replace(/[_-]+/g, ' ').trim();
-      const firstPassage = currentPaperPassages[0];
-      const autoClaim: ClaimRecord = {
-        claim_id: `claim_${activePaper.paper_id}_base_${Date.now()}`,
-        paper_id: activePaper.paper_id,
-        claim_text: firstPassage 
-          ? firstPassage.verbatim_text.substring(0, 180) + '...'
-          : `Clinical evidence demonstrates significant metabolic adaptations and lean mass regulation during targeted protocols for ${cleanTitle}.`,
-        exact_supporting_quote: firstPassage 
-          ? firstPassage.verbatim_text.substring(0, 140)
-          : `Documented clinical trial findings for ${cleanTitle}.`,
-        population: 'Clinical Trial Participants',
-        study_design: 'Peer-Reviewed Clinical Trial',
-        intervention_or_exposure: 'Targeted Clinical Protocol',
-        comparison: 'Control Cohort',
-        outcome: 'Metabolic Biomarkers & Lean Mass Regulation',
-        numbers_and_units: 'Statistically significant trial metric',
-        limitations: 'Monitored under physician guidance.',
-        certainty_notes: 'Documented in published study.',
-        risk_flags: [],
-        review_status: 'HUMAN_APPROVED',
-        reviewer_note: 'Auto-approved for Steer editorial generation.',
-        evidence_ids: firstPassage ? [firstPassage.evidence_id] : [],
-        updated_at: new Date().toISOString(),
-      };
-      claimsToUse = [autoClaim];
-      setClaims((prev) => {
-        const next = [autoClaim, ...prev.filter((c) => c.claim_id !== autoClaim.claim_id)];
-        saveClaims(next);
-        return next;
-      });
-    }
+    const claimsToUse = approvedClaims;
+    if (claimsToUse.length === 0) return;
 
     const variationSeed = typeof variationIndex === 'number' 
       ? variationIndex 
@@ -780,7 +547,7 @@ export default function App() {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 45000);
 
-      const response = await fetch('/api/generate-content', {
+      const response = await authenticatedApiFetch('/api/generate-content', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -835,9 +602,6 @@ export default function App() {
       return updated;
     });
 
-    // Automatically update Content Calendar with latest deliverables
-    syncCalendarWithDeliverables(activePaper.paper_id, activePaper.title, newCarousel, newStatic, newReel);
-
     if (idToken) {
       saveDeliverableToSql(idToken, activePaper.paper_id, 'CAROUSEL', newCarousel.id, newCarousel).catch(console.error);
       saveDeliverableToSql(idToken, activePaper.paper_id, 'STATIC', newStatic.id, newStatic).catch(console.error);
@@ -884,8 +648,8 @@ export default function App() {
       format,
       scheduled_for: baseDate.toISOString(),
       slot_label: `${dayName} ${timeSlot}`,
-      status: 'DOCTOR_APPROVED',
-      caption: deliverable.caption,
+    status: 'SCHEDULED',
+    caption: deliverable.caption,
       hashtags: deliverable.hashtags,
       deliverable_id: deliverable.id,
       hook: hook || title,
@@ -899,25 +663,21 @@ export default function App() {
     return newPost;
   };
 
-  const handleResetDemo = () => {
-    if (confirm('Reset workspace to the metabolic health research dataset (GLP-1, South Asian phenotype, adaptive thermogenesis)?')) {
-      const demoData = resetToDemoWorkspace();
-      setPapers(demoData.papers);
-      setPassages(demoData.passages);
-      setClaims(demoData.claims);
-      setCarousels(demoData.carousels);
-      setStaticPosts(demoData.staticPosts);
-      setReels(demoData.reels);
-      setScheduledPosts(demoData.scheduledPosts);
-      setActivePaperIdState(demoData.papers[0].paper_id);
-      setSelectedClaimId(demoData.claims[0].claim_id);
-      setCurrentTab('workspace');
+  const handleResetDemo = async () => {
+    if (!confirm('Add the synthetic metabolic-health benchmark? Your saved papers and editorial drafts will be kept.')) return;
+    if (!idToken) {
+      setIsAuthModalOpen(true);
+      return;
+    }
 
-      if (idToken) {
-        seedDemoToSql(idToken).catch((err) =>
-          console.error('Failed to seed demo into Cloud SQL:', err)
-        );
-      }
+    setSqlSyncStatus('syncing');
+    try {
+      await seedDemoToSql(idToken);
+      await performSqlSync(idToken);
+      setCurrentTab('workspace');
+    } catch (error) {
+      console.error('Could not load benchmark data:', error instanceof Error ? error.message : 'Unknown error');
+      setSqlSyncStatus('error');
     }
   };
 
@@ -966,18 +726,7 @@ export default function App() {
     setReels(updatedReels);
     saveReels(updatedReels);
 
-    // 5. Update Content Calendar
-    if (activePaper) {
-      syncCalendarWithDeliverables(
-        activePaper.paper_id,
-        activePaper.title,
-        deliverables.carousel,
-        deliverables.staticPost,
-        deliverables.reel
-      );
-    }
-
-    // 6. Persist to Cloud SQL / Firestore
+    // 6. Persist to the signed-in account
     if (idToken && activePaper) {
       for (const clm of deliverables.newClaims) {
         saveClaimToSql(idToken, clm).catch(console.error);
@@ -1084,7 +833,7 @@ export default function App() {
               <div className="mx-6 mt-4 p-3 bg-red-50 border border-red-200 rounded-xl flex items-center justify-between text-xs text-red-800">
                 <div className="flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4 text-red-600 shrink-0" />
-                  <span>Database sync disconnected. Active local offline workspace preserved.</span>
+                  <span>Neon is unavailable. Changes may not have been saved; retry after storage reconnects.</span>
                 </div>
                 {idToken && (
                   <button
@@ -1101,7 +850,16 @@ export default function App() {
             {sqlSyncStatus === 'syncing' && (
               <div className="mx-6 mt-4 p-2.5 bg-amber-50/80 border border-amber-200 rounded-lg flex items-center gap-2 text-xs text-amber-800 animate-pulse">
                 <RefreshCw className="w-3.5 h-3.5 text-amber-600 animate-spin" />
-                <span>Synchronizing clinical research records with per-user Firestore isolation...</span>
+                <span>Synchronizing your account-scoped research records with Neon...</span>
+              </div>
+            )}
+
+            {activePaper?.is_demo && (
+              <div className="mx-4 mt-4 flex items-start gap-3 rounded-xs border border-amber-300 bg-amber-50 px-4 py-3 text-xs text-amber-950 sm:mx-6" role="note">
+                <AlertTriangle className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
+                <p className="leading-relaxed">
+                  <strong>Synthetic benchmark data.</strong> This sample paper, passages, claims, approvals, and publishing plan are illustrative only—not verified clinical evidence or real clinician sign-off. Do not use them for health decisions or publication.
+                </p>
               </div>
             )}
 
@@ -1194,8 +952,9 @@ export default function App() {
                   setHighlightEvidenceId(passage.evidence_id);
                   setCurrentTab('desk');
                 }}
-                onNavigateToReview={() => setCurrentTab('review')}
-              />
+  onNavigateToReview={() => setCurrentTab('review')}
+  onVerifyPassage={handleVerifyPassage}
+  />
             )}
 
             {currentTab === 'review' && (
@@ -1344,15 +1103,9 @@ export default function App() {
             )}
 
             {currentTab === 'schedule' && (
-              <PostScheduler
-                papers={papers}
-                activePaper={activePaper}
-                scheduledPosts={scheduledPosts}
-                onUpdateScheduledPosts={(updated) => {
-                  setScheduledPosts(updated);
-                  saveScheduledPosts(updated);
-                }}
-                onNavigateToStudio={(tab, targetPaperId) => {
+            <PostScheduler
+              scheduledPosts={scheduledPosts}
+              onNavigateToStudio={(tab, targetPaperId) => {
                   if (tab) setStudioTab(tab);
                   if (targetPaperId) {
                     setActivePaperIdState(targetPaperId);
@@ -1360,9 +1113,6 @@ export default function App() {
                   }
                   setCurrentTab('studio');
                 }}
-                carousels={carousels}
-                staticPosts={staticPosts}
-                reels={reels}
               />
             )}
 
@@ -1400,7 +1150,7 @@ export default function App() {
             )}
 
             {currentTab === 'selftest' && <SelfTestRunner />}
-            {currentTab === 'audit' && <AuditLogView />}
+            {currentTab === 'audit' && <AuditLogView logs={auditLogs} onRefresh={() => idToken && void performSqlSync(idToken)} />}
             {currentTab === 'media' && (
               <AiMediaStudio
                 activePaper={activePaper}

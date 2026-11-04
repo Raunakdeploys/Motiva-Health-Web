@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ClaimRecord, EvidencePassage } from '../types';
 import { runValidationEngine } from '../utils/validationEngine';
-import { saveAuditLogEntry } from '../utils/storage';
+import { authenticatedApiFetch } from '../utils/sqlApiClient';
 import { Play, CheckCircle2, XCircle, ShieldCheck, AlertTriangle, Video, RefreshCw, Zap } from 'lucide-react';
 
 interface TestCaseDefinition {
@@ -55,7 +55,7 @@ export const SelfTestRunner: React.FC = () => {
     });
 
     try {
-      const res = await fetch('/api/generate-video', {
+      const res = await authenticatedApiFetch('/api/generate-video', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -533,14 +533,6 @@ export const SelfTestRunner: React.FC = () => {
     setIsRunning(false);
     setCurrentExecutingStep(null);
 
-    // Record automated audit event for pipeline execution
-    saveAuditLogEntry({
-      userEmail: 'system.audit@steerclub.com',
-      userName: 'Deterministic Acceptance Engine',
-      role: 'Compliance Officer',
-      action: 'ACCEPTANCE_PIPELINE_RUN',
-      details: `12-Rule Deterministic Validation Pipeline executed in ${duration}s. 12/12 test scenarios passed cleanly.`,
-    });
   };
 
   React.useEffect(() => {

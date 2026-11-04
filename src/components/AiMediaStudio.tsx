@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { PaperRecord, ClaimRecord } from '../types';
 import { useAuth } from '../context/AuthContext';
+import { authenticatedApiFetch } from '../utils/sqlApiClient';
 
 interface AiMediaStudioProps {
   activePaper: PaperRecord | null;
@@ -137,7 +138,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
     }, 1000);
 
     try {
-      const res = await fetch('/api/generate-video', {
+      const res = await authenticatedApiFetch('/api/generate-video', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -164,7 +165,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
           setVideoStatusMessage(`Veo 3 neural diffusion in progress (${currentSec}s elapsed)...`);
 
           try {
-            const pollRes = await fetch('/api/video-status', {
+            const pollRes = await authenticatedApiFetch('/api/video-status', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -233,7 +234,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
     }, 1000);
 
     try {
-      const res = await fetch('/api/generate-video', {
+      const res = await authenticatedApiFetch('/api/generate-video', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -260,7 +261,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
           setAnimateStatusMessage(`Animating photo with Veo 3 (${currentSec}s elapsed)...`);
 
           try {
-            const pollRes = await fetch('/api/video-status', {
+            const pollRes = await authenticatedApiFetch('/api/video-status', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -310,7 +311,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
     setGeneratedImageUrl(null);
 
     try {
-      const res = await fetch('/api/generate-image', {
+      const res = await authenticatedApiFetch('/api/generate-image', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -343,7 +344,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
     setIsEditingImage(true);
 
     try {
-      const res = await fetch('/api/edit-image', {
+      const res = await authenticatedApiFetch('/api/edit-image', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -376,7 +377,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
     setImportedNotice(null);
 
     try {
-      const res = await fetch('/api/search-grounding', {
+      const res = await authenticatedApiFetch('/api/search-grounding', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: searchQuery.trim() }),
@@ -466,7 +467,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
           <div>
             <span className="text-[#786A61] block text-[9px]">PERSISTENCE</span>
             <span className="text-[#351D1D] font-bold text-[11px]">
-              {user ? user.email : 'Firestore Sandbox'}
+              {user ? user.email : 'Sign in required'}
             </span>
           </div>
         </div>

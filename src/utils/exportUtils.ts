@@ -1,4 +1,5 @@
 import { CarouselSlide, EvidenceAuditReport, ReelScene, StaticPostContent } from '../types';
+import { authenticatedApiFetch } from './sqlApiClient';
 
 /**
  * Downloads a text or JSON file as a real Blob
@@ -362,7 +363,7 @@ export async function recordReelVideo(
 
   // Fallback to Server Video Engine
   onProgress(50, 'Synthesizing with Steer Server Video Engine...');
-  const res = await fetch('/api/render-reel-video', {
+  const res = await authenticatedApiFetch('/api/render-reel-video', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ scenes, reelId: `reel_${Date.now()}` }),

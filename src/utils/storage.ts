@@ -35,7 +35,7 @@ export const PAPER_GLP1: PaperRecord = {
   filesize_bytes: 2145000,
   uploaded_at: '2026-10-15T09:00:00.000Z',
   total_pages: 14,
-  is_demo: false,
+  is_demo: true,
   extraction_warnings: [],
   has_unreadable_pages: false,
 };
@@ -105,13 +105,13 @@ export const CLAIMS_GLP1: ClaimRecord[] = [
     limitations: 'Sub-study sample size n=140; self-reported outside physical activity.',
     certainty_notes: 'High certainty from double-blind DXA clinical trial.',
     risk_flags: [],
-    review_status: 'HUMAN_APPROVED',
-    reviewer_note: 'Verified against Results section p. 5. Exact numbers match DXA sub-study.',
+    review_status: 'DRAFT',
+    reviewer_note: 'Synthetic sample record. No real clinical review was performed.',
     approved_version: {
       claim_text:
         'In clinical trials of once-weekly GLP-1 receptor agonist therapy, lean body mass accounted for up to 39.2% of total weight reduction (5.26 kg lean mass loss out of 13.6 kg total loss) in participants without structured resistance training.',
       approved_at: '2026-10-16T11:00:00.000Z',
-      approved_by: 'Dr. Siddharth M., Steer Clinical Lead',
+      approved_by: 'Sample placeholder — no clinician sign-off',
     },
     updated_at: '2026-10-16T11:00:00.000Z',
   },
@@ -132,13 +132,13 @@ export const CLAIMS_GLP1: ClaimRecord[] = [
     limitations: 'Calorimetry measured in fasting morning state.',
     certainty_notes: 'Statistically significant correlation with lean mass reduction.',
     risk_flags: [],
-    review_status: 'HUMAN_APPROVED',
-    reviewer_note: 'Approved. RMR reduction matches p. 7 table.',
+    review_status: 'DRAFT',
+    reviewer_note: 'Synthetic sample record. No real clinical review was performed.',
     approved_version: {
       claim_text:
         'Loss of lean body mass during pharmacological weight reduction reduces resting metabolic rate by an average of 185 kcal/day, which correlates with the rate of post-treatment weight rebound unless counteracted with protein and resistance exercise.',
       approved_at: '2026-10-16T11:15:00.000Z',
-      approved_by: 'Dr. Siddharth M., Steer Clinical Lead',
+      approved_by: 'Sample placeholder — no clinician sign-off',
     },
     updated_at: '2026-10-16T11:15:00.000Z',
   },
@@ -159,13 +159,13 @@ export const CLAIMS_GLP1: ClaimRecord[] = [
     limitations: 'Adherence to resistance training requires ongoing coaching.',
     certainty_notes: 'Clinical recommendation supported by exercise physiology data.',
     risk_flags: [],
-    review_status: 'HUMAN_APPROVED',
-    reviewer_note: 'Verified against Discussion p. 11.',
+    review_status: 'DRAFT',
+    reviewer_note: 'Synthetic sample record. No real clinical review was performed.',
     approved_version: {
       claim_text:
         'Combining medically-assisted weight loss with 1.2 to 1.5 g/kg/day dietary protein and twice-weekly progressive resistance training preserves skeletal muscle mass, reducing lean tissue loss to under 20% of total reduction.',
       approved_at: '2026-10-16T11:30:00.000Z',
-      approved_by: 'Dr. Siddharth M., Steer Clinical Lead',
+      approved_by: 'Sample placeholder — no clinician sign-off',
     },
     updated_at: '2026-10-16T11:30:00.000Z',
   },
@@ -177,7 +177,7 @@ export const CAROUSEL_GLP1: CarouselContent = {
   approved_claim_ids: ['claim_glp1_01', 'claim_glp1_02', 'claim_glp1_03'],
   title: 'GLP-1, Muscle Loss, and Why Weight Regain Happens',
   generated_at: '2026-10-16T12:00:00.000Z',
-  status: 'READY',
+  status: 'DRAFT',
   caption:
     'Before you start a GLP-1 injection, hear it from a doctor, not a reel.\n\nIn clinical trials, up to 39% of weight lost was metabolic muscle—not fat. When your muscle shrinks, your daily calorie burn drops by ~185 kcal. That is why the weight returns when the injection stops.\n\nAt Steer, our doctors calibrate your protein, blood labs, and strength habits before any medicine. Because the goal is not just losing weight—it is losing well, and living well.\n\nAsk a doctor: steerclub.com',
   hinglish_caption:
@@ -291,7 +291,7 @@ export const STATIC_GLP1: StaticPostContent = {
   hinglish_caption: 'Google band kariye, doctor se baat kariye. Steer par doctor-led metabolic care. Visit steerclub.com',
   founder_note: 'Doctor\'s note: Muscle is your metabolic insurance policy.',
   hashtags: ['#MetabolicHealth', '#GLP1India', '#SteerClub', '#DoctorLedCare', '#IndianBiology'],
-  status: 'READY',
+  status: 'DRAFT',
   generated_at: '2026-10-16T12:15:00.000Z',
 };
 
@@ -304,7 +304,7 @@ export const REEL_GLP1: ReelContent = {
   caption: 'Why do so many people regain weight after stopping GLP-1 injections? It is biology, not willpower.\n\nIn clinical trials published in the NEJM, nearly 40% of the weight lost was lean muscle. When your muscle shrinks, your body burns 185 fewer calories every single day.\n\nAt Steer, our doctors calibrate your protein and strength habits from day one so you have a planned exit.\n\nVisit steerclub.com',
   hinglish_caption: 'Kyu GLP-1 injections band hote hi wazan wapas aa jata hai? Yeh willpower ki kami nahi, biology hai. NEJM research ke mutabiq 39% muscle loss hota hai. Steer par doctors pehle muscle protect karte hain. steerclub.com',
   hashtags: ['#GLP1Rebound', '#MetabolicHealth', '#SteerClub', '#IndianNutrition', '#HealthScience'],
-  status: 'READY',
+  status: 'DRAFT',
   generated_at: '2026-10-16T12:30:00.000Z',
   scenes: [
     {
@@ -390,7 +390,7 @@ export const PAPER_SOUTH_ASIAN: PaperRecord = {
   filesize_bytes: 1850000,
   uploaded_at: '2026-10-15T09:30:00.000Z',
   total_pages: 11,
-  is_demo: false,
+  is_demo: true,
   extraction_warnings: [],
   has_unreadable_pages: false,
 };
@@ -449,13 +449,13 @@ export const CLAIMS_SOUTH_ASIAN: ClaimRecord[] = [
     limitations: 'Cross-sectional; observational comparison.',
     certainty_notes: 'Replicated across multiple metabolic imaging cohorts.',
     risk_flags: [],
-    review_status: 'HUMAN_APPROVED',
-    reviewer_note: 'Verified against MRI tables p. 2.',
+    review_status: 'DRAFT',
+    reviewer_note: 'Synthetic sample record. No real clinical review was performed.',
     approved_version: {
       claim_text:
         'Asian Indians exhibit a unique "thin-fat" metabolic phenotype with 25% higher visceral adipose tissue and lower skeletal muscle mass compared to other populations at an identical normal BMI of 22.5 kg/m².',
       approved_at: '2026-10-16T13:00:00.000Z',
-      approved_by: 'Dr. Siddharth M., Steer Clinical Lead',
+      approved_by: 'Sample placeholder — no clinician sign-off',
     },
     updated_at: '2026-10-16T13:00:00.000Z',
   },
@@ -476,13 +476,13 @@ export const CLAIMS_SOUTH_ASIAN: ClaimRecord[] = [
     limitations: 'Dietary intake recorded via food logs; free-living setting.',
     certainty_notes: 'Continuous CGM telemetry data across 320 subjects.',
     risk_flags: [],
-    review_status: 'HUMAN_APPROVED',
-    reviewer_note: 'Approved. Reflects CGM data p. 4.',
+    review_status: 'DRAFT',
+    reviewer_note: 'Synthetic sample record. No real clinical review was performed.',
     approved_version: {
       claim_text:
         'Habitual refined carbohydrate meals (rotis and white rice) produce a 42% higher postprandial glucose spike in South Asians, triggering compensatory insulin surges that lead to post-lunch energy crashes at 3 PM.',
       approved_at: '2026-10-16T13:15:00.000Z',
-      approved_by: 'Dr. Siddharth M., Steer Clinical Lead',
+      approved_by: 'Sample placeholder — no clinician sign-off',
     },
     updated_at: '2026-10-16T13:15:00.000Z',
   },
@@ -494,7 +494,7 @@ export const CAROUSEL_SOUTH_ASIAN: CarouselContent = {
   approved_claim_ids: ['claim_sa_01', 'claim_sa_02'],
   title: 'Why the Weighing Scale Lies to Indian Bodies',
   generated_at: '2026-10-16T13:30:00.000Z',
-  status: 'READY',
+  status: 'DRAFT',
   caption:
     'Your weighing scale says your BMI is 22.5. But your kurta feels tighter around the waist, and by 3 PM at your desk, your energy crashes.\n\nHere is what metabolic research in South Asians shows: Indians have 25% more visceral fat sitting deep around internal organs even at "normal" weight. And our staple meals of white rice and rotis create a 42% higher glucose spike than other populations.\n\nYou do not need to give up family dinners or roti. You need meal sequencing and muscle care calibrated for Indian biology.\n\nRead the science at steerclub.com',
   hinglish_caption:
@@ -576,7 +576,7 @@ export const STATIC_SOUTH_ASIAN: StaticPostContent = {
   hinglish_supporting_text: 'Indians mein normal BMI par bhi 25% zyada visceral fat hota hai. Khane ka order aur muscle badhane par focus kariye.',
   founder_note: 'Doctor\'s note: Treat the metabolic engine, not just the scale.',
   hashtags: ['#IndianHealth', '#MetabolicHealth', '#VisceralFat', '#SteerClub', '#InsulinSpikes'],
-  status: 'READY',
+  status: 'DRAFT',
   generated_at: '2026-10-16T13:45:00.000Z',
 };
 
@@ -589,7 +589,7 @@ export const REEL_SOUTH_ASIAN: ReelContent = {
   caption: 'That 3 PM energy slump at your desk isn\'t laziness. It is reactive hypoglycemia from how Indian biology handles roti and rice.\n\nClinical CGM trials show South Asians experience a 42% sharper glucose spike after a carb-heavy lunch. When insulin overcorrects, blood sugar drops and your brain demands chai and sugar.\n\nDoctor-led metabolic habits at steerclub.com',
   hinglish_caption: 'Dopehar 3 baje ki thakan laziness nahi, aapke lunch ka reactive glucose drop hai. Roti aur chawal se 42% spike hota hai. Steer par doctor se samjhiye. steerclub.com',
   hashtags: ['#3pmCrash', '#IndianMetabolism', '#RotiSpikes', '#SteerClub', '#DoctorLedHealth'],
-  status: 'READY',
+  status: 'DRAFT',
   generated_at: '2026-10-16T14:00:00.000Z',
   scenes: [
     {
@@ -662,7 +662,7 @@ export const PAPER_METABOLIC_ADAPTATION: PaperRecord = {
   filesize_bytes: 2410000,
   uploaded_at: '2026-10-15T10:00:00.000Z',
   total_pages: 16,
-  is_demo: false,
+  is_demo: true,
   extraction_warnings: [],
   has_unreadable_pages: false,
 };
@@ -721,13 +721,13 @@ export const CLAIMS_METABOLIC_ADAPTATION: ClaimRecord[] = [
     limitations: 'Metabolic chamber setting; tightly controlled caloric intakes.',
     certainty_notes: 'High certainty from gold-standard whole-room calorimetry.',
     risk_flags: [],
-    review_status: 'HUMAN_APPROVED',
-    reviewer_note: 'Verified against Hall et al. p. 6.',
+    review_status: 'DRAFT',
+    reviewer_note: 'Synthetic sample record. No real clinical review was performed.',
     approved_version: {
       claim_text:
         'Crash caloric restriction induces adaptive thermogenesis, reducing resting metabolic rate by an average of 380 kcal/day below what loss of body mass predicts, persisting for over 12 months.',
       approved_at: '2026-10-16T14:00:00.000Z',
-      approved_by: 'Dr. Siddharth M., Steer Clinical Lead',
+      approved_by: 'Sample placeholder — no clinician sign-off',
     },
     updated_at: '2026-10-16T14:00:00.000Z',
   },
@@ -748,13 +748,13 @@ export const CLAIMS_METABOLIC_ADAPTATION: ClaimRecord[] = [
     limitations: 'Fasting venous blood sampling.',
     certainty_notes: 'Statistically significant neuroendocrine adaptation.',
     risk_flags: [],
-    review_status: 'HUMAN_APPROVED',
-    reviewer_note: 'Approved. Reflects p. 9 hormone assays.',
+    review_status: 'DRAFT',
+    reviewer_note: 'Synthetic sample record. No real clinical review was performed.',
     approved_version: {
       claim_text:
         'Following rapid weight loss, the hunger hormone ghrelin remains elevated by 24% for over a year while satiety hormones are suppressed, biologically driving rebound overeating.',
       approved_at: '2026-10-16T14:15:00.000Z',
-      approved_by: 'Dr. Siddharth M., Steer Clinical Lead',
+      approved_by: 'Sample placeholder — no clinician sign-off',
     },
     updated_at: '2026-10-16T14:15:00.000Z',
   },
@@ -766,7 +766,7 @@ export const CAROUSEL_METABOLIC_ADAPTATION: CarouselContent = {
   approved_claim_ids: ['claim_ma_01', 'claim_ma_02'],
   title: 'Why Crash Diets Fail: It is Biology, Not Willpower',
   generated_at: '2026-10-16T14:30:00.000Z',
-  status: 'READY',
+  status: 'DRAFT',
   caption:
     'You lost 8 kilos for a wedding by starving yourself. Within three months, 10 kilos came back. You blamed your willpower.\n\nHere is what metabolic chamber research shows: your body dropped its daily calorie burn by 380 kcal and pumped out 24% more ghrelin (the hunger hormone) for an entire year. Your biology was actively fighting to survive what it thought was a famine.\n\nStop the crash-and-rebound cycle. At Steer, our doctors design gradual metabolic habit exits calibrated for your life.\n\nsteerclub.com',
   hinglish_caption:
@@ -848,7 +848,7 @@ export const STATIC_METABOLIC_ADAPTATION: StaticPostContent = {
   hinglish_supporting_text: 'Metabolism 380 calories slow ho jata hai aur ghrelin 24% badh jata hai. Steer par doctor-led care. steerclub.com',
   founder_note: 'Doctor\'s note: Biology beats willpower every single time.',
   hashtags: ['#MetabolicAdaptation', '#SteerClub', '#DietScience', '#DoctorLedCare', '#IndianWellness'],
-  status: 'READY',
+  status: 'DRAFT',
   generated_at: '2026-10-16T14:45:00.000Z',
 };
 
@@ -861,7 +861,7 @@ export const REEL_METABOLIC_ADAPTATION: ReelContent = {
   caption: 'Why does weight always rebound after crash diets? Because your body drops its daily calorie burn by 380 calories and boosts hunger hormones by 24% for a whole year. It is biology, not willpower.\n\nDoctor-led metabolic care at steerclub.com',
   hinglish_caption: 'Crash diet ke baad wazan kyu laut aata hai? Kyunki metabolism 380 calories slow hota hai aur bhookh 24% badh jaati hai. Yeh biology hai. steerclub.com',
   hashtags: ['#CrashDietTrap', '#MetabolicRate', '#SteerClub', '#HabitBuilding', '#IndianHealth'],
-  status: 'READY',
+  status: 'DRAFT',
   generated_at: '2026-10-16T15:00:00.000Z',
   scenes: [
     {
@@ -966,7 +966,7 @@ export const DEFAULT_SCHEDULED_POSTS: ScheduledPost[] = [
     format: 'CAROUSEL',
     scheduled_for: '2026-10-19T06:00:00.000Z',
     slot_label: 'Monday 11:30 AM IST · Educational Carousel (Feed)',
-    status: 'SCHEDULED',
+    status: 'DRAFT',
     caption: CAROUSEL_GLP1.caption,
     hashtags: CAROUSEL_GLP1.hashtags,
     deliverable_id: CAROUSEL_GLP1.id,
@@ -981,7 +981,7 @@ export const DEFAULT_SCHEDULED_POSTS: ScheduledPost[] = [
     format: 'REEL',
     scheduled_for: '2026-10-20T13:30:00.000Z',
     slot_label: 'Tuesday 7:00 PM IST · Short Reel (Video)',
-    status: 'SCHEDULED',
+    status: 'DRAFT',
     caption: REEL_SOUTH_ASIAN.caption,
     hashtags: REEL_SOUTH_ASIAN.hashtags,
     deliverable_id: REEL_SOUTH_ASIAN.id,
@@ -996,7 +996,7 @@ export const DEFAULT_SCHEDULED_POSTS: ScheduledPost[] = [
     format: 'STATIC',
     scheduled_for: '2026-10-21T06:00:00.000Z',
     slot_label: 'Wednesday 11:30 AM IST · Editorial Note (Single)',
-    status: 'SCHEDULED',
+    status: 'DRAFT',
     caption: STATIC_METABOLIC_ADAPTATION.caption,
     hashtags: STATIC_METABOLIC_ADAPTATION.hashtags,
     deliverable_id: STATIC_METABOLIC_ADAPTATION.id,
@@ -1011,7 +1011,7 @@ export const DEFAULT_SCHEDULED_POSTS: ScheduledPost[] = [
     format: 'CAROUSEL',
     scheduled_for: '2026-10-22T06:00:00.000Z',
     slot_label: 'Thursday 11:30 AM IST · Deep-Dive Carousel (Feed)',
-    status: 'DOCTOR_APPROVED',
+    status: 'DRAFT',
     caption: CAROUSEL_SOUTH_ASIAN.caption,
     hashtags: CAROUSEL_SOUTH_ASIAN.hashtags,
     deliverable_id: CAROUSEL_SOUTH_ASIAN.id,
@@ -1026,7 +1026,7 @@ export const DEFAULT_SCHEDULED_POSTS: ScheduledPost[] = [
     format: 'REEL',
     scheduled_for: '2026-10-23T13:30:00.000Z',
     slot_label: 'Friday 7:00 PM IST · Prime-Time Reel (Video)',
-    status: 'READY_TO_PUBLISH',
+    status: 'DRAFT',
     caption: REEL_GLP1.caption,
     hashtags: REEL_GLP1.hashtags,
     deliverable_id: REEL_GLP1.id,
@@ -1041,7 +1041,7 @@ export const DEFAULT_SCHEDULED_POSTS: ScheduledPost[] = [
     format: 'CAROUSEL',
     scheduled_for: '2026-10-24T05:30:00.000Z',
     slot_label: 'Saturday 11:00 AM IST · Weekend Long-form (Feed)',
-    status: 'DOCTOR_APPROVED',
+    status: 'DRAFT',
     caption: CAROUSEL_METABOLIC_ADAPTATION.caption,
     hashtags: CAROUSEL_METABOLIC_ADAPTATION.hashtags,
     deliverable_id: CAROUSEL_METABOLIC_ADAPTATION.id,
@@ -1056,7 +1056,7 @@ export const DEFAULT_SCHEDULED_POSTS: ScheduledPost[] = [
     format: 'STATIC',
     scheduled_for: '2026-10-25T12:30:00.000Z',
     slot_label: 'Sunday 6:00 PM IST · Doctor Field Note',
-    status: 'SCHEDULED',
+    status: 'DRAFT',
     caption: STATIC_GLP1.caption,
     hashtags: STATIC_GLP1.hashtags,
     deliverable_id: STATIC_GLP1.id,
@@ -1065,147 +1065,98 @@ export const DEFAULT_SCHEDULED_POSTS: ScheduledPost[] = [
   },
 ];
 
+const SAMPLE_PAPER_IDS = new Set(ALL_PAPERS.map((paper) => paper.paper_id));
+const SAMPLE_CLAIM_IDS = new Set(ALL_CLAIMS.map((claim) => claim.claim_id));
+
+function markSamplePaper(paper: PaperRecord): PaperRecord {
+  return SAMPLE_PAPER_IDS.has(paper.paper_id) ? { ...paper, is_demo: true } : paper;
+}
+
+function markSampleClaim(claim: ClaimRecord): ClaimRecord {
+  if (!SAMPLE_CLAIM_IDS.has(claim.claim_id)) return claim;
+  const sampleClaim: ClaimRecord = {
+    ...claim,
+    review_status: 'DRAFT',
+    reviewer_note: 'Synthetic sample record. No real clinical review was performed.',
+    approved_version: undefined,
+    review_history: [],
+  };
+  const validation = runValidationEngine(sampleClaim, ALL_PASSAGES, ALL_CLAIMS);
+  return {
+    ...sampleClaim,
+    validation_findings: validation.findings,
+    validation_checks: validation.checks,
+    review_status: validation.calculatedStatus,
+  };
+}
+
+function markSampleCarousel(item: CarouselContent): CarouselContent {
+  return SAMPLE_PAPER_IDS.has(item.paper_id) ? { ...item, status: 'DRAFT' } : item;
+}
+
+function markSampleStaticPost(item: StaticPostContent): StaticPostContent {
+  return SAMPLE_PAPER_IDS.has(item.paper_id) ? { ...item, status: 'DRAFT' } : item;
+}
+
+function markSampleReel(item: ReelContent): ReelContent {
+  return SAMPLE_PAPER_IDS.has(item.paper_id) ? { ...item, status: 'DRAFT' } : item;
+}
+
 // Persistence functions
 export function getSavedPapers(): PaperRecord[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEYS.PAPERS);
-    if (!raw) return ALL_PAPERS;
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : ALL_PAPERS;
-  } catch {
-    return ALL_PAPERS;
-  }
+  return [];
 }
 
 export function savePapers(papers: PaperRecord[]): void {
-  try {
-    localStorage.setItem(STORAGE_KEYS.PAPERS, JSON.stringify(papers));
-  } catch (e) {
-    console.error('Storage write error:', e);
-  }
+  void papers;
 }
 
 export function getSavedPassages(): EvidencePassage[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEYS.PASSAGES);
-    if (!raw) return ALL_PASSAGES;
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : ALL_PASSAGES;
-  } catch {
-    return ALL_PASSAGES;
-  }
+  return [];
 }
 
 export function savePassages(passages: EvidencePassage[]): void {
-  try {
-    localStorage.setItem(STORAGE_KEYS.PASSAGES, JSON.stringify(passages));
-  } catch (e) {
-    console.error('Storage write error:', e);
-  }
+  void passages;
 }
 
 export function getSavedClaims(): ClaimRecord[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEYS.CLAIMS);
-    if (!raw) {
-      return ALL_CLAIMS.map((claim) => {
-        const { findings, calculatedStatus } = runValidationEngine(claim, ALL_PASSAGES, ALL_CLAIMS);
-        return {
-          ...claim,
-          validation_findings: findings,
-          review_status: claim.review_status || calculatedStatus,
-        };
-      });
-    }
-    const parsed: ClaimRecord[] = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : ALL_CLAIMS;
-  } catch {
-    return ALL_CLAIMS;
-  }
+  return [];
 }
 
 export function saveClaims(claims: ClaimRecord[]): void {
-  try {
-    localStorage.setItem(STORAGE_KEYS.CLAIMS, JSON.stringify(claims));
-  } catch (e) {
-    console.error('Storage write error:', e);
-  }
+  void claims;
 }
 
 export function getSavedCarousels(): CarouselContent[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEYS.CAROUSELS);
-    if (!raw) return ALL_CAROUSELS;
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : ALL_CAROUSELS;
-  } catch {
-    return ALL_CAROUSELS;
-  }
+  return [];
 }
 
 export function saveCarousels(carousels: CarouselContent[]): void {
-  try {
-    localStorage.setItem(STORAGE_KEYS.CAROUSELS, JSON.stringify(carousels));
-  } catch (e) {
-    console.error('Storage write error:', e);
-  }
+  void carousels;
 }
 
 export function getSavedStaticPosts(): StaticPostContent[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEYS.STATIC_POSTS);
-    if (!raw) return ALL_STATIC_POSTS;
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : ALL_STATIC_POSTS;
-  } catch {
-    return ALL_STATIC_POSTS;
-  }
+  return [];
 }
 
 export function saveStaticPosts(posts: StaticPostContent[]): void {
-  try {
-    localStorage.setItem(STORAGE_KEYS.STATIC_POSTS, JSON.stringify(posts));
-  } catch (e) {
-    console.error('Storage write error:', e);
-  }
+  void posts;
 }
 
 export function getSavedReels(): ReelContent[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEYS.REELS);
-    if (!raw) return ALL_REELS;
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : ALL_REELS;
-  } catch {
-    return ALL_REELS;
-  }
+  return [];
 }
 
 export function saveReels(reels: ReelContent[]): void {
-  try {
-    localStorage.setItem(STORAGE_KEYS.REELS, JSON.stringify(reels));
-  } catch (e) {
-    console.error('Storage write error:', e);
-  }
+  void reels;
 }
 
 export function getSavedScheduledPosts(): ScheduledPost[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEYS.SCHEDULED_POSTS);
-    if (!raw) return DEFAULT_SCHEDULED_POSTS;
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : DEFAULT_SCHEDULED_POSTS;
-  } catch {
-    return DEFAULT_SCHEDULED_POSTS;
-  }
+  return [];
 }
 
 export function saveScheduledPosts(posts: ScheduledPost[]): void {
-  try {
-    localStorage.setItem(STORAGE_KEYS.SCHEDULED_POSTS, JSON.stringify(posts));
-  } catch (e) {
-    console.error('Storage write error:', e);
-  }
+  void posts;
 }
 
 export function getActivePaperId(): string {
@@ -1236,31 +1187,32 @@ export function resetToDemoWorkspace(): {
   reels: ReelContent[];
   scheduledPosts: ScheduledPost[];
 } {
-  const validatedClaims = ALL_CLAIMS.map((claim) => {
+  const samplePapers = ALL_PAPERS.map(markSamplePaper);
+  const validatedClaims = ALL_CLAIMS.map((sourceClaim) => {
+    const claim = markSampleClaim(sourceClaim);
     const { findings, calculatedStatus } = runValidationEngine(claim, ALL_PASSAGES, ALL_CLAIMS);
-    return {
-      ...claim,
-      validation_findings: findings,
-      review_status: claim.review_status || calculatedStatus,
-    };
+    return { ...claim, validation_findings: findings, review_status: calculatedStatus };
   });
+  const sampleCarousels = ALL_CAROUSELS.map(markSampleCarousel);
+  const sampleStaticPosts = ALL_STATIC_POSTS.map(markSampleStaticPost);
+  const sampleReels = ALL_REELS.map(markSampleReel);
 
-  savePapers(ALL_PAPERS);
+  savePapers(samplePapers);
   savePassages(ALL_PASSAGES);
   saveClaims(validatedClaims);
-  saveCarousels(ALL_CAROUSELS);
-  saveStaticPosts(ALL_STATIC_POSTS);
-  saveReels(ALL_REELS);
+  saveCarousels(sampleCarousels);
+  saveStaticPosts(sampleStaticPosts);
+  saveReels(sampleReels);
   saveScheduledPosts(DEFAULT_SCHEDULED_POSTS);
   setActivePaperId(PAPER_GLP1.paper_id);
 
   return {
-    papers: ALL_PAPERS,
+    papers: samplePapers,
     passages: ALL_PASSAGES,
     claims: validatedClaims,
-    carousels: ALL_CAROUSELS,
-    staticPosts: ALL_STATIC_POSTS,
-    reels: ALL_REELS,
+    carousels: sampleCarousels,
+    staticPosts: sampleStaticPosts,
+    reels: sampleReels,
     scheduledPosts: DEFAULT_SCHEDULED_POSTS,
   };
 }
@@ -1273,57 +1225,5 @@ export interface AuditLogEntry {
   role: string;
   action: string;
   details: string;
-}
-
-export function getSavedAuditLogs(): AuditLogEntry[] {
-  try {
-    const raw = localStorage.getItem('steer_all_users_audit_logs');
-    if (raw) return JSON.parse(raw);
-  } catch {}
-  return [
-    {
-      id: 'log_1',
-      timestamp: new Date(Date.now() - 3600000 * 4).toISOString(),
-      userEmail: 'topmostproffesor234@gmail.com',
-      userName: 'Dr. Raunak Roy',
-      role: 'Admin',
-      action: 'SYSTEM_INIT',
-      details: 'Initialized Steer Evidence Studio & Cloud PostgreSQL synchronization.',
-    },
-    {
-      id: 'log_2',
-      timestamp: new Date(Date.now() - 3600000 * 2).toISOString(),
-      userName: 'Dr. Priya Sharma',
-      userEmail: 'priya.sharma@steerclub.com',
-      role: 'Medical Reviewer',
-      action: 'CLAIM_VERIFICATION',
-      details: 'Approved 3 core metabolic claims against NEJM STEP-1 trial evidence passages.',
-    },
-    {
-      id: 'log_3',
-      timestamp: new Date(Date.now() - 3600000).toISOString(),
-      userName: 'Arjun Mehta',
-      userEmail: 'arjun.mehta@steerclub.com',
-      role: 'Content Creator',
-      action: 'CAROUSEL_GENERATION',
-      details: 'Generated and scheduled 7-day calendar editorial deliverables for Instagram & LinkedIn.',
-    },
-  ];
-}
-
-export function saveAuditLogEntry(entry: Omit<AuditLogEntry, 'id' | 'timestamp'>) {
-  try {
-    const logs = getSavedAuditLogs();
-    const newEntry: AuditLogEntry = {
-      ...entry,
-      id: 'log_' + Date.now() + Math.random().toString(36).substring(2, 5),
-      timestamp: new Date().toISOString(),
-    };
-    const updated = [newEntry, ...logs].slice(0, 100);
-    localStorage.setItem('steer_all_users_audit_logs', JSON.stringify(updated));
-    return updated;
-  } catch {
-    return [];
-  }
 }
 

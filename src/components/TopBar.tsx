@@ -124,7 +124,7 @@ export const TopBar: React.FC<TopBarProps> = ({
   const syncLabels = {
     synced: 'Synced',
     syncing: 'Syncing',
-    offline: 'Local only',
+    offline: 'Sign in to sync',
     error: 'Needs attention',
   };
 

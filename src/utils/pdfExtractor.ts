@@ -1,6 +1,7 @@
 import * as pdfjsLib from 'pdfjs-dist';
 import pdfWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 import { EvidencePassage, PaperRecord } from '../types';
+import { authenticatedApiFetch } from './sqlApiClient';
 
 // Configure PDF.js worker using Vite asset URL
 if (typeof window !== 'undefined' && pdfjsLib.GlobalWorkerOptions) {
@@ -14,48 +15,35 @@ export interface ExtractionResult {
   hasScannedPages: boolean;
 }
 
-/**
- * Robust client-side raw text extractor for PDF array buffers
- * Works even when Web Workers or canvas contexts are unavailable
- */
-function extractRawTextFromPdfBuffer(arrayBuffer: ArrayBuffer): string {
-  try {
-    const decoder = new TextDecoder('utf-8', { fatal: false });
-    const raw = decoder.decode(arrayBuffer);
-    
-    // Look for text inside PDF text objects (BT ... ET)
-    const textBlocks: string[] = [];
-    const btRegex = /BT[\s\S]*?ET/g;
-    let match: RegExpExecArray | null;
+async function transcribePageWithAI(page: pdfjsLib.PDFPageProxy, pageNumber: number): Promise<string> {
+  const originalViewport = page.getViewport({ scale: 1 });
+  const scale = Math.min(1.6, 1800 / Math.max(originalViewport.width, originalViewport.height));
+  const viewport = page.getViewport({ scale });
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
 
-    while ((match = btRegex.exec(raw)) !== null) {
-      const block = match[0];
-      // Match strings inside parentheses: (text)
-      const stringMatches = block.match(/\((?:[^()\\]|\\.)*\)/g);
-      if (stringMatches) {
-        const clean = stringMatches
-          .map((s) => s.slice(1, -1).replace(/\\([()\\])/g, '$1'))
-          .join(' ')
-          .trim();
-        if (clean.length > 5) {
-          textBlocks.push(clean);
-        }
-      }
-    }
+  if (!context) throw new Error('Canvas is unavailable for OCR rendering.');
 
-    if (textBlocks.length > 0) {
-      return textBlocks.join('\n\n');
-    }
+  canvas.width = Math.ceil(viewport.width);
+  canvas.height = Math.ceil(viewport.height);
+  await page.render({ canvas, canvasContext: context, viewport }).promise;
+  const imageBase64 = canvas.toDataURL('image/jpeg', 0.82).split(',')[1];
+  canvas.width = 0;
+  canvas.height = 0;
 
-    // Fallback: extract printable strings of decent length
-    const words = raw.match(/[A-Za-z0-9,.:;%()\-–—'"/]{3,}(?:\s+[A-Za-z0-9,.:;%()\-–—'"/]{2,})+/g);
-    if (words && words.length > 10) {
-      return words.filter((w) => !w.startsWith('obj') && !w.startsWith('endobj') && !w.startsWith('/Type')).slice(0, 150).join(' ');
-    }
-    return '';
-  } catch {
-    return '';
+  const response = await authenticatedApiFetch('/api/ocr-page', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ imageBase64, pageNumber }),
+  });
+
+  if (!response.ok) {
+    const result = await response.json().catch(() => ({}));
+    throw new Error(result.error || `OCR failed for page ${pageNumber}.`);
   }
+
+  const result = await response.json();
+  return typeof result.text === 'string' ? result.text.trim() : '';
 }
 
 /**
@@ -64,7 +52,8 @@ function extractRawTextFromPdfBuffer(arrayBuffer: ArrayBuffer): string {
  */
 export async function extractPdfDocument(
   file: File,
-  onProgress?: (percent: number, message: string) => void
+  onProgress?: (percent: number, message: string) => void,
+  options: { useAiOcr?: boolean } = {}
 ): Promise<ExtractionResult> {
   const paperId = 'paper_' + Date.now().toString(36) + Math.random().toString(36).substring(2, 6);
   const warnings: string[] = [];
@@ -94,11 +83,12 @@ export async function extractPdfDocument(
       if (numPages > 0) {
         const passages: EvidencePassage[] = [];
         let scannedPagesCount = 0;
+        let ocrPagesAttempted = 0;
         let fullAccumulatedText = '';
 
         for (let i = 1; i <= numPages; i++) {
           const percent = Math.round(15 + (i / numPages) * 75);
-          onProgress?.(percent, `Extracting page ${i} of ${numPages}...`);
+          onProgress?.(percent, `Reading page ${i} of ${numPages}...`);
 
           try {
             const page = await pdfDoc.getPage(i);
@@ -108,21 +98,46 @@ export async function extractPdfDocument(
               .filter(Boolean);
 
             const pageText = strings.join(' ').replace(/\s{2,}/g, ' ').trim();
-            fullAccumulatedText += '\n\n' + pageText;
-
+            let passageText = pageText;
             const charCount = pageText.length;
             let extractionStatus: EvidencePassage['extraction_status'] = 'OK';
 
             if (charCount < 20) {
               extractionStatus = 'NO_TEXT';
               scannedPagesCount++;
-              warnings.push(`Page ${i} yielded limited machine-readable text (${charCount} characters).`);
+              warnings.push(`Page ${i} has no usable text layer.`);
             } else if (charCount < 150) {
               extractionStatus = 'LOW_CONFIDENCE';
+              scannedPagesCount++;
             }
 
+            if (options.useAiOcr && charCount < 150) {
+              if (ocrPagesAttempted >= 20) {
+                if (ocrPagesAttempted === 20) {
+                  warnings.push('AI OCR was limited to 20 pages for this document. Remaining low-text pages need manual review.');
+                  ocrPagesAttempted++;
+                }
+              } else {
+                ocrPagesAttempted++;
+                onProgress?.(percent, `Transcribing image-only page ${i} of ${numPages}...`);
+                try {
+                  const transcribedText = await transcribePageWithAI(page, i);
+                  if (transcribedText.length >= 20) {
+                    passageText = transcribedText;
+                    extractionStatus = 'OCR_UNVERIFIED';
+                    warnings.push(`Page ${i} was transcribed with AI OCR and needs source verification.`);
+                  }
+                } catch (ocrError) {
+                  const reason = ocrError instanceof Error ? ocrError.message : 'OCR service unavailable.';
+                  warnings.push(`Page ${i} could not be transcribed: ${reason}`);
+                }
+              }
+            }
+
+            fullAccumulatedText += '\n\n' + passageText;
+
             let section: EvidencePassage['section'] = 'Other';
-            const lower = pageText.toLowerCase();
+            const lower = passageText.toLowerCase();
             if (i === 1 || lower.includes('abstract') || lower.includes('background')) {
               section = 'Abstract';
             } else if (lower.includes('methods') || lower.includes('methodology') || lower.includes('study design')) {
@@ -143,9 +158,9 @@ export async function extractPdfDocument(
               pdf_page_index: i,
               printed_page_label_if_known: `p. ${i}`,
               section,
-              verbatim_text: pageText || '[Scanned or image-only content on this page. Text layer not present.]',
+              verbatim_text: passageText || '[No searchable text layer on this page. Enable AI OCR or review the original PDF.]',
               extraction_status: extractionStatus,
-              char_count: charCount,
+              char_count: passageText.length,
             });
           } catch (pageErr: any) {
             warnings.push(`Page ${i} extraction fault: ${pageErr?.message || 'Text stream issue'}`);
@@ -162,84 +177,24 @@ export async function extractPdfDocument(
           }
         }
 
-        // If at least one page had text, synthesize paper
-        const totalChars = passages.reduce((acc, p) => acc + p.char_count, 0);
-        if (totalChars > 50) {
-          onProgress?.(95, 'Synthesizing document metadata...');
-          return buildPaperResult(paperId, file.name, file.size, numPages, fullAccumulatedText, passages, warnings, scannedPagesCount > 0);
+        onProgress?.(95, 'Preparing page-anchored evidence...');
+        if (scannedPagesCount > 0 && !options.useAiOcr) {
+          warnings.push('Some pages need OCR. Enable AI OCR and re-upload to transcribe them; review every transcription against the source PDF.');
         }
+        return buildPaperResult(
+          paperId,
+          file.name,
+          file.size,
+          numPages,
+          fullAccumulatedText,
+          passages,
+          warnings,
+          scannedPagesCount > 0
+        );
       }
     } catch (e) {
       console.warn('PDF.js loop failed, proceeding to backend/stream fallback:', e);
     }
-  }
-
-  // Tier 2: Server-side PDF parsing endpoint
-  onProgress?.(50, 'Analyzing via server-side parsing engine...');
-  try {
-    const base64 = await fileToBase64(file);
-    const serverRes = await fetch('/api/parse-pdf', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        filename: file.name,
-        base64,
-      }),
-    });
-
-    if (serverRes.ok) {
-      const data = await serverRes.json();
-      if (data.passages && data.passages.length > 0) {
-        onProgress?.(100, 'Server extraction complete.');
-        return {
-          paper: {
-            ...data.paper,
-            paper_id: paperId,
-            filename: file.name,
-            filesize_bytes: file.size,
-          },
-          passages: data.passages.map((p: any) => ({ ...p, paper_id: paperId })),
-          warnings: data.warnings || [],
-          hasScannedPages: false,
-        };
-      }
-    }
-  } catch (serverErr) {
-    console.warn('Server-side PDF endpoint unavailable, trying direct stream parser:', serverErr);
-  }
-
-  // Tier 3: Client-side raw text scanner
-  onProgress?.(70, 'Scanning embedded text streams...');
-  const streamText = extractRawTextFromPdfBuffer(arrayBuffer);
-  if (streamText.length > 80) {
-    const rawParagraphs = streamText
-      .split(/\n\s*\n/)
-      .map((p) => p.trim())
-      .filter((p) => p.length > 30);
-
-    const passages: EvidencePassage[] = rawParagraphs.slice(0, 12).map((para, idx) => {
-      const pageIndex = Math.floor(idx / 2) + 1;
-      let section: EvidencePassage['section'] = 'Results';
-      const lower = para.toLowerCase();
-      if (idx === 0 || lower.includes('abstract')) section = 'Abstract';
-      else if (lower.includes('method')) section = 'Methods';
-      else if (lower.includes('discuss')) section = 'Discussion';
-      else if (lower.includes('limit')) section = 'Limitations';
-
-      return {
-        evidence_id: `ev_${paperId}_p${pageIndex}_s${idx + 1}`,
-        paper_id: paperId,
-        pdf_page_index: pageIndex,
-        printed_page_label_if_known: `p. ${pageIndex}`,
-        section,
-        verbatim_text: para,
-        extraction_status: 'OK',
-        char_count: para.length,
-      };
-    });
-
-    onProgress?.(100, 'Stream extraction complete.');
-    return buildPaperResult(paperId, file.name, file.size, Math.ceil(passages.length / 2), streamText, passages, ['Parsed via stream decoder (worker bypassed).'], false);
   }
 
   // Tier 4: Scanned/unreadable file graceful fallback with clear explanation
@@ -250,9 +205,9 @@ export async function extractPdfDocument(
       pdf_page_index: 1,
       printed_page_label_if_known: 'p. 1',
       section: 'Abstract',
-      verbatim_text: `Document: ${file.name}\n\nNotice: This PDF does not contain an accessible machine-readable text layer (it may be a scanned image or protected document). You can paste excerpts directly into the "Paste Text" tab or edit this passage to begin the Steer pipeline.`,
-      extraction_status: 'LOW_CONFIDENCE',
-      char_count: 120,
+      verbatim_text: '[PDF could not be parsed in this browser. Paste a verified excerpt or try another copy.]',
+      extraction_status: 'NO_TEXT',
+      char_count: 0,
     },
   ];
 
@@ -293,10 +248,10 @@ function buildPaperResult(
   const paper: PaperRecord = {
     paper_id: paperId,
     title: detectedTitle,
-    authors: 'Research Study Authors (Click to edit)',
-    journal: detectedJournal,
-    year: detectedYear,
-    doi: foundDoi || 'DOI Not Detected',
+    authors: 'Not extracted — verify manually',
+    journal: detectedJournal === 'Peer-Reviewed Scientific Journal' ? 'Not detected' : detectedJournal,
+    year: yearMatch ? detectedYear : 'Not detected',
+    doi: foundDoi,
     is_metadata_verified: false,
     filename,
     filesize_bytes: filesize,
@@ -347,11 +302,11 @@ export function createManualPaperEntry(
   const paper: PaperRecord = {
     paper_id: paperId,
     title: title || 'Ingested Research Paper',
-    authors: 'Clinical Researchers',
-    journal: journal || 'Metabolic Health Journal',
-    year: year || new Date().getFullYear().toString(),
-    doi: doi || '10.1016/j.metabolic.2024.1001',
-    is_metadata_verified: true,
+    authors: 'Not supplied',
+    journal: journal || 'Not supplied',
+    year: year || 'Not supplied',
+    doi: doi || '',
+    is_metadata_verified: false,
     filename: 'ingested_paper_text.txt',
     filesize_bytes: rawText.length,
     uploaded_at: new Date().toISOString(),
@@ -389,7 +344,7 @@ export async function extractPaperFromUrl(
 ): Promise<ExtractionResult> {
   onProgress?.(15, `Fetching research publication from ${url}...`);
 
-  const response = await fetch('/api/ingest-url', {
+  const response = await authenticatedApiFetch('/api/ingest-url', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ url }),
@@ -410,17 +365,4 @@ export async function extractPaperFromUrl(
     warnings: data.warnings || [],
     hasScannedPages: false,
   };
-}
-
-function fileToBase64(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result as string;
-      const base64 = result.includes(',') ? result.split(',')[1] : result;
-      resolve(base64);
-    };
-    reader.onerror = (error) => reject(error);
-    reader.readAsDataURL(file);
-  });
 }

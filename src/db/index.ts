@@ -1,17 +1,22 @@
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
+import dotenv from 'dotenv';
 import * as schema from './schema.ts';
+
+dotenv.config({ path: '.env.development.local' });
+dotenv.config();
 
 declare global {
   var _postgresPool: Pool | undefined;
 }
 
-export const createPool = () => {
+export function createPool(): Pool {
   if (!global._postgresPool) {
-    if (process.env.DATABASE_URL) {
+    if (process.env.DATABASE_URL || process.env.POSTGRES_URL) {
       global._postgresPool = new Pool({
-        connectionString: process.env.DATABASE_URL,
+        connectionString: process.env.DATABASE_URL || process.env.POSTGRES_URL,
         connectionTimeoutMillis: 5000,
+        max: 10,
       });
     } else if (process.env.SQL_HOST) {
       global._postgresPool = new Pool({
@@ -23,55 +28,16 @@ export const createPool = () => {
         connectionTimeoutMillis: 5000,
       });
     } else {
-      return null;
+      throw new Error('DATABASE_URL is required to use persistent storage.');
     }
 
-    global._postgresPool.on('error', (err) => {
-      console.warn('Unexpected error on idle SQL pool client:', err?.message || err);
+    global._postgresPool.on('error', (error) => {
+      console.error('Unexpected error on idle PostgreSQL pool client:', error.message);
     });
   }
+
   return global._postgresPool;
-};
-
-let dbExport: any;
-
-try {
-  const pool = createPool();
-  if (pool) {
-    dbExport = drizzle(pool, { schema });
-  } else {
-    throw new Error('Database not configured');
-  }
-} catch {
-  console.warn('[AI Studio] PostgreSQL not connected — using mock fallback');
-  const noOp = {
-    findMany: async () => [],
-    findFirst: async () => null,
-    findUnique: async () => null,
-    create: async (d: any) => d?.data ?? {},
-    update: async (d: any) => d?.data ?? {},
-    delete: async () => ({}),
-  };
-  const mockQueryBuilder = {
-    from: () => mockQueryBuilder,
-    where: () => mockQueryBuilder,
-    orderBy: () => mockQueryBuilder,
-    limit: () => mockQueryBuilder,
-    values: () => mockQueryBuilder,
-    onConflictDoUpdate: () => mockQueryBuilder,
-    returning: async () => [],
-    then: (resolve: any) => Promise.resolve([]).then(resolve),
-    catch: (reject: any) => Promise.resolve([]).catch(reject),
-  };
-  dbExport = new Proxy({} as any, {
-    get: (_, prop) => {
-      if (prop === 'query') return new Proxy({}, { get: () => noOp });
-      if (prop === 'select' || prop === 'insert' || prop === 'delete' || prop === 'update') {
-        return () => mockQueryBuilder;
-      }
-      return async () => [];
-    },
-  });
 }
 
-export const db = dbExport;
+export const pool = createPool();
+export const db = drizzle(pool, { schema });

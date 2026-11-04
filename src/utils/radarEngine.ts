@@ -1033,7 +1033,7 @@ export function injectBriefIntoDeliverables(
       body_text: `You asked: "${brief.audience_question.slice(0, 120)}..." Here is what clinical trials actually show.`,
       hinglish_headline: `Social media ka sabse bada sawal: Kya science waqai yehi kehti hai?`,
       hinglish_body: `Aapke doubts ka sach clinical research aur actual trial data ke saath.`,
-      founder_note: 'Dr. Siddharth M. · Steer Clinical Research Desk',
+      founder_note: 'Steer Research Desk',
       mapped_claim_ids: [claimId],
     },
     {

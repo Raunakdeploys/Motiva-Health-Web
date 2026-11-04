@@ -11,8 +11,6 @@ import {
   onAuthStateChanged,
 } from '../lib/firebase';
 import { GoogleAuthProvider } from 'firebase/auth';
-import { parseJwtPayload } from '../lib/gisAuth';
-import { firebaseConfig } from '../lib/firebase-config.ts';
 
 export interface AppUser {
   uid: string;
@@ -20,7 +18,7 @@ export interface AppUser {
   displayName: string | null;
   photoURL: string | null;
   isAnonymous?: boolean;
-  provider?: 'google-gis' | 'firebase-google' | 'password' | 'anonymous' | 'session';
+  provider?: 'google-gis' | 'firebase-google' | 'password' | 'anonymous';
 }
 
 interface AuthContextType {
@@ -30,7 +28,6 @@ interface AuthContextType {
   error: string | null;
   handleGisToken: (googleIdToken: string) => Promise<boolean>;
   signInWithFirebasePopup: () => Promise<boolean>;
-  signInAsGoogleEmail: (email?: string, displayName?: string) => Promise<boolean>;
   signInWithEmail: (email: string, password?: string) => Promise<boolean>;
   signUpWithEmail: (email: string, password: string) => Promise<boolean>;
   signInAsGuest: () => Promise<boolean>;
@@ -48,7 +45,6 @@ const AuthContext = createContext<AuthContextType>({
   error: null,
   handleGisToken: async () => false,
   signInWithFirebasePopup: async () => false,
-  signInAsGoogleEmail: async () => false,
   signInWithEmail: async () => false,
   signUpWithEmail: async () => false,
   signInAsGuest: async () => false,
@@ -59,28 +55,6 @@ const AuthContext = createContext<AuthContextType>({
   syncUserWithBackend: async () => {},
 });
 
-const STORAGE_USER_KEY = 'steer_auth_user_session';
-const STORAGE_TOKEN_KEY = 'steer_auth_id_token';
-
-// Fallback session JWT generator for unconfigured network / domain-isolated sandboxes
-export function createSyntheticSessionJwt(user: Partial<AppUser>): string {
-  const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
-  const payload = btoa(
-    JSON.stringify({
-      sub: user.uid || 'guest-user',
-      uid: user.uid || 'guest-user',
-      user_id: user.uid || 'guest-user',
-      email: user.email || 'guest@evidence.steer',
-      name: user.displayName || 'Guest Reviewer',
-      picture: user.photoURL || null,
-      iat: Math.floor(Date.now() / 1000),
-      exp: Math.floor(Date.now() / 1000) + 86400 * 30, // 30 days
-      iss: `https://securetoken.google.com/${firebaseConfig.projectId}`,
-    })
-  );
-  return `${header}.${payload}.steer_isolated_session`;
-}
-
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<AppUser | null>(null);
   const [idToken, setIdToken] = useState<string | null>(null);
@@ -88,7 +62,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [error, setError] = useState<string | null>(null);
 
   /**
-   * Syncs the authenticated user profile with the Express backend / Firestore
+   * Syncs the authenticated user profile with the Express backend and Neon
    */
   const syncUserWithBackend = useCallback(async (token: string, userData: AppUser) => {
     try {
@@ -111,50 +85,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         console.warn('Backend auth sync returned status:', res.status);
       }
     } catch (err) {
-      console.warn('Auth sync network notice (using offline local store):', err);
+      console.warn('Auth profile sync failed:', err instanceof Error ? err.message : 'Unknown error');
     }
   }, []);
 
-  // Save session to localStorage
   const saveSession = useCallback((appUser: AppUser, token: string) => {
     setUser(appUser);
     setIdToken(token);
-    try {
-      localStorage.setItem(STORAGE_USER_KEY, JSON.stringify(appUser));
-      localStorage.setItem(STORAGE_TOKEN_KEY, token);
-    } catch (e) {
-      console.warn('Could not write to localStorage:', e);
-    }
   }, []);
 
-  // Clear session
   const clearSession = useCallback(() => {
     setUser(null);
     setIdToken(null);
-    try {
-      localStorage.removeItem(STORAGE_USER_KEY);
-      localStorage.removeItem(STORAGE_TOKEN_KEY);
-    } catch (e) {
-      console.warn('Could not clear localStorage:', e);
-    }
   }, []);
 
-  // 1. Initial boot: restore from localStorage
-  useEffect(() => {
-    try {
-      const savedUserStr = localStorage.getItem(STORAGE_USER_KEY);
-      const savedToken = localStorage.getItem(STORAGE_TOKEN_KEY);
-      if (savedUserStr && savedToken) {
-        const parsed = JSON.parse(savedUserStr);
-        setUser(parsed);
-        setIdToken(savedToken);
-      }
-    } catch (err) {
-      console.warn('Session restoration notice:', err);
-    }
-  }, []);
-
-  // 2. Firebase onAuthStateChanged listener
+  // Firebase owns credential persistence; only its verified user state creates an app session.
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (fbUser) => {
       if (fbUser) {
@@ -173,20 +118,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           syncUserWithBackend(freshToken, appUser);
         } catch (tokenErr) {
           console.warn('Could not retrieve token for Firebase user:', tokenErr);
+          clearSession();
         }
+      } else {
+        clearSession();
       }
       setLoading(false);
     });
 
     return () => unsubscribe();
-  }, [saveSession, syncUserWithBackend]);
+  }, [clearSession, saveSession, syncUserWithBackend]);
 
-  /**
-   * Token Exchange & Fallback Flow:
-   * a. Passes GIS Google ID Token to GoogleAuthProvider.credential(googleIdToken) and signs in with signInWithCredential
-   * b. In the catch block: If Firebase throws unauthorized-domain, invalid-credential, or configuration-not-found,
-   * parses the verified JWT payload to extract email, name, picture, sub, sets user session, and syncs with backend.
-   */
+  /** Exchanges a Google Identity Services credential for a Firebase-authenticated session. */
   const handleGisToken = async (googleIdToken: string): Promise<boolean> => {
     setError(null);
     setLoading(true);
@@ -215,39 +158,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setLoading(false);
       return true;
     } catch (firebaseErr: any) {
-      console.warn('Firebase credential exchange encountered:', firebaseErr?.code, firebaseErr?.message);
-
-      // Step B: Robust Fallback - Parse standard JWT payload from Google Identity Services
-      const payload = parseJwtPayload(googleIdToken);
-      if (payload && (payload.sub || payload.email)) {
-        const uid = payload.sub || `google_${Date.now()}`;
-        const email = payload.email ? payload.email.toLowerCase().trim() : 'reviewer@evidence.steer';
-        const displayName = payload.name || payload.given_name || email.split('@')[0];
-        const photoURL = payload.picture || null;
-
-        const appUser: AppUser = {
-          uid,
-          email,
-          displayName,
-          photoURL,
-          provider: 'google-gis',
-        };
-
-        // Use the genuine Google ID token for API authentication
-        saveSession(appUser, googleIdToken);
-        await syncUserWithBackend(googleIdToken, appUser);
-        setLoading(false);
-        return true;
-      }
-
-      // User-friendly error mapping
-      let userMessage = 'Authentication failed. Please try again.';
-      if (firebaseErr?.code === 'auth/invalid-credential') {
-        userMessage = 'The Google token provided is invalid or expired. Please sign in again.';
-      } else if (firebaseErr?.code === 'auth/operation-not-allowed') {
-        userMessage = 'Google Sign-In is not enabled for this project.';
-      }
-
+      console.warn('Firebase credential exchange failed:', firebaseErr?.code || 'unknown');
+      const userMessage = firebaseErr?.code === 'auth/operation-not-allowed'
+        ? 'Google Sign-In is not enabled for this Firebase project.'
+        : 'Google sign-in could not be verified. Please try again or use email/password.';
       setError(userMessage);
       setLoading(false);
       return false;
@@ -296,71 +210,33 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signInWithEmail = async (email: string, password?: string): Promise<boolean> => {
     setError(null);
     setLoading(true);
-
     const cleanEmail = email.trim().toLowerCase();
-    if (!cleanEmail.includes('@') || !cleanEmail.includes('.')) {
-      setError('Please provide a valid email address.');
+
+    if (!cleanEmail.includes('@') || !cleanEmail.includes('.') || !password) {
+      setError('Enter a valid email address and password.');
       setLoading(false);
       return false;
     }
 
     try {
-      if (password && password.length >= 6) {
-        try {
-          const userCred = await signInWithEmailAndPassword(auth, cleanEmail, password);
-          const fbUser = userCred.user;
-          const token = await fbUser.getIdToken();
-          const appUser: AppUser = {
-            uid: fbUser.uid,
-            email: cleanEmail,
-            displayName: fbUser.displayName || cleanEmail.split('@')[0],
-            photoURL: fbUser.photoURL,
-            provider: 'password',
-          };
-          saveSession(appUser, token);
-          await syncUserWithBackend(token, appUser);
-          setLoading(false);
-          return true;
-        } catch (pwErr: any) {
-          // If user doesn't exist, try auto-registering
-          if (pwErr?.code === 'auth/user-not-found' || pwErr?.code === 'auth/invalid-credential') {
-            try {
-              const newCred = await createUserWithEmailAndPassword(auth, cleanEmail, password);
-              const fbUser = newCred.user;
-              const token = await fbUser.getIdToken();
-              const appUser: AppUser = {
-                uid: fbUser.uid,
-                email: cleanEmail,
-                displayName: cleanEmail.split('@')[0],
-                photoURL: null,
-                provider: 'password',
-              };
-              saveSession(appUser, token);
-              await syncUserWithBackend(token, appUser);
-              setLoading(false);
-              return true;
-            } catch {
-              // Fall through to session mode
-            }
-          }
-        }
-      }
-
-      // Passwordless / Verified Reviewer Session fallback
-      const token = createSyntheticSessionJwt({ uid: cleanEmail, email: cleanEmail, displayName: cleanEmail.split('@')[0] });
+      const userCredential = await signInWithEmailAndPassword(auth, cleanEmail, password);
+      const firebaseUser = userCredential.user;
+      const token = await firebaseUser.getIdToken();
       const appUser: AppUser = {
-        uid: cleanEmail,
+        uid: firebaseUser.uid,
         email: cleanEmail,
-        displayName: cleanEmail.split('@')[0],
-        photoURL: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(cleanEmail)}&backgroundColor=661414&textColor=F5EBDF`,
-        provider: 'session',
+        displayName: firebaseUser.displayName || cleanEmail.split('@')[0],
+        photoURL: firebaseUser.photoURL,
+        provider: 'password',
       };
       saveSession(appUser, token);
       await syncUserWithBackend(token, appUser);
       setLoading(false);
       return true;
-    } catch (err: any) {
-      setError(err?.message || 'Email authentication failed.');
+    } catch (error: any) {
+      setError(error?.code === 'auth/invalid-credential' || error?.code === 'auth/user-not-found'
+        ? 'Email or password is incorrect.'
+        : error?.message || 'Email authentication failed.');
       setLoading(false);
       return false;
     }
@@ -395,23 +271,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       await syncUserWithBackend(token, appUser);
       setLoading(false);
       return true;
-    } catch (err: any) {
-      if (err?.code === 'auth/email-already-in-use') {
-        return signInWithEmail(cleanEmail, password);
-      }
-      // Graceful fallback to verified session token
-      const token = createSyntheticSessionJwt({ uid: cleanEmail, email: cleanEmail, displayName: cleanEmail.split('@')[0] });
-      const appUser: AppUser = {
-        uid: cleanEmail,
-        email: cleanEmail,
-        displayName: cleanEmail.split('@')[0],
-        photoURL: null,
-        provider: 'session',
-      };
-      saveSession(appUser, token);
-      await syncUserWithBackend(token, appUser);
+    } catch (error: any) {
+      setError(error?.code === 'auth/email-already-in-use'
+        ? 'An account already uses this email. Sign in instead.'
+        : error?.message || 'Account creation failed.');
       setLoading(false);
-      return true;
+      return false;
     }
   };
 
@@ -422,75 +287,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setError(null);
     setLoading(true);
     try {
-      try {
-        const cred = await signInAnonymously(auth);
-        const fbUser = cred.user;
-        const token = await fbUser.getIdToken();
-        const appUser: AppUser = {
-          uid: fbUser.uid,
-          email: null,
-          displayName: 'Guest Reviewer',
-          photoURL: null,
-          isAnonymous: true,
-          provider: 'anonymous',
-        };
-        saveSession(appUser, token);
-        await syncUserWithBackend(token, appUser);
-        setLoading(false);
-        return true;
-      } catch (anonErr: any) {
-        console.warn('Firebase anonymous auth notice:', anonErr?.message);
-        // Fallback to demo guest session
-        const guestId = `guest_${Date.now().toString(36)}`;
-        const appUser: AppUser = {
-          uid: guestId,
-          email: `${guestId}@evidence.steer`,
-          displayName: 'Guest Clinical Auditor',
-          photoURL: null,
-          isAnonymous: true,
-          provider: 'anonymous',
-        };
-        const token = createSyntheticSessionJwt(appUser);
-        saveSession(appUser, token);
-        await syncUserWithBackend(token, appUser);
-        setLoading(false);
-        return true;
-      }
-    } catch (err: any) {
-      setError(err?.message || 'Could not start guest session.');
-      setLoading(false);
-      return false;
-    }
-  };
-
-  const signInAsGoogleEmail = async (
-    email: string = 'topmostproffesor234@gmail.com',
-    displayName: string = 'Dr. Raunak Roy'
-  ): Promise<boolean> => {
-    setError(null);
-    setLoading(true);
-    try {
-      const cleanEmail = email.trim().toLowerCase();
-      const token = createSyntheticSessionJwt({
-        uid: cleanEmail,
-        email: cleanEmail,
-        displayName,
-      });
+      const credential = await signInAnonymously(auth);
+      const firebaseUser = credential.user;
+      const token = await firebaseUser.getIdToken();
       const appUser: AppUser = {
-        uid: cleanEmail,
-        email: cleanEmail,
-        displayName,
-        photoURL: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(
-          cleanEmail
-        )}&backgroundColor=661414&textColor=F5EBDF`,
-        provider: 'google-gis',
+        uid: firebaseUser.uid,
+        email: null,
+        displayName: 'Guest Reviewer',
+        photoURL: null,
+        isAnonymous: true,
+        provider: 'anonymous',
       };
       saveSession(appUser, token);
       await syncUserWithBackend(token, appUser);
       setLoading(false);
       return true;
-    } catch (err: any) {
-      setError(err?.message || 'Google account sign-in failed.');
+    } catch (error: any) {
+      setError(error?.message || 'Guest sign-in is not enabled for this project.');
       setLoading(false);
       return false;
     }
@@ -513,7 +326,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       try {
         const fresh = await auth.currentUser.getIdToken(true);
         setIdToken(fresh);
-        localStorage.setItem(STORAGE_TOKEN_KEY, fresh);
         return fresh;
       } catch (err) {
         console.warn('Could not refresh Firebase token, using active token:', err);
@@ -533,7 +345,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         error,
         handleGisToken,
         signInWithFirebasePopup,
-        signInAsGoogleEmail,
         signInWithEmail,
         signUpWithEmail,
         signInAsGuest,

@@ -21,7 +21,7 @@ interface PaperIntakeProps {
   papers: PaperRecord[];
   activePaper: PaperRecord | null;
   passages: EvidencePassage[];
-  onAddPaper: (paper: PaperRecord, passages: EvidencePassage[]) => void;
+  onAddPaper: (paper: PaperRecord, passages: EvidencePassage[]) => Promise<string | void> | string | void;
   onUpdatePaper: (paper: PaperRecord) => void;
   onDeletePaper: (paperId: string) => void;
   onSelectPaper: (paperId: string) => void;
@@ -43,6 +43,8 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
   const [progressPercent, setProgressPercent] = useState(0);
   const [progressMessage, setProgressMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [useAiOcr, setUseAiOcr] = useState(false);
 
   // Manual text paste modal state
   const [showManualModal, setShowManualModal] = useState(false);
@@ -73,6 +75,7 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
 
   const processSelectedFile = async (file: File) => {
     setErrorMessage(null);
+    setSuccessMessage(null);
 
     if (!file.name.toLowerCase().endsWith('.pdf') && file.type !== 'application/pdf') {
       setErrorMessage('Invalid file format. Please upload a scientific paper in PDF format (.pdf).');
@@ -90,12 +93,19 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
     setProgressMessage('Reading PDF file stream...');
 
     try {
-      const result = await extractPdfDocument(file, (percent, msg) => {
-        setProgressPercent(percent);
-        setProgressMessage(msg);
-      });
+      const result = await extractPdfDocument(
+        file,
+        (percent, msg) => {
+          setProgressPercent(percent);
+          setProgressMessage(msg);
+        },
+        { useAiOcr }
+      );
 
-      onAddPaper(result.paper, result.passages);
+      const notice = await onAddPaper(result.paper, result.passages);
+      setSuccessMessage(
+        [notice, ...result.warnings].filter(Boolean).join(' ')
+      );
       setIsProcessing(false);
     } catch (err: any) {
       setIsProcessing(false);
@@ -106,27 +116,36 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
     }
   };
 
-  const handleManualSubmit = (e: React.FormEvent) => {
+  const handleManualSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!manualText.trim()) {
-      alert('Please enter or paste paper excerpts to extract evidence passages.');
+      setErrorMessage('Paste at least one excerpt before adding a research document.');
       return;
     }
 
-    const result = createManualPaperEntry(
-      manualTitle.trim() || 'Manually Ingested Research Paper',
-      manualJournal.trim() || 'Independent Clinical Review',
-      manualYear.trim(),
-      manualDoi.trim(),
-      manualText.trim()
-    );
+    setIsProcessing(true);
+    setErrorMessage(null);
+    try {
+      const result = createManualPaperEntry(
+        manualTitle.trim() || 'Manually Ingested Research Paper',
+        manualJournal.trim() || 'Independent Clinical Review',
+        manualYear.trim(),
+        manualDoi.trim(),
+        manualText.trim()
+      );
 
-    onAddPaper(result.paper, result.passages);
-    setShowManualModal(false);
-    setManualTitle('');
-    setManualJournal('');
-    setManualDoi('');
-    setManualText('');
+      const notice = await onAddPaper(result.paper, result.passages);
+      setSuccessMessage(notice || 'Excerpt saved. Review source details before drafting any claims.');
+      setShowManualModal(false);
+      setManualTitle('');
+      setManualJournal('');
+      setManualDoi('');
+      setManualText('');
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : 'Could not save the pasted excerpt.');
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const saveMetadataEdits = () => {
@@ -180,25 +199,25 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
             <div className="space-y-2">
               <div className="flex items-center justify-between text-[10px] font-mono">
                 <span className="px-2 py-0.5 bg-[#661414]/10 text-[#661414] font-bold rounded-xs">
-                  NEJM 2021
+                  SYNTHETIC SAMPLE
                 </span>
                 {activePaper?.paper_id === 'paper_glp1_muscle_2024' ? (
                   <span className="text-[#416C49] font-bold flex items-center gap-1">
                     <CheckCircle2 className="w-3.5 h-3.5" /> ACTIVE
                   </span>
                 ) : (
-                  <span className="text-[#786A61]">Wilding et al.</span>
+                  <span className="text-[#786A61]">Workflow fixture</span>
                 )}
               </div>
               <h3 className="font-serif font-bold text-sm text-[#351D1D] leading-snug">
                 Once-Weekly Semaglutide in Adults with Overweight or Obesity
               </h3>
               <p className="text-xs text-[#786A61] leading-relaxed">
-                Landmark STEP-1 clinical trial: up to 39% of weight loss on GLP-1 is lean muscle mass, requiring high-protein protection.
+                Synthetic passage fixture for testing page anchors, numerical checks, caveats, and review states. Not a verified study record.
               </p>
             </div>
             <div className="pt-2 border-t border-[#E6CBBD] flex items-center justify-between text-xs font-mono">
-              <span className="text-[#C04E2A] font-bold">1,961 Patients</span>
+              <span className="text-[#C04E2A] font-bold">Benchmark only</span>
               <span className="text-[#661414] font-semibold flex items-center gap-1">
                 {activePaper?.paper_id === 'paper_glp1_muscle_2024' ? 'Current Paper' : 'Select Paper →'}
               </span>
@@ -217,25 +236,25 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
             <div className="space-y-2">
               <div className="flex items-center justify-between text-[10px] font-mono">
                 <span className="px-2 py-0.5 bg-[#C04E2A]/10 text-[#C04E2A] font-bold rounded-xs">
-                  DRCP 2023
+                  SYNTHETIC SAMPLE
                 </span>
                 {activePaper?.paper_id === 'paper_south_asian_phenotype_2024' ? (
                   <span className="text-[#416C49] font-bold flex items-center gap-1">
                     <CheckCircle2 className="w-3.5 h-3.5" /> ACTIVE
                   </span>
                 ) : (
-                  <span className="text-[#786A61]">Misra & Vikram</span>
+                  <span className="text-[#786A61]">Workflow fixture</span>
                 )}
               </div>
               <h3 className="font-serif font-bold text-sm text-[#351D1D] leading-snug">
                 Insulin Resistance & The 'Thin-Fat' South Asian Phenotype
               </h3>
               <p className="text-xs text-[#786A61] leading-relaxed">
-                Why Indians with normal BMI suffer severe 3 PM insulin crashes, visceral adiposity, and earlier onset of type-2 diabetes.
+                Synthetic population-scope fixture for testing generalization flags. Not a verified cohort or clinical finding.
               </p>
             </div>
             <div className="pt-2 border-t border-[#E6CBBD] flex items-center justify-between text-xs font-mono">
-              <span className="text-[#C04E2A] font-bold">Indian Cohort</span>
+              <span className="text-[#C04E2A] font-bold">Not clinical data</span>
               <span className="text-[#661414] font-semibold flex items-center gap-1">
                 {activePaper?.paper_id === 'paper_south_asian_phenotype_2024' ? 'Current Paper' : 'Select Paper →'}
               </span>
@@ -254,25 +273,25 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
             <div className="space-y-2">
               <div className="flex items-center justify-between text-[10px] font-mono">
                 <span className="px-2 py-0.5 bg-[#416C49]/10 text-[#416C49] font-bold rounded-xs">
-                  OBESITY 2016
+                  SYNTHETIC SAMPLE
                 </span>
                 {activePaper?.paper_id === 'paper_metabolic_adaptation_2024' ? (
                   <span className="text-[#416C49] font-bold flex items-center gap-1">
                     <CheckCircle2 className="w-3.5 h-3.5" /> ACTIVE
                   </span>
                 ) : (
-                  <span className="text-[#786A61]">Kevin Hall et al.</span>
+                  <span className="text-[#786A61]">Workflow fixture</span>
                 )}
               </div>
               <h3 className="font-serif font-bold text-sm text-[#351D1D] leading-snug">
                 Persistent Metabolic Adaptation 6 Years After Crash Dieting
               </h3>
               <p className="text-xs text-[#786A61] leading-relaxed">
-                Resting metabolic rate drops by ~500 kcal/day and stays suppressed for years, proving weight regain is hormonal biology.
+                Synthetic time-course fixture for testing timeframe and causal-language checks. Not a verified result.
               </p>
             </div>
             <div className="pt-2 border-t border-[#E6CBBD] flex items-center justify-between text-xs font-mono">
-              <span className="text-[#C04E2A] font-bold">6-Year Followup</span>
+              <span className="text-[#C04E2A] font-bold">Synthetic timeline</span>
               <span className="text-[#661414] font-semibold flex items-center gap-1">
                 {activePaper?.paper_id === 'paper_metabolic_adaptation_2024' ? 'Current Paper' : 'Select Paper →'}
               </span>
@@ -289,8 +308,22 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
               Or Upload a New Scientific PDF / Publication
             </h2>
             <p className="text-xs text-[#786A61]">
-              Every page text layer is extracted into verifiable evidence blocks with verbatim quotes.
+              Extract searchable text page by page. Image-only pages stay clearly flagged unless you opt into OCR.
             </p>
+            <label className="mt-3 flex max-w-2xl items-start gap-2 text-xs text-[#351D1D]">
+              <input
+                type="checkbox"
+                checked={useAiOcr}
+                onChange={(event) => setUseAiOcr(event.target.checked)}
+                className="mt-0.5 accent-[#661414]"
+              />
+              <span>
+                <span className="font-semibold">Allow AI OCR for image-only pages</span>
+                <span className="mt-0.5 block text-[11px] text-[#786A61]">
+                  Only those page images are sent to Vercel AI Gateway. OCR is unverified until you compare it with the original PDF. Do not upload patient-identifiable records.
+                </span>
+              </span>
+            </label>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
@@ -366,12 +399,18 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
 
         {/* Error message */}
         {errorMessage && (
-          <div className="p-3.5 bg-[#661414]/10 border border-[#661414]/30 text-xs text-[#661414] flex items-start gap-2.5 rounded-xs">
+          <div className="p-3.5 bg-[#661414]/10 border border-[#661414]/30 text-xs text-[#661414] flex items-start gap-2.5 rounded-xs" role="alert">
             <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-[#661414]" />
             <div>
               <span className="font-semibold">Ingestion Issue: </span>
               <span>{errorMessage}</span>
             </div>
+          </div>
+        )}
+        {successMessage && (
+          <div className="p-3.5 bg-[#416C49]/10 border border-[#416C49]/25 text-xs text-[#351D1D] flex items-start gap-2.5 rounded-xs" role="status">
+            <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-[#416C49]" />
+            <p>{successMessage}</p>
           </div>
         )}
       </section>

@@ -1,4 +1,4 @@
-export type ExtractionStatus = 'OK' | 'LOW_CONFIDENCE' | 'NO_TEXT' | 'MANUAL_ENTRY';
+export type ExtractionStatus = 'OK' | 'LOW_CONFIDENCE' | 'NO_TEXT' | 'MANUAL_ENTRY' | 'OCR_UNVERIFIED' | 'OCR_VERIFIED';
 
 export type ClaimReviewStatus =
   | 'DRAFT'
@@ -43,6 +43,8 @@ export interface EvidencePassage {
   verbatim_text: string;
   extraction_status: ExtractionStatus;
   char_count: number;
+  reviewed_at?: string;
+  reviewed_by?: string;
   linked_claim_ids?: string[];
   bounding_box_available?: boolean;
 }
@@ -212,7 +214,7 @@ export interface ScheduledPost {
   format: 'CAROUSEL' | 'STATIC' | 'REEL';
   scheduled_for: string; // ISO date string
   slot_label: string; // e.g. "Monday 11:30 AM IST (Metabolic Deep Dive)"
-  status: 'DOCTOR_APPROVED' | 'SCHEDULED' | 'READY_TO_PUBLISH';
+  status: 'DRAFT' | 'DOCTOR_APPROVED' | 'SCHEDULED' | 'READY_TO_PUBLISH';
   caption: string;
   hashtags: string[];
   deliverable_id: string;

@@ -274,7 +274,7 @@ export const Workspace: React.FC<WorkspaceProps> = ({
         />
         <MetricCard
           icon={ShieldCheck}
-          label="Doctor approved"
+          label="Human approved"
           value={approvedClaims.length}
           note="Ready for content production"
           tone="sage"

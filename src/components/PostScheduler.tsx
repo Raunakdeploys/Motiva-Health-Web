@@ -1,107 +1,63 @@
 import React, { useState } from 'react';
-import { PaperRecord, ScheduledPost, CarouselContent, StaticPostContent, ReelContent } from '../types';
+import { ScheduledPost } from '../types';
 import {
   Calendar,
   Clock,
-  Instagram,
-  Sparkles,
   Download,
-  Copy,
   Check,
-  CheckCircle2,
   Layers,
   FileText,
   Video,
   ArrowRight,
-  Send,
-  Zap,
-  Globe,
 } from 'lucide-react';
 
 interface PostSchedulerProps {
-  papers: PaperRecord[];
-  activePaper: PaperRecord | null;
   scheduledPosts: ScheduledPost[];
-  onUpdateScheduledPosts: (posts: ScheduledPost[]) => void;
   onNavigateToStudio: (deliverableType: 'carousel' | 'static' | 'reel', paperId?: string) => void;
-  carousels: CarouselContent[];
-  staticPosts: StaticPostContent[];
-  reels: ReelContent[];
 }
 
 export const PostScheduler: React.FC<PostSchedulerProps> = ({
-  papers,
-  activePaper,
   scheduledPosts,
-  onUpdateScheduledPosts,
   onNavigateToStudio,
-  carousels,
-  staticPosts,
-  reels,
 }) => {
   const [filterFormat, setFilterFormat] = useState<'ALL' | 'CAROUSEL' | 'STATIC' | 'REEL'>('ALL');
   const [copiedBuffer, setCopiedBuffer] = useState(false);
-  const [isBatchRunning, setIsBatchRunning] = useState(false);
-  const [batchNotice, setBatchNotice] = useState<string | null>(null);
 
   const filteredPosts = scheduledPosts.filter(
     (p) => filterFormat === 'ALL' || p.format === filterFormat
   );
-
-  const handleRunBatchPipeline = async () => {
-    setIsBatchRunning(true);
-    setBatchNotice('Ingesting 3 metabolic health papers & extracting doctor-validated claims...');
-    
-    try {
-      const res = await fetch('/api/batch-pipeline', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        if (data.scheduled_posts) {
-          onUpdateScheduledPosts(data.scheduled_posts);
-          setBatchNotice(
-            `Automated Batch Complete: Processed ${data.papers_processed} papers, extracted ${data.claims_extracted} verified claims, and scheduled 7 days of Instagram content.`
-          );
-        }
-      } else {
-        setBatchNotice('Batch completed using preloaded verified metabolic research pipeline.');
-      }
-    } catch {
-      setBatchNotice('Batch generated 7-day schedule successfully.');
-    } finally {
-      setIsBatchRunning(false);
-    }
-  };
+  const draftCount = scheduledPosts.filter((post) => post.status === 'DRAFT').length;
+  const scheduledCount = scheduledPosts.filter((post) => post.status === 'SCHEDULED').length;
+  const formatCount = new Set(scheduledPosts.map((post) => post.format)).size;
 
   const handleExportBufferJson = () => {
     const payload = {
-      channel: 'instagram_business',
-      account: '@steerclub',
+      export_type: 'draft_editorial_plan',
       generated_at: new Date().toISOString(),
-      queue: scheduledPosts.map((p) => ({
-        post_id: p.id,
-        scheduled_time_utc: p.scheduled_for,
-        slot_ist: p.slot_label,
-        type: p.format.toLowerCase(),
-        hook_headline: p.hook,
-        caption: p.caption,
-        hashtags: p.hashtags,
-        language: p.language,
-        brand_signoff: 'steerclub.com',
-        compliance_check: 'DOCTOR_VERIFIED',
+      queue: scheduledPosts.map((post) => ({
+        post_id: post.id,
+        planned_time_utc: post.scheduled_for,
+        slot_label: post.slot_label,
+        type: post.format.toLowerCase(),
+        hook_headline: post.hook,
+        caption: post.caption,
+        hashtags: post.hashtags,
+        language: post.language,
+        review_status: post.status,
+        compliance_check: post.status === 'DOCTOR_APPROVED' ? 'DOCTOR_APPROVED' : 'REVIEW_REQUIRED',
       })),
+      publishing_note: 'Export only. No social platform is connected and nothing was published.',
     };
 
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'steer_instagram_7day_schedule.json';
+    a.download = 'steer_editorial_plan.json';
+    document.body.appendChild(a);
     a.click();
-    URL.revokeObjectURL(url);
+    a.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 
     setCopiedBuffer(true);
     setTimeout(() => setCopiedBuffer(false), 2500);
@@ -114,81 +70,64 @@ export const PostScheduler: React.FC<PostSchedulerProps> = ({
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="text-[10px] font-mono uppercase tracking-widest text-[#C04E2A] font-bold">
-              AUTOMATED INSTAGRAM PIPELINE
+              PLANNING ONLY · MANUAL PUBLISHING
             </span>
             <span className="px-2 py-0.5 bg-[#416C49]/10 text-[#416C49] text-[10px] font-mono font-semibold rounded-xs">
-              7-Day Cadence
+              Draft plan
             </span>
           </div>
           <h2 className="font-serif text-2xl font-bold text-[#351D1D]">
-            Metabolic Health Content Calendar
+            Editorial plan
           </h2>
           <p className="text-xs text-[#B58777] max-w-2xl leading-relaxed">
-            Automates the hackathon objective: turning dense metabolic papers into a repeatable weekly cadence of Carousels, Statics, and AI Video Reels in Steer's calm editorial voice.
+            Organize reviewed drafts here. This calendar is a planning tool only: it does not connect to or publish on Instagram.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <button
-            onClick={handleRunBatchPipeline}
-            disabled={isBatchRunning}
-            className="px-4 py-2.5 bg-[#661414] hover:bg-[#4a0d0d] disabled:opacity-50 text-[#F5EBDF] text-xs font-semibold rounded-xs flex items-center gap-2 cursor-pointer transition-colors shadow-xs"
-          >
-            <Zap className="w-3.5 h-3.5 text-[#C04E2A]" />
-            <span>{isBatchRunning ? 'Running Batch Engine...' : 'Run 5-Paper Batch Pipeline'}</span>
-          </button>
+          <p className="max-w-48 text-right text-[11px] leading-relaxed text-[#786A61]">
+            Add items manually after clinical and editorial review.
+          </p>
 
           <button
             onClick={handleExportBufferJson}
-            className="px-3.5 py-2.5 bg-[#FFFDF9] hover:bg-[#F8F2EB] border border-[#E6CBBD] text-xs font-medium text-[#351D1D] rounded-xs flex items-center gap-1.5 cursor-pointer transition-colors"
+            disabled={scheduledPosts.length === 0}
+            className="px-3.5 py-2.5 bg-[#FFFDF9] hover:bg-[#F8F2EB] border border-[#E6CBBD] text-xs font-medium text-[#351D1D] rounded-xs flex items-center gap-1.5 cursor-pointer transition-colors disabled:cursor-not-allowed disabled:opacity-50"
           >
             {copiedBuffer ? (
               <Check className="w-3.5 h-3.5 text-[#416C49]" />
             ) : (
               <Download className="w-3.5 h-3.5 text-[#C04E2A]" />
             )}
-            <span>{copiedBuffer ? 'Exported!' : 'Export IG Buffer JSON'}</span>
+            <span>{copiedBuffer ? 'Exported' : 'Export plan JSON'}</span>
           </button>
         </div>
       </div>
 
-      {/* Batch notice banner if fired */}
-      {batchNotice && (
-        <div className="p-3 bg-[#416C49]/10 border border-[#416C49]/30 text-xs text-[#416C49] flex items-center justify-between gap-2">
-          <span>{batchNotice}</span>
-          <button
-            onClick={() => setBatchNotice(null)}
-            className="font-mono text-[10px] underline cursor-pointer"
-          >
-            Dismiss
-          </button>
-        </div>
-      )}
-
       {/* 02. Cadence & Pipeline Metrics Bar */}
       <div className="steer-calendar-metrics grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-4 space-y-1">
-          <span className="text-[10px] font-mono uppercase text-[#B58777] block">Weekly Cadence</span>
-          <div className="text-xl font-serif font-bold text-[#351D1D]">7 Posts / Week</div>
-          <p className="text-[10px] text-[#B58777]">Mon, Wed, Thu, Fri, Sat, Sun slots</p>
+          <span className="text-[10px] font-mono uppercase text-[#B58777] block">Planned items</span>
+          <div className="text-xl font-serif font-bold text-[#351D1D]">{scheduledPosts.length} items</div>
+          <p className="text-[10px] text-[#B58777]">{scheduledCount} scheduled · {draftCount} draft</p>
         </div>
 
         <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-4 space-y-1">
-          <span className="text-[10px] font-mono uppercase text-[#B58777] block">Multi-Format Balance</span>
-          <div className="text-xl font-serif font-bold text-[#C04E2A]">3 Carousels · 2 Reels · 2 Statics</div>
-          <p className="text-[10px] text-[#B58777]">Feed carousels + 9:16 vertical video</p>
+          <span className="text-[10px] font-mono uppercase text-[#B58777] block">Formats in plan</span>
+          <div className="text-xl font-serif font-bold text-[#C04E2A]">{formatCount} formats</div>
+          <p className="text-[10px] text-[#B58777]">Carousel · static · reel</p>
         </div>
 
         <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-4 space-y-1">
-          <span className="text-[10px] font-mono uppercase text-[#B58777] block">Doctor Review Gate</span>
-          <div className="text-xl font-serif font-bold text-[#416C49]">100% Traceable</div>
-          <p className="text-[10px] text-[#B58777]">All claims verified before scheduling</p>
+          <span className="text-[10px] font-mono uppercase text-[#B58777] block">Review queue</span>
+          <div className="text-xl font-serif font-bold text-[#416C49]">{draftCount} drafts</div>
+          <p className="text-[10px] text-[#B58777]">Human review still required</p>
         </div>
 
         <div className="bg-[#FFFDF9] border border-[#E6CBBD] p-4 space-y-1">
-          <span className="text-[10px] font-mono uppercase text-[#B58777] block">Language Localization</span>
-          <div className="text-xl font-serif font-bold text-[#661414]">EN & Hinglish</div>
-          <p className="text-[10px] text-[#B58777]">Culturally calibrated for Indian life</p>
+          <span className="text-[10px] font-mono uppercase text-[#B58777] block">Publishing</span>
+          <div className="text-xl font-serif font-bold text-[#661414]">Manual only</div>
+          <p className="text-[10px] text-[#B58777]">No social account connected</p>
         </div>
       </div>
 
@@ -200,6 +139,7 @@ export const PostScheduler: React.FC<PostSchedulerProps> = ({
             <button
               key={fmt}
               onClick={() => setFilterFormat(fmt)}
+              aria-pressed={filterFormat === fmt}
               className={`px-3 py-1 rounded-xs transition-colors cursor-pointer ${
                 filterFormat === fmt
                   ? 'bg-[#C04E2A] text-[#FFFDF9] font-bold'
@@ -212,11 +152,20 @@ export const PostScheduler: React.FC<PostSchedulerProps> = ({
         </div>
 
         <span className="text-[10px] text-[#B58777]">
-          Showing {filteredPosts.length} of {scheduledPosts.length} scheduled posts
+          Showing {filteredPosts.length} of {scheduledPosts.length} planned items
         </span>
       </div>
 
-      {/* 04. 7-Day Timeline Queue */}
+      {/* 04. Editorial plan queue */}
+      {filteredPosts.length === 0 ? (
+        <div className="flex flex-col items-center gap-2 border border-dashed border-[#E6CBBD] bg-[#FFFDF9] px-6 py-12 text-center">
+          <Calendar className="size-6 text-[#B58777]" aria-hidden="true" />
+          <h3 className="font-serif text-lg font-bold text-[#351D1D]">No planned posts yet</h3>
+          <p className="max-w-md text-xs leading-relaxed text-[#786A61]">
+            Review and approve source-linked claims, create a content draft in Studio, then add it to this manual plan.
+          </p>
+        </div>
+      ) : (
       <div className="space-y-3">
         {filteredPosts.map((post, idx) => {
           const isCarousel = post.format === 'CAROUSEL';
@@ -265,8 +214,8 @@ export const PostScheduler: React.FC<PostSchedulerProps> = ({
                       {post.language}
                     </span>
 
-                    <span className="text-[9px] font-mono text-[#416C49] flex items-center gap-0.5 font-semibold">
-                      <CheckCircle2 className="w-2.5 h-2.5" />
+                    <span className={`text-[9px] font-mono flex items-center gap-0.5 font-semibold ${post.status === 'DRAFT' ? 'text-amber-900' : 'text-[#416C49]'}`}>
+                      <Clock className="size-2.5" aria-hidden="true" />
                       {post.status.replace(/_/g, ' ')}
                     </span>
                   </div>
@@ -300,6 +249,7 @@ export const PostScheduler: React.FC<PostSchedulerProps> = ({
           );
         })}
       </div>
+      )}
     </div>
   );
 };

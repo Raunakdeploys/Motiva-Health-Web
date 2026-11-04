@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
-import { getSavedAuditLogs, AuditLogEntry } from '../utils/storage';
+import type { AuditLogEntry } from '../utils/storage';
 import { ShieldCheck, Clock, Search, RefreshCw, Download, CheckCircle2, Lock } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
 
-export const AuditLogView: React.FC = () => {
-  const { user } = useAuth();
-  const [logs, setLogs] = useState<AuditLogEntry[]>(getSavedAuditLogs());
+interface AuditLogViewProps {
+  logs: AuditLogEntry[];
+  onRefresh: () => void;
+}
+
+export const AuditLogView: React.FC<AuditLogViewProps> = ({ logs, onRefresh }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState<string>('ALL');
-
-  const handleRefresh = () => {
-    setLogs(getSavedAuditLogs());
-  };
 
   const handleExportJson = () => {
     const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(logs, null, 2));
@@ -61,24 +59,24 @@ export const AuditLogView: React.FC = () => {
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="px-2 py-0.5 bg-[#661414] text-[#F5EBDF] text-[10px] font-mono font-bold uppercase rounded-xs">
-              SECURE GOVERNANCE
+              ACCOUNT ACTIVITY
             </span>
             <span className="text-xs font-mono text-[#416C49] font-bold flex items-center gap-1">
               <Lock className="w-3.5 h-3.5" />
-              100% Automated System Audit Trail
+              User-scoped activity history
             </span>
           </div>
           <h2 className="font-serif text-lg font-bold text-[#351D1D] tracking-tight">
-            Automated System-Wide Compliance & Review Logs
+            Research activity history
           </h2>
           <p className="text-xs text-[#786A61] leading-relaxed">
-            Deterministic, tamper-proof tracking of every research intake, validation gate evaluation, editorial decision, and clinical generation. Manual entry disabled by policy.
+            Recent server-recorded actions for this account. This activity view is not a regulatory audit log or compliance attestation.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
           <button
-            onClick={handleRefresh}
+            onClick={onRefresh}
             className="px-3 py-1.5 bg-[#FAF6F0] hover:bg-[#F5EFE6] border border-[#E6CBBD] text-[#351D1D] rounded-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-xs transition-colors"
             title="Refresh latest automated logs"
           >
@@ -102,7 +100,7 @@ export const AuditLogView: React.FC = () => {
         </div>
       </div>
 
-      {/* Automated Policy Banner (Replacing manual form) */}
+      {/* Activity history scope */}
       <div className="bg-[#FAF6F0] border border-[#E6CBBD] p-4 rounded-xs shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
         <div className="flex items-start gap-2.5">
           <div className="w-7 h-7 rounded-full bg-[#416C49]/15 flex items-center justify-center text-[#416C49] shrink-0 mt-0.5">
@@ -110,10 +108,10 @@ export const AuditLogView: React.FC = () => {
           </div>
           <div>
             <h4 className="font-serif font-bold text-[#351D1D]">
-              Automated Integrity Protocol Active
+              Account-scoped activity
             </h4>
             <p className="text-[11px] text-[#786A61] leading-relaxed">
-              All audit records are automatically emitted and cryptographically time-stamped by system actions. Manual event injection is prohibited to guarantee regulatory auditability.
+              Key data operations are recorded by the server and visible only to the signed-in account. Entries support product transparency but are not tamper-proof or a substitute for a validated compliance system.
             </p>
           </div>
         </div>
@@ -146,6 +144,7 @@ export const AuditLogView: React.FC = () => {
             <option value="ALL">All Roles</option>
             <option value="Admin">Admin</option>
             <option value="Medical Reviewer">Medical Reviewer</option>
+            <option value="Reviewer">Reviewer</option>
             <option value="Content Creator">Content Creator</option>
             <option value="Compliance Officer">Compliance Officer</option>
           </select>

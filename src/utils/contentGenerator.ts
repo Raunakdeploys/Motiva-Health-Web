@@ -94,7 +94,7 @@ export function generateClientSteerContent(
     paper_id: paper.paper_id,
     approved_claim_ids: approvedIds.length > 0 ? approvedIds : [topClaim.claim_id],
     title: selectedTitle,
-    status: 'READY',
+    status: 'DRAFT',
     generated_at: now,
     caption: `It is biology, not willpower. When you understand the physiological mechanisms behind metabolic regulation, shame leaves the room.\n\nFrom our medical desk: ${topClaim.claim_text}\n\nClinical metric: ${metric}.\n\nsteer · steerclub.com`,
     hinglish_caption: `Yeh willpower ki kami nahi, body ki natural biology hai. Jab science samajh aati hai, tab guilt khatam ho jata hai.\n\nDoctor-led metabolic care, calibrated for Indian biology.\n\nsteer · steerclub.com`,
@@ -184,7 +184,7 @@ export function generateClientSteerContent(
     hinglish_caption: `Wazan kam hona kaafi nahi hai. Agar muscle chala gaya, toh metabolism permanently slow ho jata hai. Doctor se baat karein, kisi reel se nahi. steerclub.com`,
     founder_note: 'Doctor-Led Metabolic Care · Calibrated for Indian Biology',
     hashtags: ['#MetabolicHealth', '#DoctorLed', '#IndianBiology', '#LeanMass', '#steerclub'],
-    status: 'READY',
+    status: 'DRAFT',
     generated_at: now,
   };
 
@@ -198,7 +198,7 @@ export function generateClientSteerContent(
     caption: `It is biology, not willpower. Here is what peer-reviewed clinical research actually found about ${cleanTitle.substring(0, 40)}. Lose well. Live well at steerclub.com`,
     hinglish_caption: `Yeh willpower ki kami nahi, body ki biology hai. Dekhiye clinical data kya kehta hai. steerclub.com`,
     hashtags: ['#MetabolicHealth', '#ClinicalTrial', '#IndianBiology', '#steerclub', '#DoctorExplains'],
-    status: 'READY',
+    status: 'DRAFT',
     generated_at: now,
     scenes: [
       {

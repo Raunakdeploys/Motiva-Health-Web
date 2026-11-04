@@ -5,6 +5,7 @@ import {
   PaperRecord,
 } from '../types';
 import { runValidationEngine } from '../utils/validationEngine';
+import { authenticatedApiFetch } from '../utils/sqlApiClient';
 import {
   CheckCircle2,
   AlertTriangle,
@@ -150,7 +151,7 @@ export const ClaimLedger: React.FC<ClaimLedgerProps> = ({
     setAiError(null);
 
     try {
-      const response = await fetch('/api/generate-claims', {
+      const response = await authenticatedApiFetch('/api/generate-claims', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -192,7 +193,7 @@ export const ClaimLedger: React.FC<ClaimLedgerProps> = ({
     setAiError(null);
 
     try {
-      const response = await fetch('/api/audit-claims', {
+      const response = await authenticatedApiFetch('/api/audit-claims', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -229,7 +230,7 @@ export const ClaimLedger: React.FC<ClaimLedgerProps> = ({
     setAiError(null);
 
     try {
-      const response = await fetch('/api/audit-claims', {
+      const response = await authenticatedApiFetch('/api/audit-claims', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

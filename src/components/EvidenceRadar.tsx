@@ -24,6 +24,7 @@ import {
   parsePastedText,
   parseQuestionsCsv,
 } from '../utils/radarEngine';
+import { authenticatedApiFetch } from '../utils/sqlApiClient';
 import {
   AlertCircle,
   AlertTriangle,
@@ -247,7 +248,7 @@ export const EvidenceRadar: React.FC<EvidenceRadarProps> = ({
     if (!pubMedQuery.trim()) return;
     setIsSearchingPubMed(true);
     try {
-      const res = await fetch(`/api/radar/literature-search?q=${encodeURIComponent(pubMedQuery)}`);
+      const res = await authenticatedApiFetch(`/api/radar/literature-search?q=${encodeURIComponent(pubMedQuery)}`);
       if (res.ok) {
         const data = await res.json();
         setPubMedResults(data.results || []);
