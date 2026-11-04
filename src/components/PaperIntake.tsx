@@ -44,7 +44,7 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
   const [progressMessage, setProgressMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [useAiOcr, setUseAiOcr] = useState(false);
+  const [useAiOcr, setUseAiOcr] = useState(true);
 
   // Manual text paste modal state
   const [showManualModal, setShowManualModal] = useState(false);
@@ -68,8 +68,11 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
   };
 
   const handleFileInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      await processSelectedFile(e.target.files[0]);
+    const input = e.currentTarget;
+    const file = input.files?.[0];
+    if (file) {
+      await processSelectedFile(file);
+      input.value = '';
     }
   };
 
@@ -308,7 +311,7 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
               Or Upload a New Scientific PDF / Publication
             </h2>
             <p className="text-xs text-[#786A61]">
-              Extract searchable text page by page. Image-only pages stay clearly flagged unless you opt into OCR.
+              Extract selectable text, then automatically OCR image-only or sparse pages so scanned papers are usable too.
             </p>
             <label className="mt-3 flex max-w-2xl items-start gap-2 text-xs text-[#351D1D]">
               <input
@@ -318,9 +321,9 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
                 className="mt-0.5 accent-[#661414]"
               />
               <span>
-                <span className="font-semibold">Allow AI OCR for image-only pages</span>
+                <span className="font-semibold">Automatically OCR image-only and low-text pages</span>
                 <span className="mt-0.5 block text-[11px] text-[#786A61]">
-                  Only those page images are sent to Vercel AI Gateway. OCR is unverified until you compare it with the original PDF. Do not upload patient-identifiable records.
+                  Only low-text page images are sent to Vercel AI Gateway (up to 20 pages per PDF). Verify every transcription against the source. Do not upload patient-identifiable records.
                 </span>
               </span>
             </label>
@@ -341,7 +344,7 @@ export const PaperIntake: React.FC<PaperIntakeProps> = ({
               className="px-3.5 py-2 bg-[#FFFDF9] hover:bg-[#F8F2EB] text-[#351D1D] border border-[#E6CBBD] rounded-xs text-xs font-medium flex items-center gap-1.5 cursor-pointer transition-colors"
             >
               <ClipboardPaste className="w-3.5 h-3.5 text-[#786A61]" />
-              <span>Paste Text (OCR Fallback)</span>
+              <span>Paste Text Manually</span>
             </button>
           </div>
         </div>
