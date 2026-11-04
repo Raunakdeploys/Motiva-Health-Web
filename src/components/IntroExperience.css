@@ -1,0 +1,1004 @@
+.motiva-intro-scroll {
+  position: fixed;
+  z-index: 200;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  background: #10251e;
+  color: #f5f3eb;
+  inset: 0;
+  scrollbar-color: #496558 #10251e;
+  scrollbar-width: thin;
+  scroll-behavior: smooth;
+}
+
+.motiva-intro-story {
+  position: relative;
+  min-height: 320svh;
+}
+
+.motiva-intro-stage {
+  position: sticky;
+  top: 0;
+  display: flex;
+  min-height: 580px;
+  height: 100svh;
+  flex-direction: column;
+  overflow: hidden;
+  padding: clamp(18px, 3vw, 42px) clamp(20px, 5.5vw, 88px) 22px;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 82% 47%, rgb(63 104 82 / 37%), transparent 37%),
+    radial-gradient(ellipse at 17% 89%, rgb(181 111 77 / 13%), transparent 32%),
+    linear-gradient(125deg, #10251e 2%, #18382c 57%, #173127 100%);
+}
+
+.motiva-intro-grid {
+  position: absolute;
+  z-index: -2;
+  opacity: 0.18;
+  background-image:
+    linear-gradient(rgb(214 225 211 / 11%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(214 225 211 / 11%) 1px, transparent 1px);
+  background-size: 68px 68px;
+  inset: 0;
+  mask-image: linear-gradient(135deg, black, transparent 80%);
+}
+
+.motiva-intro-ambient {
+  position: absolute;
+  z-index: -1;
+  border: 1px solid rgb(207 218 201 / 10%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.motiva-intro-ambient-one {
+  width: min(76vw, 980px);
+  aspect-ratio: 1;
+  top: -37%;
+  right: -18%;
+  box-shadow: 0 0 100px rgb(88 131 97 / 8%), inset 0 0 90px rgb(88 131 97 / 7%);
+}
+
+.motiva-intro-ambient-two {
+  width: min(36vw, 480px);
+  aspect-ratio: 1;
+  bottom: -40%;
+  left: 11%;
+  border-color: rgb(203 142 104 / 10%);
+  box-shadow: 0 0 70px rgb(188 126 88 / 8%);
+}
+
+.motiva-intro-header,
+.motiva-intro-brand,
+.motiva-intro-content,
+.motiva-intro-footer,
+.motiva-intro-progress-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.motiva-intro-header,
+.motiva-intro-footer {
+  position: relative;
+  z-index: 3;
+  justify-content: space-between;
+}
+
+.motiva-intro-header {
+  min-height: 40px;
+  gap: 18px;
+}
+
+.motiva-intro-brand {
+  min-width: 0;
+  gap: 10px;
+  color: #f5f3eb;
+  text-decoration: none;
+}
+
+.motiva-intro-brand-mark {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgb(229 232 214 / 22%);
+  border-radius: 11px;
+  background: linear-gradient(145deg, #d39a70, #a96f50);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 19%);
+  color: #fff8ec;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 23px;
+  font-style: italic;
+  line-height: 1;
+}
+
+.motiva-intro-brand-name {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.motiva-intro-brand-divider {
+  width: 1px;
+  height: 17px;
+  margin: 0 1px 0 4px;
+  background: rgb(230 234 221 / 24%);
+}
+
+.motiva-intro-brand-context {
+  color: #b9c9bc;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
+.motiva-intro-enter,
+.motiva-intro-footer-enter {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 1px solid rgb(231 236 224 / 25%);
+  border-radius: 999px;
+  padding: 0 15px;
+  background: rgb(241 242 228 / 7%);
+  color: #f5f3eb;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.motiva-intro-enter:hover,
+.motiva-intro-footer-enter:hover {
+  transform: translateY(-2px);
+  border-color: rgb(231 236 224 / 58%);
+  background: rgb(241 242 228 / 14%);
+}
+
+.motiva-intro-enter:focus-visible,
+.motiva-intro-footer-enter:focus-visible,
+.motiva-intro-brand:focus-visible {
+  outline: 2px solid #dfb08b;
+  outline-offset: 4px;
+}
+
+.motiva-intro-content {
+  width: min(100%, 1420px);
+  flex: 1;
+  justify-content: space-between;
+  gap: clamp(24px, 5.5vw, 88px);
+  margin: 0 auto;
+  padding: 22px 0 14px;
+}
+
+.motiva-intro-copy {
+  z-index: 1;
+  width: min(49%, 590px);
+  flex: 0 0 auto;
+}
+
+.motiva-intro-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 21px;
+  color: #d9b092;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.motiva-intro-eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #dba17a;
+  box-shadow: 0 0 15px rgb(219 161 122 / 72%);
+}
+
+.motiva-intro-copy h1 {
+  max-width: 690px;
+  margin: 0;
+  color: #f7f5ed;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(48px, 6.2vw, 86px);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.99;
+  text-wrap: balance;
+}
+
+.motiva-intro-lede {
+  max-width: 510px;
+  margin: 20px 0 0;
+  color: #c3d0c4;
+  font-size: clamp(13px, 1.25vw, 16px);
+  line-height: 1.72;
+  text-wrap: pretty;
+}
+
+.motiva-intro-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: clamp(22px, 4vh, 38px);
+  padding-top: 17px;
+  border-top: 1px solid rgb(223 231 216 / 17%);
+}
+
+.motiva-intro-step-icon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgb(221 228 214 / 21%);
+  border-radius: 10px;
+  background: rgb(229 237 224 / 7%);
+  color: #e3ad84;
+}
+
+.motiva-intro-step-copy {
+  min-width: 0;
+  animation: motiva-intro-copy-in 420ms both;
+}
+
+.motiva-intro-step-kicker {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #d9b092;
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: 0.13em;
+}
+
+.motiva-intro-step-kicker > span:first-child {
+  color: #f2d1b6;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.motiva-intro-step-rule {
+  width: 22px;
+  height: 1px;
+  background: rgb(223 231 216 / 28%);
+}
+
+.motiva-intro-step h2 {
+  margin: 5px 0 4px;
+  color: #f5f3eb;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.motiva-intro-step p {
+  max-width: 390px;
+  margin: 0;
+  color: #aebfb1;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.motiva-intro-art-wrap {
+  position: relative;
+  display: grid;
+  width: min(50%, 660px);
+  min-width: 300px;
+  flex: 1 1 50%;
+  align-self: stretch;
+  place-items: center;
+  perspective: 1100px;
+}
+
+.motiva-intro-orbit {
+  position: absolute;
+  width: min(36vw, 480px);
+  aspect-ratio: 1;
+  border: 1px solid rgb(220 231 216 / 12%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.motiva-intro-orbit-outer {
+  transform: rotateX(67deg) rotateZ(-20deg) scaleY(0.72);
+  box-shadow: 0 0 50px rgb(104 149 111 / 9%);
+}
+
+.motiva-intro-orbit-inner {
+  width: min(24vw, 318px);
+  transform: rotateX(67deg) rotateZ(33deg) scaleY(0.66);
+  border-color: rgb(221 172 136 / 20%);
+}
+
+.motiva-intro-orbit-core {
+  position: absolute;
+  width: min(26vw, 340px);
+  aspect-ratio: 1;
+  transform: rotateX(67deg) scaleY(0.68);
+  border: 1px dashed rgb(218 227 213 / 19%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.motiva-intro-orbit-core::before,
+.motiva-intro-orbit-core::after {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 2px solid #e6b18a;
+  border-radius: 50%;
+  background: #17382b;
+  box-shadow: 0 0 15px rgb(230 177 138 / 75%);
+  content: "";
+}
+
+.motiva-intro-orbit-core::before {
+  top: 14%;
+  left: 18%;
+}
+
+.motiva-intro-orbit-core::after {
+  right: 7%;
+  bottom: 28%;
+  width: 6px;
+  height: 6px;
+  border-color: #bdd2b9;
+  box-shadow: 0 0 13px rgb(189 210 185 / 76%);
+}
+
+.motiva-intro-art {
+  position: relative;
+  width: min(100%, 480px);
+  height: min(60vh, 500px);
+  min-height: 350px;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.motiva-intro-paper-shadow,
+.motiva-intro-paper-back,
+.motiva-intro-paper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(70%, 315px);
+  height: 76%;
+  border-radius: 12px;
+  transform-style: preserve-3d;
+}
+
+.motiva-intro-paper-shadow {
+  transform: translate3d(-40%, -43%, -60px) rotateZ(10deg);
+  background: rgb(0 0 0 / 18%);
+  filter: blur(24px);
+}
+
+.motiva-intro-paper-back {
+  transform: translate3d(-51%, -50%, -30px) rotateZ(8deg);
+  border: 1px solid rgb(244 239 223 / 50%);
+  background: linear-gradient(155deg, #d5d6c7, #acb5a4);
+  box-shadow: 0 18px 60px rgb(0 0 0 / 21%);
+}
+
+.motiva-intro-paper {
+  display: flex;
+  flex-direction: column;
+  transform: translate3d(-53%, -53%, 15px) rotateZ(-5deg);
+  border: 1px solid #e8e4d8;
+  padding: clamp(18px, 2vw, 27px);
+  background: linear-gradient(150deg, #fbfaf3 0%, #f0eee4 100%);
+  box-shadow: 0 30px 70px rgb(0 0 0 / 29%), inset 0 1px 0 rgb(255 255 255 / 95%);
+  color: #34453a;
+}
+
+.motiva-intro-paper-head,
+.motiva-intro-paper-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.motiva-intro-paper-kicker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #42604d;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+}
+
+.motiva-intro-paper-pages {
+  color: #8a9487;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.motiva-intro-paper-title-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 32px;
+}
+
+.motiva-intro-paper-title-lines span,
+.motiva-intro-paper-body-lines span,
+.motiva-intro-highlight span {
+  display: block;
+  height: 5px;
+  border-radius: 99px;
+  background: #d3d8ce;
+}
+
+.motiva-intro-paper-title-lines span:first-child {
+  width: 90%;
+  height: 8px;
+  background: #506a57;
+}
+
+.motiva-intro-paper-title-lines span:nth-child(2) {
+  width: 74%;
+  background: #96a391;
+}
+
+.motiva-intro-paper-title-lines span:nth-child(3) {
+  width: 56%;
+  height: 3px;
+}
+
+.motiva-intro-paper-section {
+  margin: 29px 0 10px;
+  color: #82907f;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.motiva-intro-paper-body-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.motiva-intro-paper-body-lines span:nth-child(1) { width: 97%; }
+.motiva-intro-paper-body-lines span:nth-child(2) { width: 90%; }
+.motiva-intro-paper-body-lines span:nth-child(3) { width: 96%; }
+.motiva-intro-paper-body-lines span:nth-child(4) { width: 66%; }
+
+.motiva-intro-highlight {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 19px;
+  border-left: 3px solid #c78b67;
+  padding: 10px 11px;
+  background: #ece9d9;
+}
+
+.motiva-intro-highlight span:first-child { width: 93%; background: #c7c6b3; }
+.motiva-intro-highlight span:nth-child(2) { width: 59%; height: 4px; background: #b4b8a7; }
+
+.motiva-intro-paper-foot {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid #dfe1d7;
+  color: #56745e;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.motiva-intro-paper-foot-dot {
+  display: grid;
+  width: 19px;
+  height: 19px;
+  place-items: center;
+  border-radius: 50%;
+  background: #dbe7d6;
+  color: #3e6d4d;
+}
+
+.motiva-intro-float-card {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid rgb(235 237 221 / 22%);
+  border-radius: 12px;
+  padding: 11px 13px;
+  background: rgb(24 49 39 / 90%);
+  box-shadow: 0 16px 40px rgb(0 0 0 / 28%), inset 0 1px 0 rgb(255 255 255 / 8%);
+  backdrop-filter: blur(16px);
+  transform: translateZ(64px);
+}
+
+.motiva-intro-float-card > span:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.motiva-intro-float-card strong {
+  color: #f3f1e9;
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.motiva-intro-float-card small {
+  color: #b2c4b4;
+  font-size: 8px;
+}
+
+.motiva-intro-float-icon {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 8px;
+  background: rgb(222 233 214 / 10%);
+  color: #e0ad87;
+}
+
+.motiva-intro-citation {
+  top: 19%;
+  left: 0;
+  animation: motiva-intro-float 5.2s ease-in-out infinite;
+}
+
+.motiva-intro-claim {
+  right: -1%;
+  bottom: 18%;
+  animation: motiva-intro-float 5.8s ease-in-out -2s infinite;
+}
+
+.motiva-intro-review-dot {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  margin-left: 3px;
+  border-radius: 50%;
+  background: #d7a57f;
+  box-shadow: 0 0 12px rgb(215 165 127 / 65%);
+}
+
+.motiva-intro-review-stamp {
+  position: absolute;
+  right: 3%;
+  top: 16%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transform: translateZ(85px) rotate(4deg);
+  border: 1px solid rgb(204 219 196 / 25%);
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: rgb(47 83 60 / 91%);
+  box-shadow: 0 10px 28px rgb(0 0 0 / 22%);
+  color: #dcebd6;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.motiva-intro-art-caption {
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #91a596;
+  font-size: 9px;
+}
+
+.motiva-intro-footer {
+  min-height: 40px;
+  gap: 16px;
+  border-top: 1px solid rgb(223 231 216 / 14%);
+  padding-top: 15px;
+}
+
+.motiva-intro-progress-wrap {
+  width: min(200px, 25%);
+  flex: 0 0 auto;
+  gap: 10px;
+}
+
+.motiva-intro-progress-track {
+  height: 2px;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 99px;
+  background: rgb(224 232 218 / 19%);
+}
+
+.motiva-intro-progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: left center;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #d2936e, #c6d6ba);
+}
+
+.motiva-intro-progress-count {
+  color: #e8bb99;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.motiva-intro-progress-count span {
+  color: #8da091;
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: 9px;
+}
+
+.motiva-intro-scroll-cue {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #a9b9aa;
+  font-size: 10px;
+}
+
+.motiva-intro-scroll-cue svg {
+  color: #dbab86;
+  animation: motiva-intro-nudge 1.8s ease-in-out infinite;
+}
+
+.motiva-intro-footer-enter {
+  min-height: 35px;
+  border-color: rgb(215 163 125 / 36%);
+  background: rgb(197 137 98 / 13%);
+  color: #f2d0b5;
+  font-size: 10px;
+}
+
+@keyframes motiva-intro-float {
+  0%, 100% { transform: translate3d(0, 0, 64px); }
+  50% { transform: translate3d(0, -8px, 64px); }
+}
+
+@keyframes motiva-intro-nudge {
+  0%, 100% { transform: translateY(-2px); }
+  50% { transform: translateY(3px); }
+}
+
+@keyframes motiva-intro-copy-in {
+  from { opacity: 0.65; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 800px) {
+  .motiva-intro-stage {
+    padding-inline: clamp(18px, 5vw, 36px);
+  }
+
+  .motiva-intro-content {
+    gap: 12px;
+  }
+
+  .motiva-intro-copy {
+    width: 49%;
+  }
+
+  .motiva-intro-art-wrap {
+    width: 51%;
+    min-width: 0;
+  }
+
+  .motiva-intro-art {
+    width: 100%;
+  }
+
+  .motiva-intro-paper,
+  .motiva-intro-paper-back,
+  .motiva-intro-paper-shadow {
+    width: 75%;
+  }
+
+  .motiva-intro-float-card {
+    gap: 7px;
+    padding: 9px 10px;
+  }
+
+  .motiva-intro-float-card small {
+    font-size: 7px;
+  }
+
+  .motiva-intro-citation { left: -4%; }
+  .motiva-intro-claim { right: -3%; }
+}
+
+@media (max-width: 620px) {
+  .motiva-intro-stage {
+    min-height: 560px;
+    padding: 16px 18px 15px;
+  }
+
+  .motiva-intro-header {
+    min-height: 34px;
+    gap: 8px;
+  }
+
+  .motiva-intro-brand {
+    gap: 7px;
+  }
+
+  .motiva-intro-brand-mark {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    font-size: 21px;
+  }
+
+  .motiva-intro-brand-name {
+    font-size: 11px;
+  }
+
+  .motiva-intro-brand-divider,
+  .motiva-intro-brand-context {
+    display: none;
+  }
+
+  .motiva-intro-enter {
+    min-height: 34px;
+    gap: 6px;
+    padding-inline: 11px;
+    font-size: 9px;
+  }
+
+  .motiva-intro-content {
+    min-height: 0;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0;
+    padding: 16px 0 7px;
+  }
+
+  .motiva-intro-copy {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+
+  .motiva-intro-eyebrow {
+    gap: 7px;
+    margin-bottom: 10px;
+    font-size: 8px;
+    letter-spacing: 0.12em;
+  }
+
+  .motiva-intro-eyebrow-dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .motiva-intro-copy h1 {
+    max-width: 440px;
+    font-size: clamp(37px, 10.3vw, 54px);
+    line-height: 0.97;
+    letter-spacing: -0.052em;
+  }
+
+  .motiva-intro-lede {
+    max-width: 500px;
+    margin-top: 10px;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .motiva-intro-step {
+    gap: 9px;
+    margin-top: 11px;
+    padding-top: 9px;
+  }
+
+  .motiva-intro-step-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+  }
+
+  .motiva-intro-step-kicker {
+    gap: 7px;
+    font-size: 7px;
+  }
+
+  .motiva-intro-step-kicker > span:first-child {
+    font-size: 13px;
+  }
+
+  .motiva-intro-step h2 {
+    margin: 3px 0;
+    font-size: 11px;
+  }
+
+  .motiva-intro-step p {
+    max-width: 360px;
+    font-size: 9px;
+    line-height: 1.4;
+  }
+
+  .motiva-intro-art-wrap {
+    width: 100%;
+    min-height: 0;
+    height: clamp(135px, 26svh, 185px);
+    flex: 0 0 auto;
+    margin-top: 5px;
+  }
+
+  .motiva-intro-orbit-outer {
+    width: min(58vw, 300px);
+  }
+
+  .motiva-intro-orbit-inner {
+    width: min(41vw, 205px);
+  }
+
+  .motiva-intro-orbit-core {
+    width: min(44vw, 220px);
+  }
+
+  .motiva-intro-art {
+    width: min(100%, 350px);
+    height: 100%;
+    min-height: 0;
+  }
+
+  .motiva-intro-paper,
+  .motiva-intro-paper-back,
+  .motiva-intro-paper-shadow {
+    width: min(51%, 180px);
+    height: 88%;
+  }
+
+  .motiva-intro-paper {
+    padding: 12px;
+  }
+
+  .motiva-intro-paper-kicker {
+    font-size: 6px;
+  }
+
+  .motiva-intro-paper-pages {
+    font-size: 5px;
+  }
+
+  .motiva-intro-paper-title-lines {
+    gap: 4px;
+    margin-top: 15px;
+  }
+
+  .motiva-intro-paper-title-lines span,
+  .motiva-intro-paper-body-lines span,
+  .motiva-intro-highlight span {
+    height: 3px;
+  }
+
+  .motiva-intro-paper-title-lines span:first-child { height: 5px; }
+  .motiva-intro-paper-title-lines span:nth-child(3) { height: 2px; }
+
+  .motiva-intro-paper-section {
+    margin: 12px 0 7px;
+    font-size: 5px;
+  }
+
+  .motiva-intro-paper-body-lines { gap: 5px; }
+
+  .motiva-intro-highlight {
+    gap: 4px;
+    margin-top: 9px;
+    padding: 6px 7px;
+  }
+
+  .motiva-intro-highlight span:nth-child(2) { height: 2px; }
+
+  .motiva-intro-paper-foot {
+    padding-top: 7px;
+    font-size: 6px;
+  }
+
+  .motiva-intro-paper-foot-dot {
+    width: 14px;
+    height: 14px;
+  }
+
+  .motiva-intro-float-card {
+    gap: 6px;
+    border-radius: 9px;
+    padding: 7px 8px;
+  }
+
+  .motiva-intro-float-icon {
+    width: 21px;
+    height: 21px;
+    border-radius: 6px;
+  }
+
+  .motiva-intro-float-card strong { font-size: 8px; }
+  .motiva-intro-float-card small { font-size: 6px; }
+  .motiva-intro-citation { top: 5%; left: 1%; }
+  .motiva-intro-claim { right: 0; bottom: 2%; }
+
+  .motiva-intro-review-stamp {
+    top: 3%;
+    right: 2%;
+    gap: 4px;
+    padding: 5px 7px;
+    font-size: 6px;
+  }
+
+  .motiva-intro-art-caption {
+    right: 0;
+    bottom: -1px;
+    gap: 4px;
+    font-size: 6px;
+  }
+
+  .motiva-intro-footer {
+    min-height: 35px;
+    gap: 8px;
+    padding-top: 9px;
+  }
+
+  .motiva-intro-progress-wrap {
+    width: 27%;
+    gap: 6px;
+  }
+
+  .motiva-intro-progress-count { font-size: 12px; }
+  .motiva-intro-progress-count span { font-size: 7px; }
+
+  .motiva-intro-scroll-cue {
+    gap: 5px;
+    font-size: 8px;
+  }
+
+  .motiva-intro-footer-enter {
+    min-height: 31px;
+    gap: 5px;
+    padding: 0 9px;
+    font-size: 8px;
+  }
+}
+
+@media (max-height: 680px) and (max-width: 620px) {
+  .motiva-intro-stage {
+    min-height: 500px;
+    padding-top: 11px;
+    padding-bottom: 10px;
+  }
+
+  .motiva-intro-content { padding-top: 10px; }
+  .motiva-intro-art-wrap { height: 125px; }
+  .motiva-intro-step { margin-top: 8px; padding-top: 7px; }
+  .motiva-intro-lede { margin-top: 7px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motiva-intro-scroll { scroll-behavior: auto; }
+
+  .motiva-intro-scroll *,
+  .motiva-intro-scroll *::before,
+  .motiva-intro-scroll *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
