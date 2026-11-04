@@ -5,6 +5,7 @@ import {
   PaperRecord,
 } from '../types';
 import { runValidationEngine } from '../utils/validationEngine';
+import { authenticatedApiFetch } from '../utils/sqlApiClient';
 import {
   CheckCircle2,
   AlertTriangle,
@@ -150,7 +151,7 @@ export const ClaimLedger: React.FC<ClaimLedgerProps> = ({
     setAiError(null);
 
     try {
-      const response = await fetch('/api/generate-claims', {
+      const response = await authenticatedApiFetch('/api/generate-claims', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -192,7 +193,7 @@ export const ClaimLedger: React.FC<ClaimLedgerProps> = ({
     setAiError(null);
 
     try {
-      const response = await fetch('/api/audit-claims', {
+      const response = await authenticatedApiFetch('/api/audit-claims', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -212,7 +213,7 @@ export const ClaimLedger: React.FC<ClaimLedgerProps> = ({
           onUpdateClaim(audited, false);
         }
         setAuditSummary(
-          `Auto-Audit Complete: Audited ${data.audited_claims.length} claims against verbatim trial text with Gemini Flash.`
+          `AI review complete: checked ${data.audited_claims.length} claims against source text. Final approval remains with your human reviewer.`
         );
         setTimeout(() => setAuditSummary(null), 6000);
       }
@@ -229,7 +230,7 @@ export const ClaimLedger: React.FC<ClaimLedgerProps> = ({
     setAiError(null);
 
     try {
-      const response = await fetch('/api/audit-claims', {
+      const response = await authenticatedApiFetch('/api/audit-claims', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -391,7 +392,7 @@ export const ClaimLedger: React.FC<ClaimLedgerProps> = ({
               STAGE 02
             </span>
             <h2 className="font-serif font-bold text-lg text-[#351D1D] tracking-tight">
-              Doctor Review Gate (12-Rule Clinical Audit)
+              Human Review Gate (12-Rule Clinical Audit)
             </h2>
           </div>
           <p className="text-xs text-[#786A61] leading-relaxed">
@@ -399,7 +400,7 @@ export const ClaimLedger: React.FC<ClaimLedgerProps> = ({
           </p>
           <div className="flex flex-wrap items-center gap-2 font-mono text-[11px] pt-1">
             <span className="text-[#416C49] font-semibold bg-[#416C49]/15 px-2 py-0.5 rounded-xs">
-              ✓ {approvedCount} Doctor Approved
+              ✓ {approvedCount} Human Approved
             </span>
             <span className="text-[#C04E2A] font-semibold bg-[#C04E2A]/15 px-2 py-0.5 rounded-xs">
               ⚠ {flaggedCount} Flagged

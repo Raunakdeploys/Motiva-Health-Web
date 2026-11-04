@@ -149,20 +149,12 @@ export function runValidationEngine(
       'Provide the verbatim sentence from the paper that supports this claim.'
     );
   } else if (linkedPassages.length > 0) {
-    const cleanQuote = claim.exact_supporting_quote
-      .toLowerCase()
-      .replace(/[\s\r\n]+/g, ' ')
-      .trim();
-    const quoteWords = cleanQuote.split(' ').filter((w) => w.length > 3);
-    const quoteFoundInAny = linkedPassages.some((p) => {
-      const cleanPassage = p.verbatim_text.toLowerCase().replace(/[\s\r\n]+/g, ' ');
-      if (cleanPassage.includes(cleanQuote)) return true;
-      if (quoteWords.length >= 4) {
-        const matches = quoteWords.filter((word) => cleanPassage.includes(word));
-        return matches.length / quoteWords.length >= 0.70;
-      }
-      return false;
-    });
+      const normalizeSourceText = (text: string) =>
+        text.toLowerCase().replace(/[\u00ad\s\r\n]+/g, ' ').trim();
+      const cleanQuote = normalizeSourceText(claim.exact_supporting_quote);
+      const quoteFoundInAny = linkedPassages.some((p) =>
+        normalizeSourceText(p.verbatim_text).includes(cleanQuote)
+      );
 
     if (!quoteFoundInAny) {
       recordCheck(
@@ -604,7 +596,10 @@ export function runValidationEngine(
   // Rule 12: Source Readability & OCR Confidence
   // =========================================================================
   const unreadablePassages = linkedPassages.filter(
-    (p) => p.extraction_status === 'NO_TEXT' || p.extraction_status === 'LOW_CONFIDENCE'
+    (p) =>
+      p.extraction_status === 'NO_TEXT' ||
+      p.extraction_status === 'LOW_CONFIDENCE' ||
+      p.extraction_status === 'OCR_UNVERIFIED'
   );
   if (unreadablePassages.length > 0) {
     recordCheck(

@@ -20,6 +20,7 @@ interface EvidenceViewerProps {
   highlightEvidenceId?: string | null;
   onFormulateClaim: (passage: EvidencePassage) => void;
   onNavigateToReview: () => void;
+  onVerifyPassage: (passage: EvidencePassage) => void;
 }
 
 export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({
@@ -29,6 +30,7 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({
   highlightEvidenceId,
   onFormulateClaim,
   onNavigateToReview,
+  onVerifyPassage,
 }) => {
   const [selectedPageIndex, setSelectedPageIndex] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState('');
@@ -235,6 +237,16 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({
                         )}
                         <span>·</span>
                         <span>{passage.char_count} chars</span>
+                        {passage.extraction_status === 'OCR_UNVERIFIED' && (
+                          <span className="rounded-full bg-amber-100 px-2 py-0.5 font-semibold text-amber-900">
+                            OCR · VERIFY
+                          </span>
+                        )}
+                        {passage.extraction_status === 'OCR_VERIFIED' && (
+                          <span className="rounded-full bg-[#416C49]/15 px-2 py-0.5 font-semibold text-[#416C49]">
+                            OCR · CHECKED
+                          </span>
+                        )}
                       </div>
                     </div>
 
@@ -264,6 +276,27 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({
                   ID: {activePassage.evidence_id.substring(0, 16)}...
                 </span>
               </div>
+
+              {activePassage.extraction_status === 'OCR_UNVERIFIED' && (
+                <div className="rounded-xs border border-amber-300 bg-amber-50 p-3 text-xs text-amber-950">
+                  <p className="font-semibold">AI transcription · human check required</p>
+                  <p className="mt-1 leading-relaxed">
+                    Compare this text with page {activePassage.pdf_page_index} in the original PDF. Claims linked to this passage stay blocked until you confirm the transcription.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => onVerifyPassage(activePassage)}
+                    className="mt-2 rounded-xs bg-amber-900 px-3 py-1.5 font-semibold text-white transition-colors hover:bg-amber-800"
+                  >
+                    Mark transcription checked against PDF
+                  </button>
+                </div>
+              )}
+              {activePassage.extraction_status === 'OCR_VERIFIED' && (
+                <p className="text-xs font-medium text-[#416C49]">
+                  Transcription checked against the source by {activePassage.reviewed_by || 'a reviewer'}.
+                </p>
+              )}
 
               {/* Passage Verbatim Quotation */}
               <div className="space-y-1.5">

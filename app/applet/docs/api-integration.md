@@ -1,4 +1,4 @@
-# Steer Evidence Studio - API Integration & Gemini AI
+# MOTIVA Evidence Studio - API Integration & Gemini AI
 
 ## Server-Side Gemini API Integration
 All AI operations are routed through secure server-side endpoints in `server.ts` using the official `@google/genai` TypeScript SDK. 

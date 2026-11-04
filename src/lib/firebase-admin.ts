@@ -1,6 +1,5 @@
 import { initializeApp, getApps, cert } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
-import { getFirestore } from 'firebase-admin/firestore';
 import { firebaseConfig } from './firebase-config.ts';
 
 function getAdminApp() {
@@ -31,6 +30,3 @@ function getAdminApp() {
 const app = getAdminApp();
 
 export const adminAuth = getAuth(app);
-export const adminDb = firebaseConfig.firestoreDatabaseId
-  ? getFirestore(app, firebaseConfig.firestoreDatabaseId)
-  : getFirestore(app);

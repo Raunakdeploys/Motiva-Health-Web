@@ -35,7 +35,7 @@ export const PAPER_GLP1: PaperRecord = {
   filesize_bytes: 2145000,
   uploaded_at: '2026-10-15T09:00:00.000Z',
   total_pages: 14,
-  is_demo: false,
+  is_demo: true,
   extraction_warnings: [],
   has_unreadable_pages: false,
 };
@@ -105,13 +105,13 @@ export const CLAIMS_GLP1: ClaimRecord[] = [
     limitations: 'Sub-study sample size n=140; self-reported outside physical activity.',
     certainty_notes: 'High certainty from double-blind DXA clinical trial.',
     risk_flags: [],
-    review_status: 'HUMAN_APPROVED',
-    reviewer_note: 'Verified against Results section p. 5. Exact numbers match DXA sub-study.',
+    review_status: 'DRAFT',
+    reviewer_note: 'Synthetic sample record. No real clinical review was performed.',
     approved_version: {
       claim_text:
         'In clinical trials of once-weekly GLP-1 receptor agonist therapy, lean body mass accounted for up to 39.2% of total weight reduction (5.26 kg lean mass loss out of 13.6 kg total loss) in participants without structured resistance training.',
       approved_at: '2026-10-16T11:00:00.000Z',
-      approved_by: 'Dr. Siddharth M., Steer Clinical Lead',
+      approved_by: 'Sample placeholder — no clinician sign-off',
     },
     updated_at: '2026-10-16T11:00:00.000Z',
   },
@@ -132,13 +132,13 @@ export const CLAIMS_GLP1: ClaimRecord[] = [
     limitations: 'Calorimetry measured in fasting morning state.',
     certainty_notes: 'Statistically significant correlation with lean mass reduction.',
     risk_flags: [],
-    review_status: 'HUMAN_APPROVED',
-    reviewer_note: 'Approved. RMR reduction matches p. 7 table.',
+    review_status: 'DRAFT',
+    reviewer_note: 'Synthetic sample record. No real clinical review was performed.',
     approved_version: {
       claim_text:
         'Loss of lean body mass during pharmacological weight reduction reduces resting metabolic rate by an average of 185 kcal/day, which correlates with the rate of post-treatment weight rebound unless counteracted with protein and resistance exercise.',
       approved_at: '2026-10-16T11:15:00.000Z',
-      approved_by: 'Dr. Siddharth M., Steer Clinical Lead',
+      approved_by: 'Sample placeholder — no clinician sign-off',
     },
     updated_at: '2026-10-16T11:15:00.000Z',
   },
@@ -159,13 +159,13 @@ export const CLAIMS_GLP1: ClaimRecord[] = [
     limitations: 'Adherence to resistance training requires ongoing coaching.',
     certainty_notes: 'Clinical recommendation supported by exercise physiology data.',
     risk_flags: [],
-    review_status: 'HUMAN_APPROVED',
-    reviewer_note: 'Verified against Discussion p. 11.',
+    review_status: 'DRAFT',
+    reviewer_note: 'Synthetic sample record. No real clinical review was performed.',
     approved_version: {
       claim_text:
         'Combining medically-assisted weight loss with 1.2 to 1.5 g/kg/day dietary protein and twice-weekly progressive resistance training preserves skeletal muscle mass, reducing lean tissue loss to under 20% of total reduction.',
       approved_at: '2026-10-16T11:30:00.000Z',
-      approved_by: 'Dr. Siddharth M., Steer Clinical Lead',
+      approved_by: 'Sample placeholder — no clinician sign-off',
     },
     updated_at: '2026-10-16T11:30:00.000Z',
   },
@@ -177,16 +177,16 @@ export const CAROUSEL_GLP1: CarouselContent = {
   approved_claim_ids: ['claim_glp1_01', 'claim_glp1_02', 'claim_glp1_03'],
   title: 'GLP-1, Muscle Loss, and Why Weight Regain Happens',
   generated_at: '2026-10-16T12:00:00.000Z',
-  status: 'READY',
+  status: 'DRAFT',
   caption:
-    'Before you start a GLP-1 injection, hear it from a doctor, not a reel.\n\nIn clinical trials, up to 39% of weight lost was metabolic muscle—not fat. When your muscle shrinks, your daily calorie burn drops by ~185 kcal. That is why the weight returns when the injection stops.\n\nAt Steer, our doctors calibrate your protein, blood labs, and strength habits before any medicine. Because the goal is not just losing weight—it is losing well, and living well.\n\nAsk a doctor: steerclub.com',
+    'Before you start a GLP-1 injection, hear it from a doctor, not a reel.\n\nIn clinical trials, up to 39% of weight lost was metabolic muscle—not fat. When your muscle shrinks, your daily calorie burn drops by ~185 kcal. That is why the weight returns when the injection stops.\n\nAt MOTIVA, our doctors calibrate your protein, blood labs, and strength habits before any medicine. Because the goal is not just losing weight—it is losing well, and living well.\n\nAsk a doctor: MOTIVAclub.com',
   hinglish_caption:
-    'GLP-1 lene se pehle ek doctor se samjhiye, social media reel se nahi.\n\nResearch batati hai ki 39% wazan muscle ka girta hai, sirf fat ka nahi. Jab muscle kam hota hai toh daily metabolism 185 calories tak slow ho jata hai. Isliye dawai band hote hi wazan wapas aa jata hai.\n\nSteer par hamare doctors aapke protein, labs aur habits pehle calibrate karte hain. Taaki habit lambe samay tak chale.\n\nVisit: steerclub.com',
+    'GLP-1 lene se pehle ek doctor se samjhiye, social media reel se nahi.\n\nResearch batati hai ki 39% wazan muscle ka girta hai, sirf fat ka nahi. Jab muscle kam hota hai toh daily metabolism 185 calories tak slow ho jata hai. Isliye dawai band hote hi wazan wapas aa jata hai.\n\nMOTIVA par hamare doctors aapke protein, labs aur habits pehle calibrate karte hain. Taaki habit lambe samay tak chale.\n\nVisit: MOTIVAclub.com',
   hashtags: [
     '#GLP1',
     '#WeightLossJourney',
     '#MetabolicHealth',
-    '#SteerClub',
+    '#MOTIVAClub',
     '#DoctorLedCare',
     '#IndianHealth',
     '#MusclePreservation',
@@ -243,10 +243,10 @@ export const CAROUSEL_GLP1: CarouselContent = {
       slide_number: 5,
       layout: 'doctor_quote',
       theme_variant: 'cream',
-      headline: 'The Steer Protocol: *Protect the muscle first*.',
+      headline: 'The MOTIVA Protocol: *Protect the muscle first*.',
       body_text: 'Clinical research shows that 1.2 to 1.5 g/kg/day of protein paired with twice-weekly strength training limits muscle loss to under 20%.',
       finding: 'Before you touch any medicine, our doctors calibrate your meals, blood work, and habit exit plan.',
-      hinglish_headline: 'Steer Protocol: *Pehle muscle ko protect karo*.',
+      hinglish_headline: 'MOTIVA Protocol: *Pehle muscle ko protect karo*.',
       hinglish_body: '1.2 se 1.5 g/kg protein aur hafte mein 2 din strength training se muscle loss 20% se kam ho jata hai.',
       founder_note: 'A planned exit: we build habits that last after the medicine stops.',
       mapped_claim_ids: ['claim_glp1_03'],
@@ -267,10 +267,10 @@ export const CAROUSEL_GLP1: CarouselContent = {
       layout: 'takeaway',
       theme_variant: 'cream',
       headline: 'Lose well. *Live well*.',
-      body_text: 'Metabolic care, calibrated for Indian biology. Talk to a Steer doctor before starting any protocol. No obligation. If it isn\'t right for you, they\'ll say so.\n\nsteerclub.com',
+      body_text: 'Metabolic care, calibrated for Indian biology. Talk to a MOTIVA doctor before starting any protocol. No obligation. If it isn\'t right for you, they\'ll say so.\n\nMOTIVAclub.com',
       hinglish_headline: 'Sahi tarike se wazan ghataiye. *Hamesha ke liye*.',
-      hinglish_body: 'Doctor-led metabolic care, Indian biology ke liye. Visit steerclub.com',
-      founder_note: 'steer — clinical weight loss, doctor-led.',
+      hinglish_body: 'Doctor-led metabolic care, Indian biology ke liye. Visit MOTIVAclub.com',
+      founder_note: 'MOTIVA — clinical weight loss, doctor-led.',
       mapped_claim_ids: ['claim_glp1_03'],
     },
   ],
@@ -285,13 +285,13 @@ export const STATIC_GLP1: StaticPostContent = {
   primary_finding: '39.2% lean mass loss during GLP-1 therapy without resistance exercise (Wilding et al., NEJM).',
   qualification: 'DXA sub-study in 140 adults; muscle loss attenuated below 20% with 1.3g/kg protein and strength training.',
   source_note: 'Wilding et al. (2021) · New England Journal of Medicine · DOI: 10.1056/NEJMoa2032183',
-  caption: 'Stop Googling. Ask a doctor.\n\nWhy does weight return after GLP-1s? Because when muscle drops, your metabolic furnace drops with it. At Steer, our doctors design your nutrition and habit exit plan before you take your first dose.\n\nClinical weight loss, doctor-led: steerclub.com',
+  caption: 'Stop Googling. Ask a doctor.\n\nWhy does weight return after GLP-1s? Because when muscle drops, your metabolic furnace drops with it. At MOTIVA, our doctors design your nutrition and habit exit plan before you take your first dose.\n\nClinical weight loss, doctor-led: MOTIVAclub.com',
   hinglish_headline: 'GLP-1 shuru karne se pehle, *muscle ko bachaiye*.',
   hinglish_supporting_text: 'Research batati hai ki 39% wazan muscle ka girta hai. Agar muscle gaya, toh metabolism slow ho jata hai aur wazan wapas aa jata hai.',
-  hinglish_caption: 'Google band kariye, doctor se baat kariye. Steer par doctor-led metabolic care. Visit steerclub.com',
+  hinglish_caption: 'Google band kariye, doctor se baat kariye. MOTIVA par doctor-led metabolic care. Visit MOTIVAclub.com',
   founder_note: 'Doctor\'s note: Muscle is your metabolic insurance policy.',
-  hashtags: ['#MetabolicHealth', '#GLP1India', '#SteerClub', '#DoctorLedCare', '#IndianBiology'],
-  status: 'READY',
+  hashtags: ['#MetabolicHealth', '#GLP1India', '#MOTIVAClub', '#DoctorLedCare', '#IndianBiology'],
+  status: 'DRAFT',
   generated_at: '2026-10-16T12:15:00.000Z',
 };
 
@@ -301,10 +301,10 @@ export const REEL_GLP1: ReelContent = {
   approved_claim_ids: ['claim_glp1_01', 'claim_glp1_02', 'claim_glp1_03'],
   title: 'Why Weight Comes Back After GLP-1 Injections',
   total_duration_sec: 26,
-  caption: 'Why do so many people regain weight after stopping GLP-1 injections? It is biology, not willpower.\n\nIn clinical trials published in the NEJM, nearly 40% of the weight lost was lean muscle. When your muscle shrinks, your body burns 185 fewer calories every single day.\n\nAt Steer, our doctors calibrate your protein and strength habits from day one so you have a planned exit.\n\nVisit steerclub.com',
-  hinglish_caption: 'Kyu GLP-1 injections band hote hi wazan wapas aa jata hai? Yeh willpower ki kami nahi, biology hai. NEJM research ke mutabiq 39% muscle loss hota hai. Steer par doctors pehle muscle protect karte hain. steerclub.com',
-  hashtags: ['#GLP1Rebound', '#MetabolicHealth', '#SteerClub', '#IndianNutrition', '#HealthScience'],
-  status: 'READY',
+  caption: 'Why do so many people regain weight after stopping GLP-1 injections? It is biology, not willpower.\n\nIn clinical trials published in the NEJM, nearly 40% of the weight lost was lean muscle. When your muscle shrinks, your body burns 185 fewer calories every single day.\n\nAt MOTIVA, our doctors calibrate your protein and strength habits from day one so you have a planned exit.\n\nVisit MOTIVAclub.com',
+  hinglish_caption: 'Kyu GLP-1 injections band hote hi wazan wapas aa jata hai? Yeh willpower ki kami nahi, biology hai. NEJM research ke mutabiq 39% muscle loss hota hai. MOTIVA par doctors pehle muscle protect karte hain. MOTIVAclub.com',
+  hashtags: ['#GLP1Rebound', '#MetabolicHealth', '#MOTIVAClub', '#IndianNutrition', '#HealthScience'],
+  status: 'DRAFT',
   generated_at: '2026-10-16T12:30:00.000Z',
   scenes: [
     {
@@ -349,13 +349,13 @@ export const REEL_GLP1: ReelContent = {
     {
       scene_number: 4,
       duration_sec: 5,
-      title: 'The Steer Clinical Exit',
+      title: 'The MOTIVA Clinical Exit',
       on_screen_text: 'Prescribe protein and strength before medicine.',
-      voiceover_script: 'That is why at Steer, our doctors calibrate your protein, blood labs, and strength habits first, so you have a planned exit.',
+      voiceover_script: 'That is why at MOTIVA, our doctors calibrate your protein, blood labs, and strength habits first, so you have a planned exit.',
       subtitle_text: 'A planned exit: habits that last after the medicine stops',
-      visual_cue: 'Patient doing morning dumbbell resistance exercise with calm Steer club aesthetic',
+      visual_cue: 'Patient doing morning dumbbell resistance exercise with calm MOTIVA club aesthetic',
       b_roll_type: 'morning_walk',
-      hinglish_voiceover: 'Isliye Steer par hamare doctors pehle protein aur habits calibrate karte hain, taaki exit planned ho.',
+      hinglish_voiceover: 'Isliye MOTIVA par hamare doctors pehle protein aur habits calibrate karte hain, taaki exit planned ho.',
       hinglish_subtitle: 'Pehle protein aur habits calibrate, taaki planned exit ho.',
       mapped_claim_ids: ['claim_glp1_03'],
     },
@@ -363,13 +363,13 @@ export const REEL_GLP1: ReelContent = {
       scene_number: 5,
       duration_sec: 5,
       title: 'The Sign-off',
-      on_screen_text: 'Lose well. Live well. steerclub.com',
-      voiceover_script: 'Stop Googling. Ask a real doctor. Visit steerclub.com.',
-      subtitle_text: 'Clinical weight loss, doctor-led. steerclub.com',
-      visual_cue: 'Cream paper card with lowercase steer wordmark and clean button',
+      on_screen_text: 'Lose well. Live well. MOTIVAclub.com',
+      voiceover_script: 'Stop Googling. Ask a real doctor. Visit MOTIVAclub.com.',
+      subtitle_text: 'Clinical weight loss, doctor-led. MOTIVAclub.com',
+      visual_cue: 'Cream paper card with bold uppercase MOTIVA wordmark and clean button',
       b_roll_type: 'doctor_consult',
-      hinglish_voiceover: 'Google band kariye, doctor se baat kariye. steerclub.com par aaiye.',
-      hinglish_subtitle: 'Doctor-led metabolic care. steerclub.com',
+      hinglish_voiceover: 'Google band kariye, doctor se baat kariye. MOTIVAclub.com par aaiye.',
+      hinglish_subtitle: 'Doctor-led metabolic care. MOTIVAclub.com',
       mapped_claim_ids: ['claim_glp1_03'],
     },
   ],
@@ -390,7 +390,7 @@ export const PAPER_SOUTH_ASIAN: PaperRecord = {
   filesize_bytes: 1850000,
   uploaded_at: '2026-10-15T09:30:00.000Z',
   total_pages: 11,
-  is_demo: false,
+  is_demo: true,
   extraction_warnings: [],
   has_unreadable_pages: false,
 };
@@ -449,13 +449,13 @@ export const CLAIMS_SOUTH_ASIAN: ClaimRecord[] = [
     limitations: 'Cross-sectional; observational comparison.',
     certainty_notes: 'Replicated across multiple metabolic imaging cohorts.',
     risk_flags: [],
-    review_status: 'HUMAN_APPROVED',
-    reviewer_note: 'Verified against MRI tables p. 2.',
+    review_status: 'DRAFT',
+    reviewer_note: 'Synthetic sample record. No real clinical review was performed.',
     approved_version: {
       claim_text:
         'Asian Indians exhibit a unique "thin-fat" metabolic phenotype with 25% higher visceral adipose tissue and lower skeletal muscle mass compared to other populations at an identical normal BMI of 22.5 kg/m².',
       approved_at: '2026-10-16T13:00:00.000Z',
-      approved_by: 'Dr. Siddharth M., Steer Clinical Lead',
+      approved_by: 'Sample placeholder — no clinician sign-off',
     },
     updated_at: '2026-10-16T13:00:00.000Z',
   },
@@ -476,13 +476,13 @@ export const CLAIMS_SOUTH_ASIAN: ClaimRecord[] = [
     limitations: 'Dietary intake recorded via food logs; free-living setting.',
     certainty_notes: 'Continuous CGM telemetry data across 320 subjects.',
     risk_flags: [],
-    review_status: 'HUMAN_APPROVED',
-    reviewer_note: 'Approved. Reflects CGM data p. 4.',
+    review_status: 'DRAFT',
+    reviewer_note: 'Synthetic sample record. No real clinical review was performed.',
     approved_version: {
       claim_text:
         'Habitual refined carbohydrate meals (rotis and white rice) produce a 42% higher postprandial glucose spike in South Asians, triggering compensatory insulin surges that lead to post-lunch energy crashes at 3 PM.',
       approved_at: '2026-10-16T13:15:00.000Z',
-      approved_by: 'Dr. Siddharth M., Steer Clinical Lead',
+      approved_by: 'Sample placeholder — no clinician sign-off',
     },
     updated_at: '2026-10-16T13:15:00.000Z',
   },
@@ -494,12 +494,12 @@ export const CAROUSEL_SOUTH_ASIAN: CarouselContent = {
   approved_claim_ids: ['claim_sa_01', 'claim_sa_02'],
   title: 'Why the Weighing Scale Lies to Indian Bodies',
   generated_at: '2026-10-16T13:30:00.000Z',
-  status: 'READY',
+  status: 'DRAFT',
   caption:
-    'Your weighing scale says your BMI is 22.5. But your kurta feels tighter around the waist, and by 3 PM at your desk, your energy crashes.\n\nHere is what metabolic research in South Asians shows: Indians have 25% more visceral fat sitting deep around internal organs even at "normal" weight. And our staple meals of white rice and rotis create a 42% higher glucose spike than other populations.\n\nYou do not need to give up family dinners or roti. You need meal sequencing and muscle care calibrated for Indian biology.\n\nRead the science at steerclub.com',
+    'Your weighing scale says your BMI is 22.5. But your kurta feels tighter around the waist, and by 3 PM at your desk, your energy crashes.\n\nHere is what metabolic research in South Asians shows: Indians have 25% more visceral fat sitting deep around internal organs even at "normal" weight. And our staple meals of white rice and rotis create a 42% higher glucose spike than other populations.\n\nYou do not need to give up family dinners or roti. You need meal sequencing and muscle care calibrated for Indian biology.\n\nRead the science at MOTIVAclub.com',
   hinglish_caption:
-    'Weighing scale par wazan normal hai, par kurta pet par tight kyu lagta hai? Aur 3 baje desk par neend kyu aane lagti hai? Research batati hai ki normal weight par bhi Indians mein 25% zyada visceral fat hota hai. Steer par doctor-led metabolic care, calibrated for Indian biology. steerclub.com',
-  hashtags: ['#IndianMetabolism', '#ThinFatPhenotype', '#InsulinResistance', '#SteerClub', '#DoctorLedCare'],
+    'Weighing scale par wazan normal hai, par kurta pet par tight kyu lagta hai? Aur 3 baje desk par neend kyu aane lagti hai? Research batati hai ki normal weight par bhi Indians mein 25% zyada visceral fat hota hai. MOTIVA par doctor-led metabolic care, calibrated for Indian biology. MOTIVAclub.com',
+  hashtags: ['#IndianMetabolism', '#ThinFatPhenotype', '#InsulinResistance', '#MOTIVAClub', '#DoctorLedCare'],
   slides: [
     {
       slide_number: 1,
@@ -553,10 +553,10 @@ export const CAROUSEL_SOUTH_ASIAN: CarouselContent = {
       layout: 'takeaway',
       theme_variant: 'cream',
       headline: 'Metabolic care, *calibrated for Indian biology*.',
-      body_text: 'Screening and blood tests come before any medicine. No fear, no shame. Talk to a real doctor at Steer.\n\nsteerclub.com',
+      body_text: 'Screening and blood tests come before any medicine. No fear, no shame. Talk to a real doctor at MOTIVA.\n\nMOTIVAclub.com',
       hinglish_headline: 'Doctor-led care, *calibrated for Indian biology*.',
-      hinglish_body: 'Apne blood labs aur metabolism ko samjhiye. Visit steerclub.com',
-      founder_note: 'steer — lose well, live well.',
+      hinglish_body: 'Apne blood labs aur metabolism ko samjhiye. Visit MOTIVAclub.com',
+      founder_note: 'MOTIVA — lose well, live well.',
       mapped_claim_ids: ['claim_sa_01'],
     },
   ],
@@ -571,12 +571,12 @@ export const STATIC_SOUTH_ASIAN: StaticPostContent = {
   primary_finding: '25% higher visceral adipose tissue at normal BMI (Misra et al., Diabetes Care).',
   qualification: 'MRI cohort comparison; mitigated by meal sequencing and resistance training.',
   source_note: 'Misra et al. (2022) · Diabetes Care · DOI: 10.2337/dc22-0491',
-  caption: 'Metabolic care, calibrated for Indian biology.\n\nYour weight on the scale only tells 20% of the story. In South Asian bodies, visceral fat hides beneath normal BMI. At Steer, we look at your fasting insulin, HbA1c, and visceral metrics with real doctors.\n\nsteerclub.com',
+  caption: 'Metabolic care, calibrated for Indian biology.\n\nYour weight on the scale only tells 20% of the story. In South Asian bodies, visceral fat hides beneath normal BMI. At MOTIVA, we look at your fasting insulin, HbA1c, and visceral metrics with real doctors.\n\nMOTIVAclub.com',
   hinglish_headline: 'Normal weight hone par bhi *belly fat aur crash kyu hota hai?*',
   hinglish_supporting_text: 'Indians mein normal BMI par bhi 25% zyada visceral fat hota hai. Khane ka order aur muscle badhane par focus kariye.',
   founder_note: 'Doctor\'s note: Treat the metabolic engine, not just the scale.',
-  hashtags: ['#IndianHealth', '#MetabolicHealth', '#VisceralFat', '#SteerClub', '#InsulinSpikes'],
-  status: 'READY',
+  hashtags: ['#IndianHealth', '#MetabolicHealth', '#VisceralFat', '#MOTIVAClub', '#InsulinSpikes'],
+  status: 'DRAFT',
   generated_at: '2026-10-16T13:45:00.000Z',
 };
 
@@ -586,10 +586,10 @@ export const REEL_SOUTH_ASIAN: ReelContent = {
   approved_claim_ids: ['claim_sa_01', 'claim_sa_02'],
   title: 'Why Indians Get That 3 PM Desk Slump',
   total_duration_sec: 22,
-  caption: 'That 3 PM energy slump at your desk isn\'t laziness. It is reactive hypoglycemia from how Indian biology handles roti and rice.\n\nClinical CGM trials show South Asians experience a 42% sharper glucose spike after a carb-heavy lunch. When insulin overcorrects, blood sugar drops and your brain demands chai and sugar.\n\nDoctor-led metabolic habits at steerclub.com',
-  hinglish_caption: 'Dopehar 3 baje ki thakan laziness nahi, aapke lunch ka reactive glucose drop hai. Roti aur chawal se 42% spike hota hai. Steer par doctor se samjhiye. steerclub.com',
-  hashtags: ['#3pmCrash', '#IndianMetabolism', '#RotiSpikes', '#SteerClub', '#DoctorLedHealth'],
-  status: 'READY',
+  caption: 'That 3 PM energy slump at your desk isn\'t laziness. It is reactive hypoglycemia from how Indian biology handles roti and rice.\n\nClinical CGM trials show South Asians experience a 42% sharper glucose spike after a carb-heavy lunch. When insulin overcorrects, blood sugar drops and your brain demands chai and sugar.\n\nDoctor-led metabolic habits at MOTIVAclub.com',
+  hinglish_caption: 'Dopehar 3 baje ki thakan laziness nahi, aapke lunch ka reactive glucose drop hai. Roti aur chawal se 42% spike hota hai. MOTIVA par doctor se samjhiye. MOTIVAclub.com',
+  hashtags: ['#3pmCrash', '#IndianMetabolism', '#RotiSpikes', '#MOTIVAClub', '#DoctorLedHealth'],
+  status: 'DRAFT',
   generated_at: '2026-10-16T14:00:00.000Z',
   scenes: [
     {
@@ -635,13 +635,13 @@ export const REEL_SOUTH_ASIAN: ReelContent = {
       scene_number: 4,
       duration_sec: 5,
       title: 'The Solution & Sign-off',
-      on_screen_text: 'Metabolic care, calibrated for Indian biology. steerclub.com',
-      voiceover_script: 'Change the order of your plate, protect your muscle, and talk to a doctor. steerclub.com',
-      subtitle_text: 'Clinical weight loss, doctor-led. steerclub.com',
-      visual_cue: 'Clean Steer rust typography on soft paper card with lowercase steer logo',
+      on_screen_text: 'Metabolic care, calibrated for Indian biology. MOTIVAclub.com',
+      voiceover_script: 'Change the order of your plate, protect your muscle, and talk to a doctor. MOTIVAclub.com',
+      subtitle_text: 'Clinical weight loss, doctor-led. MOTIVAclub.com',
+      visual_cue: 'Clean MOTIVA rust typography on soft paper card with bold uppercase MOTIVA logo',
       b_roll_type: 'doctor_consult',
-      hinglish_voiceover: 'Ghar ka khana khao, par sahi sequence mein. Doctor se baat kariye steerclub.com par.',
-      hinglish_subtitle: 'Doctor-led metabolic care. steerclub.com',
+      hinglish_voiceover: 'Ghar ka khana khao, par sahi sequence mein. Doctor se baat kariye MOTIVAclub.com par.',
+      hinglish_subtitle: 'Doctor-led metabolic care. MOTIVAclub.com',
       mapped_claim_ids: ['claim_sa_01'],
     },
   ],
@@ -662,7 +662,7 @@ export const PAPER_METABOLIC_ADAPTATION: PaperRecord = {
   filesize_bytes: 2410000,
   uploaded_at: '2026-10-15T10:00:00.000Z',
   total_pages: 16,
-  is_demo: false,
+  is_demo: true,
   extraction_warnings: [],
   has_unreadable_pages: false,
 };
@@ -721,13 +721,13 @@ export const CLAIMS_METABOLIC_ADAPTATION: ClaimRecord[] = [
     limitations: 'Metabolic chamber setting; tightly controlled caloric intakes.',
     certainty_notes: 'High certainty from gold-standard whole-room calorimetry.',
     risk_flags: [],
-    review_status: 'HUMAN_APPROVED',
-    reviewer_note: 'Verified against Hall et al. p. 6.',
+    review_status: 'DRAFT',
+    reviewer_note: 'Synthetic sample record. No real clinical review was performed.',
     approved_version: {
       claim_text:
         'Crash caloric restriction induces adaptive thermogenesis, reducing resting metabolic rate by an average of 380 kcal/day below what loss of body mass predicts, persisting for over 12 months.',
       approved_at: '2026-10-16T14:00:00.000Z',
-      approved_by: 'Dr. Siddharth M., Steer Clinical Lead',
+      approved_by: 'Sample placeholder — no clinician sign-off',
     },
     updated_at: '2026-10-16T14:00:00.000Z',
   },
@@ -748,13 +748,13 @@ export const CLAIMS_METABOLIC_ADAPTATION: ClaimRecord[] = [
     limitations: 'Fasting venous blood sampling.',
     certainty_notes: 'Statistically significant neuroendocrine adaptation.',
     risk_flags: [],
-    review_status: 'HUMAN_APPROVED',
-    reviewer_note: 'Approved. Reflects p. 9 hormone assays.',
+    review_status: 'DRAFT',
+    reviewer_note: 'Synthetic sample record. No real clinical review was performed.',
     approved_version: {
       claim_text:
         'Following rapid weight loss, the hunger hormone ghrelin remains elevated by 24% for over a year while satiety hormones are suppressed, biologically driving rebound overeating.',
       approved_at: '2026-10-16T14:15:00.000Z',
-      approved_by: 'Dr. Siddharth M., Steer Clinical Lead',
+      approved_by: 'Sample placeholder — no clinician sign-off',
     },
     updated_at: '2026-10-16T14:15:00.000Z',
   },
@@ -766,12 +766,12 @@ export const CAROUSEL_METABOLIC_ADAPTATION: CarouselContent = {
   approved_claim_ids: ['claim_ma_01', 'claim_ma_02'],
   title: 'Why Crash Diets Fail: It is Biology, Not Willpower',
   generated_at: '2026-10-16T14:30:00.000Z',
-  status: 'READY',
+  status: 'DRAFT',
   caption:
-    'You lost 8 kilos for a wedding by starving yourself. Within three months, 10 kilos came back. You blamed your willpower.\n\nHere is what metabolic chamber research shows: your body dropped its daily calorie burn by 380 kcal and pumped out 24% more ghrelin (the hunger hormone) for an entire year. Your biology was actively fighting to survive what it thought was a famine.\n\nStop the crash-and-rebound cycle. At Steer, our doctors design gradual metabolic habit exits calibrated for your life.\n\nsteerclub.com',
+    'You lost 8 kilos for a wedding by starving yourself. Within three months, 10 kilos came back. You blamed your willpower.\n\nHere is what metabolic chamber research shows: your body dropped its daily calorie burn by 380 kcal and pumped out 24% more ghrelin (the hunger hormone) for an entire year. Your biology was actively fighting to survive what it thought was a famine.\n\nStop the crash-and-rebound cycle. At MOTIVA, our doctors design gradual metabolic habit exits calibrated for your life.\n\nMOTIVAclub.com',
   hinglish_caption:
-    'Shaadi ke liye bhookhe rehkar wazan toh ghata liya, par 3 mahine baad wazan wapas aa gaya? Yeh aapki willpower ki galti nahi hai. Research batati hai ki crash dieting se metabolism 380 calories slow ho jata hai aur hunger hormone 24% badh jata hai. Steer par doctor-led habit exit. steerclub.com',
-  hashtags: ['#CrashDietFails', '#AdaptiveThermogenesis', '#BiologyNotWillpower', '#SteerClub', '#HabitPreservation'],
+    'Shaadi ke liye bhookhe rehkar wazan toh ghata liya, par 3 mahine baad wazan wapas aa gaya? Yeh aapki willpower ki galti nahi hai. Research batati hai ki crash dieting se metabolism 380 calories slow ho jata hai aur hunger hormone 24% badh jata hai. MOTIVA par doctor-led habit exit. MOTIVAclub.com',
+  hashtags: ['#CrashDietFails', '#AdaptiveThermogenesis', '#BiologyNotWillpower', '#MOTIVAClub', '#HabitPreservation'],
   slides: [
     {
       slide_number: 1,
@@ -813,11 +813,11 @@ export const CAROUSEL_METABOLIC_ADAPTATION: CarouselContent = {
       layout: 'doctor_quote',
       theme_variant: 'cream',
       headline: 'A planned exit: *Habits that last*.',
-      body_text: 'Gradual, doctor-supervised habit shifts protect your metabolic rate. At Steer, we build long-term routines around Indian meals, family dinners, and daily life.',
+      body_text: 'Gradual, doctor-supervised habit shifts protect your metabolic rate. At MOTIVA, we build long-term routines around Indian meals, family dinners, and daily life.',
       finding: 'No extreme starvation. No miracle pills. Clinical weight loss, doctor-led.',
       hinglish_headline: 'A planned exit: *Aisi habits jo lambi chalein*.',
       hinglish_body: 'Bhookhe mat rahiye. Doctor ke sath aisi habits banaiye jo shaadi aur family meals ke baad bhi bani rahein.',
-      founder_note: 'steer — feel like a club, not a clinic.',
+      founder_note: 'MOTIVA — feel like a club, not a clinic.',
       mapped_claim_ids: ['claim_ma_01', 'claim_ma_02'],
     },
     {
@@ -825,10 +825,10 @@ export const CAROUSEL_METABOLIC_ADAPTATION: CarouselContent = {
       layout: 'takeaway',
       theme_variant: 'cream',
       headline: 'Lose well. *Live well*.',
-      body_text: 'Stop guessing with extreme diets. Talk to a real doctor at Steer.\n\nsteerclub.com',
-      hinglish_headline: 'Sahi tarike se wazan ghataiye. *steerclub.com*',
-      hinglish_body: 'Crash diet band kariye, doctor se baat kariye. steerclub.com',
-      founder_note: 'steerclub.com',
+      body_text: 'Stop guessing with extreme diets. Talk to a real doctor at MOTIVA.\n\nMOTIVAclub.com',
+      hinglish_headline: 'Sahi tarike se wazan ghataiye. *MOTIVAclub.com*',
+      hinglish_body: 'Crash diet band kariye, doctor se baat kariye. MOTIVAclub.com',
+      founder_note: 'MOTIVAclub.com',
       mapped_claim_ids: ['claim_ma_01'],
     },
   ],
@@ -843,12 +843,12 @@ export const STATIC_METABOLIC_ADAPTATION: StaticPostContent = {
   primary_finding: '-380 kcal/day metabolic adaptation persisting at 52 weeks (Hall et al., AJCN).',
   qualification: 'Whole-room indirect calorimetry in adults undergoing rapid restriction.',
   source_note: 'Hall et al. (2022) · Am J Clin Nutr · DOI: 10.1093/ajcn/nqac088',
-  caption: 'Stop the guilt cycle. It was never a lack of willpower.\n\nWhen you crash diet, your body actively fights back. At Steer, our doctors design your metabolic care with a planned exit so your habits last.\n\nsteerclub.com',
+  caption: 'Stop the guilt cycle. It was never a lack of willpower.\n\nWhen you crash diet, your body actively fights back. At MOTIVA, our doctors design your metabolic care with a planned exit so your habits last.\n\nMOTIVAclub.com',
   hinglish_headline: 'Bhookhe rehkar wazan ghataoge, *toh metabolism strike karega*.',
-  hinglish_supporting_text: 'Metabolism 380 calories slow ho jata hai aur ghrelin 24% badh jata hai. Steer par doctor-led care. steerclub.com',
+  hinglish_supporting_text: 'Metabolism 380 calories slow ho jata hai aur ghrelin 24% badh jata hai. MOTIVA par doctor-led care. MOTIVAclub.com',
   founder_note: 'Doctor\'s note: Biology beats willpower every single time.',
-  hashtags: ['#MetabolicAdaptation', '#SteerClub', '#DietScience', '#DoctorLedCare', '#IndianWellness'],
-  status: 'READY',
+  hashtags: ['#MetabolicAdaptation', '#MOTIVAClub', '#DietScience', '#DoctorLedCare', '#IndianWellness'],
+  status: 'DRAFT',
   generated_at: '2026-10-16T14:45:00.000Z',
 };
 
@@ -858,10 +858,10 @@ export const REEL_METABOLIC_ADAPTATION: ReelContent = {
   approved_claim_ids: ['claim_ma_01', 'claim_ma_02'],
   title: 'Why Crash Diets Fail Every Single Time',
   total_duration_sec: 24,
-  caption: 'Why does weight always rebound after crash diets? Because your body drops its daily calorie burn by 380 calories and boosts hunger hormones by 24% for a whole year. It is biology, not willpower.\n\nDoctor-led metabolic care at steerclub.com',
-  hinglish_caption: 'Crash diet ke baad wazan kyu laut aata hai? Kyunki metabolism 380 calories slow hota hai aur bhookh 24% badh jaati hai. Yeh biology hai. steerclub.com',
-  hashtags: ['#CrashDietTrap', '#MetabolicRate', '#SteerClub', '#HabitBuilding', '#IndianHealth'],
-  status: 'READY',
+  caption: 'Why does weight always rebound after crash diets? Because your body drops its daily calorie burn by 380 calories and boosts hunger hormones by 24% for a whole year. It is biology, not willpower.\n\nDoctor-led metabolic care at MOTIVAclub.com',
+  hinglish_caption: 'Crash diet ke baad wazan kyu laut aata hai? Kyunki metabolism 380 calories slow hota hai aur bhookh 24% badh jaati hai. Yeh biology hai. MOTIVAclub.com',
+  hashtags: ['#CrashDietTrap', '#MetabolicRate', '#MOTIVAClub', '#HabitBuilding', '#IndianHealth'],
+  status: 'DRAFT',
   generated_at: '2026-10-16T15:00:00.000Z',
   scenes: [
     {
@@ -906,14 +906,14 @@ export const REEL_METABOLIC_ADAPTATION: ReelContent = {
     {
       scene_number: 4,
       duration_sec: 7,
-      title: 'The Steer Exit Plan',
-      on_screen_text: 'Doctor-led habits. A planned exit. steerclub.com',
-      voiceover_script: 'Stop blaming your willpower. Talk to a Steer doctor for a planned exit that lasts. Visit steerclub.com.',
-      subtitle_text: 'Lose well. Live well. steerclub.com',
-      visual_cue: 'Soft paper card with lowercase steer wordmark and doctor signature',
+      title: 'The MOTIVA Exit Plan',
+      on_screen_text: 'Doctor-led habits. A planned exit. MOTIVAclub.com',
+      voiceover_script: 'Stop blaming your willpower. Talk to a MOTIVA doctor for a planned exit that lasts. Visit MOTIVAclub.com.',
+      subtitle_text: 'Lose well. Live well. MOTIVAclub.com',
+      visual_cue: 'Soft paper card with bold uppercase MOTIVA wordmark and doctor signature',
       b_roll_type: 'doctor_consult',
-      hinglish_voiceover: 'Willpower ko blame karna band kariye. Steer par doctors ke sath aisi habits banaiye jo lambi chalein. steerclub.com',
-      hinglish_subtitle: 'Doctor-led care. steerclub.com',
+      hinglish_voiceover: 'Willpower ko blame karna band kariye. MOTIVA par doctors ke sath aisi habits banaiye jo lambi chalein. MOTIVAclub.com',
+      hinglish_subtitle: 'Doctor-led care. MOTIVAclub.com',
       mapped_claim_ids: ['claim_ma_01'],
     },
   ],
@@ -956,7 +956,7 @@ export const ALL_REELS: ReelContent[] = [
   REEL_METABOLIC_ADAPTATION,
 ];
 
-// Preloaded 7-Day Steer Instagram Content Queue
+// Preloaded 7-Day MOTIVA Instagram Content Queue
 export const DEFAULT_SCHEDULED_POSTS: ScheduledPost[] = [
   {
     id: 'sched_01',
@@ -966,7 +966,7 @@ export const DEFAULT_SCHEDULED_POSTS: ScheduledPost[] = [
     format: 'CAROUSEL',
     scheduled_for: '2026-10-19T06:00:00.000Z',
     slot_label: 'Monday 11:30 AM IST · Educational Carousel (Feed)',
-    status: 'SCHEDULED',
+    status: 'DRAFT',
     caption: CAROUSEL_GLP1.caption,
     hashtags: CAROUSEL_GLP1.hashtags,
     deliverable_id: CAROUSEL_GLP1.id,
@@ -981,7 +981,7 @@ export const DEFAULT_SCHEDULED_POSTS: ScheduledPost[] = [
     format: 'REEL',
     scheduled_for: '2026-10-20T13:30:00.000Z',
     slot_label: 'Tuesday 7:00 PM IST · Short Reel (Video)',
-    status: 'SCHEDULED',
+    status: 'DRAFT',
     caption: REEL_SOUTH_ASIAN.caption,
     hashtags: REEL_SOUTH_ASIAN.hashtags,
     deliverable_id: REEL_SOUTH_ASIAN.id,
@@ -996,7 +996,7 @@ export const DEFAULT_SCHEDULED_POSTS: ScheduledPost[] = [
     format: 'STATIC',
     scheduled_for: '2026-10-21T06:00:00.000Z',
     slot_label: 'Wednesday 11:30 AM IST · Editorial Note (Single)',
-    status: 'SCHEDULED',
+    status: 'DRAFT',
     caption: STATIC_METABOLIC_ADAPTATION.caption,
     hashtags: STATIC_METABOLIC_ADAPTATION.hashtags,
     deliverable_id: STATIC_METABOLIC_ADAPTATION.id,
@@ -1011,7 +1011,7 @@ export const DEFAULT_SCHEDULED_POSTS: ScheduledPost[] = [
     format: 'CAROUSEL',
     scheduled_for: '2026-10-22T06:00:00.000Z',
     slot_label: 'Thursday 11:30 AM IST · Deep-Dive Carousel (Feed)',
-    status: 'DOCTOR_APPROVED',
+    status: 'DRAFT',
     caption: CAROUSEL_SOUTH_ASIAN.caption,
     hashtags: CAROUSEL_SOUTH_ASIAN.hashtags,
     deliverable_id: CAROUSEL_SOUTH_ASIAN.id,
@@ -1026,7 +1026,7 @@ export const DEFAULT_SCHEDULED_POSTS: ScheduledPost[] = [
     format: 'REEL',
     scheduled_for: '2026-10-23T13:30:00.000Z',
     slot_label: 'Friday 7:00 PM IST · Prime-Time Reel (Video)',
-    status: 'READY_TO_PUBLISH',
+    status: 'DRAFT',
     caption: REEL_GLP1.caption,
     hashtags: REEL_GLP1.hashtags,
     deliverable_id: REEL_GLP1.id,
@@ -1041,7 +1041,7 @@ export const DEFAULT_SCHEDULED_POSTS: ScheduledPost[] = [
     format: 'CAROUSEL',
     scheduled_for: '2026-10-24T05:30:00.000Z',
     slot_label: 'Saturday 11:00 AM IST · Weekend Long-form (Feed)',
-    status: 'DOCTOR_APPROVED',
+    status: 'DRAFT',
     caption: CAROUSEL_METABOLIC_ADAPTATION.caption,
     hashtags: CAROUSEL_METABOLIC_ADAPTATION.hashtags,
     deliverable_id: CAROUSEL_METABOLIC_ADAPTATION.id,
@@ -1056,7 +1056,7 @@ export const DEFAULT_SCHEDULED_POSTS: ScheduledPost[] = [
     format: 'STATIC',
     scheduled_for: '2026-10-25T12:30:00.000Z',
     slot_label: 'Sunday 6:00 PM IST · Doctor Field Note',
-    status: 'SCHEDULED',
+    status: 'DRAFT',
     caption: STATIC_GLP1.caption,
     hashtags: STATIC_GLP1.hashtags,
     deliverable_id: STATIC_GLP1.id,
@@ -1065,147 +1065,98 @@ export const DEFAULT_SCHEDULED_POSTS: ScheduledPost[] = [
   },
 ];
 
+const SAMPLE_PAPER_IDS = new Set(ALL_PAPERS.map((paper) => paper.paper_id));
+const SAMPLE_CLAIM_IDS = new Set(ALL_CLAIMS.map((claim) => claim.claim_id));
+
+function markSamplePaper(paper: PaperRecord): PaperRecord {
+  return SAMPLE_PAPER_IDS.has(paper.paper_id) ? { ...paper, is_demo: true } : paper;
+}
+
+function markSampleClaim(claim: ClaimRecord): ClaimRecord {
+  if (!SAMPLE_CLAIM_IDS.has(claim.claim_id)) return claim;
+  const sampleClaim: ClaimRecord = {
+    ...claim,
+    review_status: 'DRAFT',
+    reviewer_note: 'Synthetic sample record. No real clinical review was performed.',
+    approved_version: undefined,
+    review_history: [],
+  };
+  const validation = runValidationEngine(sampleClaim, ALL_PASSAGES, ALL_CLAIMS);
+  return {
+    ...sampleClaim,
+    validation_findings: validation.findings,
+    validation_checks: validation.checks,
+    review_status: validation.calculatedStatus,
+  };
+}
+
+function markSampleCarousel(item: CarouselContent): CarouselContent {
+  return SAMPLE_PAPER_IDS.has(item.paper_id) ? { ...item, status: 'DRAFT' } : item;
+}
+
+function markSampleStaticPost(item: StaticPostContent): StaticPostContent {
+  return SAMPLE_PAPER_IDS.has(item.paper_id) ? { ...item, status: 'DRAFT' } : item;
+}
+
+function markSampleReel(item: ReelContent): ReelContent {
+  return SAMPLE_PAPER_IDS.has(item.paper_id) ? { ...item, status: 'DRAFT' } : item;
+}
+
 // Persistence functions
 export function getSavedPapers(): PaperRecord[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEYS.PAPERS);
-    if (!raw) return ALL_PAPERS;
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : ALL_PAPERS;
-  } catch {
-    return ALL_PAPERS;
-  }
+  return [];
 }
 
 export function savePapers(papers: PaperRecord[]): void {
-  try {
-    localStorage.setItem(STORAGE_KEYS.PAPERS, JSON.stringify(papers));
-  } catch (e) {
-    console.error('Storage write error:', e);
-  }
+  void papers;
 }
 
 export function getSavedPassages(): EvidencePassage[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEYS.PASSAGES);
-    if (!raw) return ALL_PASSAGES;
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : ALL_PASSAGES;
-  } catch {
-    return ALL_PASSAGES;
-  }
+  return [];
 }
 
 export function savePassages(passages: EvidencePassage[]): void {
-  try {
-    localStorage.setItem(STORAGE_KEYS.PASSAGES, JSON.stringify(passages));
-  } catch (e) {
-    console.error('Storage write error:', e);
-  }
+  void passages;
 }
 
 export function getSavedClaims(): ClaimRecord[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEYS.CLAIMS);
-    if (!raw) {
-      return ALL_CLAIMS.map((claim) => {
-        const { findings, calculatedStatus } = runValidationEngine(claim, ALL_PASSAGES, ALL_CLAIMS);
-        return {
-          ...claim,
-          validation_findings: findings,
-          review_status: claim.review_status || calculatedStatus,
-        };
-      });
-    }
-    const parsed: ClaimRecord[] = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : ALL_CLAIMS;
-  } catch {
-    return ALL_CLAIMS;
-  }
+  return [];
 }
 
 export function saveClaims(claims: ClaimRecord[]): void {
-  try {
-    localStorage.setItem(STORAGE_KEYS.CLAIMS, JSON.stringify(claims));
-  } catch (e) {
-    console.error('Storage write error:', e);
-  }
+  void claims;
 }
 
 export function getSavedCarousels(): CarouselContent[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEYS.CAROUSELS);
-    if (!raw) return ALL_CAROUSELS;
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : ALL_CAROUSELS;
-  } catch {
-    return ALL_CAROUSELS;
-  }
+  return [];
 }
 
 export function saveCarousels(carousels: CarouselContent[]): void {
-  try {
-    localStorage.setItem(STORAGE_KEYS.CAROUSELS, JSON.stringify(carousels));
-  } catch (e) {
-    console.error('Storage write error:', e);
-  }
+  void carousels;
 }
 
 export function getSavedStaticPosts(): StaticPostContent[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEYS.STATIC_POSTS);
-    if (!raw) return ALL_STATIC_POSTS;
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : ALL_STATIC_POSTS;
-  } catch {
-    return ALL_STATIC_POSTS;
-  }
+  return [];
 }
 
 export function saveStaticPosts(posts: StaticPostContent[]): void {
-  try {
-    localStorage.setItem(STORAGE_KEYS.STATIC_POSTS, JSON.stringify(posts));
-  } catch (e) {
-    console.error('Storage write error:', e);
-  }
+  void posts;
 }
 
 export function getSavedReels(): ReelContent[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEYS.REELS);
-    if (!raw) return ALL_REELS;
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : ALL_REELS;
-  } catch {
-    return ALL_REELS;
-  }
+  return [];
 }
 
 export function saveReels(reels: ReelContent[]): void {
-  try {
-    localStorage.setItem(STORAGE_KEYS.REELS, JSON.stringify(reels));
-  } catch (e) {
-    console.error('Storage write error:', e);
-  }
+  void reels;
 }
 
 export function getSavedScheduledPosts(): ScheduledPost[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEYS.SCHEDULED_POSTS);
-    if (!raw) return DEFAULT_SCHEDULED_POSTS;
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : DEFAULT_SCHEDULED_POSTS;
-  } catch {
-    return DEFAULT_SCHEDULED_POSTS;
-  }
+  return [];
 }
 
 export function saveScheduledPosts(posts: ScheduledPost[]): void {
-  try {
-    localStorage.setItem(STORAGE_KEYS.SCHEDULED_POSTS, JSON.stringify(posts));
-  } catch (e) {
-    console.error('Storage write error:', e);
-  }
+  void posts;
 }
 
 export function getActivePaperId(): string {
@@ -1236,31 +1187,32 @@ export function resetToDemoWorkspace(): {
   reels: ReelContent[];
   scheduledPosts: ScheduledPost[];
 } {
-  const validatedClaims = ALL_CLAIMS.map((claim) => {
+  const samplePapers = ALL_PAPERS.map(markSamplePaper);
+  const validatedClaims = ALL_CLAIMS.map((sourceClaim) => {
+    const claim = markSampleClaim(sourceClaim);
     const { findings, calculatedStatus } = runValidationEngine(claim, ALL_PASSAGES, ALL_CLAIMS);
-    return {
-      ...claim,
-      validation_findings: findings,
-      review_status: claim.review_status || calculatedStatus,
-    };
+    return { ...claim, validation_findings: findings, review_status: calculatedStatus };
   });
+  const sampleCarousels = ALL_CAROUSELS.map(markSampleCarousel);
+  const sampleStaticPosts = ALL_STATIC_POSTS.map(markSampleStaticPost);
+  const sampleReels = ALL_REELS.map(markSampleReel);
 
-  savePapers(ALL_PAPERS);
+  savePapers(samplePapers);
   savePassages(ALL_PASSAGES);
   saveClaims(validatedClaims);
-  saveCarousels(ALL_CAROUSELS);
-  saveStaticPosts(ALL_STATIC_POSTS);
-  saveReels(ALL_REELS);
+  saveCarousels(sampleCarousels);
+  saveStaticPosts(sampleStaticPosts);
+  saveReels(sampleReels);
   saveScheduledPosts(DEFAULT_SCHEDULED_POSTS);
   setActivePaperId(PAPER_GLP1.paper_id);
 
   return {
-    papers: ALL_PAPERS,
+    papers: samplePapers,
     passages: ALL_PASSAGES,
     claims: validatedClaims,
-    carousels: ALL_CAROUSELS,
-    staticPosts: ALL_STATIC_POSTS,
-    reels: ALL_REELS,
+    carousels: sampleCarousels,
+    staticPosts: sampleStaticPosts,
+    reels: sampleReels,
     scheduledPosts: DEFAULT_SCHEDULED_POSTS,
   };
 }
@@ -1273,57 +1225,5 @@ export interface AuditLogEntry {
   role: string;
   action: string;
   details: string;
-}
-
-export function getSavedAuditLogs(): AuditLogEntry[] {
-  try {
-    const raw = localStorage.getItem('steer_all_users_audit_logs');
-    if (raw) return JSON.parse(raw);
-  } catch {}
-  return [
-    {
-      id: 'log_1',
-      timestamp: new Date(Date.now() - 3600000 * 4).toISOString(),
-      userEmail: 'topmostproffesor234@gmail.com',
-      userName: 'Dr. Raunak Roy',
-      role: 'Admin',
-      action: 'SYSTEM_INIT',
-      details: 'Initialized Steer Evidence Studio & Cloud PostgreSQL synchronization.',
-    },
-    {
-      id: 'log_2',
-      timestamp: new Date(Date.now() - 3600000 * 2).toISOString(),
-      userName: 'Dr. Priya Sharma',
-      userEmail: 'priya.sharma@steerclub.com',
-      role: 'Medical Reviewer',
-      action: 'CLAIM_VERIFICATION',
-      details: 'Approved 3 core metabolic claims against NEJM STEP-1 trial evidence passages.',
-    },
-    {
-      id: 'log_3',
-      timestamp: new Date(Date.now() - 3600000).toISOString(),
-      userName: 'Arjun Mehta',
-      userEmail: 'arjun.mehta@steerclub.com',
-      role: 'Content Creator',
-      action: 'CAROUSEL_GENERATION',
-      details: 'Generated and scheduled 7-day calendar editorial deliverables for Instagram & LinkedIn.',
-    },
-  ];
-}
-
-export function saveAuditLogEntry(entry: Omit<AuditLogEntry, 'id' | 'timestamp'>) {
-  try {
-    const logs = getSavedAuditLogs();
-    const newEntry: AuditLogEntry = {
-      ...entry,
-      id: 'log_' + Date.now() + Math.random().toString(36).substring(2, 5),
-      timestamp: new Date().toISOString(),
-    };
-    const updated = [newEntry, ...logs].slice(0, 100);
-    localStorage.setItem('steer_all_users_audit_logs', JSON.stringify(updated));
-    return updated;
-  } catch {
-    return [];
-  }
 }
 

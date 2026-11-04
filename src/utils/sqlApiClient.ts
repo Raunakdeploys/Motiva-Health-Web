@@ -1,4 +1,16 @@
-import { PaperRecord, EvidencePassage, ClaimRecord, CarouselContent, StaticPostContent, ReelContent } from '../types';
+import { auth } from '../lib/firebase';
+import { PaperRecord, EvidencePassage, ClaimRecord, CarouselContent, StaticPostContent, ReelContent, ScheduledPost } from '../types';
+import type { AuditLogEntry } from './storage';
+
+export async function authenticatedApiFetch(input: RequestInfo | URL, init: RequestInit = {}) {
+  const currentUser = auth.currentUser;
+  if (!currentUser) throw new Error('Sign in to continue.');
+
+  const token = await currentUser.getIdToken();
+  const headers = new Headers(init.headers);
+  headers.set('Authorization', `Bearer ${token}`);
+  return fetch(input, { ...init, headers });
+}
 
 export async function fetchUserDataFromSql(idToken: string) {
   const res = await fetch('/api/user/data', {
@@ -17,6 +29,8 @@ export async function fetchUserDataFromSql(idToken: string) {
     carousels: CarouselContent[];
     staticPosts: StaticPostContent[];
     reels: ReelContent[];
+    scheduledPosts: ScheduledPost[];
+    auditLogs: AuditLogEntry[];
   }>;
 }
 
@@ -98,6 +112,22 @@ export async function saveDeliverableToSql(
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
     throw new Error(err.error || 'Failed to persist deliverable to Cloud SQL');
+  }
+  return res.json();
+}
+
+export async function saveScheduledPostsToSql(idToken: string, posts: ScheduledPost[]) {
+  const res = await fetch('/api/user/scheduled-posts', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${idToken}`,
+    },
+    body: JSON.stringify({ posts }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || 'Failed to save the editorial plan');
   }
   return res.json();
 }

@@ -10,6 +10,7 @@ import {
 import { SourceViewer } from './SourceViewer';
 import { runValidationEngine } from '../utils/validationEngine';
 import { analyzeClaimImpact } from '../utils/impactAnalysis';
+import { authenticatedApiFetch } from '../utils/sqlApiClient';
 import {
   CheckCircle2,
   AlertTriangle,
@@ -210,7 +211,7 @@ export const InvestigationDesk: React.FC<InvestigationDeskProps> = ({
   const handleAuditSingleClaimViaGemini = async (claim: ClaimRecord) => {
     setIsAuditing(true);
     try {
-      const response = await fetch('/api/audit-claims', {
+      const response = await authenticatedApiFetch('/api/audit-claims', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

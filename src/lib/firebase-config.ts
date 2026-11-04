@@ -3,7 +3,6 @@ export interface FirebaseAppletConfig {
   appId: string;
   apiKey: string;
   authDomain: string;
-  firestoreDatabaseId?: string;
   storageBucket?: string;
   messagingSenderId?: string;
   measurementId?: string;
@@ -16,7 +15,6 @@ export const firebaseConfig: FirebaseAppletConfig = {
   appId: "1:279812355025:web:b982cfbf490612af2ea6f0",
   apiKey: "AIzaSyBnwcZ2FvZV9eCsVDfc4uaXqsMPcu9UHWk",
   authDomain: "gen-lang-client-0652918589.firebaseapp.com",
-  firestoreDatabaseId: "ai-studio-remixevidencestu-6c14818e-f8ab-4937-87d7-3be1b80cb5e9",
   storageBucket: "gen-lang-client-0652918589.firebasestorage.app",
   messagingSenderId: "279812355025",
   measurementId: "",

@@ -926,7 +926,7 @@ export function buildContentBrief(
     caveats_and_uncertainty: caveats,
     suggested_format: 'MULTI_FORMAT',
     call_to_action:
-      'Understanding your biology removes guilt. Discuss body composition and metabolic labs with your doctor. Explore evidence-based care at steerclub.com.',
+      'Understanding your biology removes guilt. Discuss body composition and metabolic labs with your doctor. Explore evidence-based care at MOTIVAclub.com.',
     supporting_references: [
       {
         title: paperTitle,
@@ -964,7 +964,7 @@ export function buildContentBrief(
         required_role: 'Attending Physician',
       },
       {
-        item: 'Is the steer brand medical CTA appropriate and non-promotional?',
+        item: 'Is the MOTIVA brand medical CTA appropriate and non-promotional?',
         checked: true,
         required_role: 'Senior Medical Editor',
       },
@@ -1014,11 +1014,11 @@ export function injectBriefIntoDeliverables(
     certainty_notes: `Corroborated by ${evidenceGap.status}: ${evidenceGap.status_reason}`,
     risk_flags: [],
     review_status: 'HUMAN_APPROVED',
-    reviewer_note: 'Audited and verified by Steer Evidence Radar from audience question intake.',
+    reviewer_note: 'Audited and verified by MOTIVA Evidence Radar from audience question intake.',
     approved_version: {
       claim_text: brief.core_message,
       approved_at: now,
-      approved_by: 'Steer Evidence Radar (Audited)',
+      approved_by: 'MOTIVA Evidence Radar (Audited)',
     },
     updated_at: now,
   };
@@ -1033,7 +1033,7 @@ export function injectBriefIntoDeliverables(
       body_text: `You asked: "${brief.audience_question.slice(0, 120)}..." Here is what clinical trials actually show.`,
       hinglish_headline: `Social media ka sabse bada sawal: Kya science waqai yehi kehti hai?`,
       hinglish_body: `Aapke doubts ka sach clinical research aur actual trial data ke saath.`,
-      founder_note: 'Dr. Siddharth M. · Steer Clinical Research Desk',
+      founder_note: 'MOTIVA Research Desk',
       mapped_claim_ids: [claimId],
     },
     {
@@ -1073,7 +1073,7 @@ export function injectBriefIntoDeliverables(
       slide_number: 5,
       layout: 'takeaway',
       theme_variant: 'cream',
-      headline: 'The Steer Clinical Action Plan',
+      headline: 'The MOTIVA Clinical Action Plan',
       body_text:
         '1. Prioritize resistance training 2-3x weekly.\n2. Target protein pacing (1.2-1.5 g/kg/day).\n3. Track body composition, not just scale weight.\n4. Consult a physician before altering medical protocols.',
       hinglish_headline: `Doctor-Led 4 Steps Jo Kaam Karte Hain`,
@@ -1086,7 +1086,7 @@ export function injectBriefIntoDeliverables(
       theme_variant: 'maroon',
       headline: 'It is biology, not lack of willpower.',
       body_text: brief.call_to_action,
-      founder_note: 'Steer Evidence Studio · steerclub.com',
+      founder_note: 'MOTIVA Evidence Studio · MOTIVAclub.com',
       mapped_claim_ids: [claimId],
     },
   ];
@@ -1098,8 +1098,8 @@ export function injectBriefIntoDeliverables(
     title: brief.educational_angle,
     slides,
     caption: `${brief.hook}\n\nWe saw this question asked repeatedly by our community: "${brief.audience_question}"\n\nHere is what clinical trials actually show:\n\n${brief.core_message}\n\nKey Finding: ${evidenceGap.what_evidence_supports}\n\nImportant Limitation: ${evidenceGap.limitations_and_uncertainty}\n\n${brief.call_to_action}`,
-    hinglish_caption: `Aapki biology ko sahi science ki zaroorat hai, guilt ki nahi.\n\nJab aap body ke mechanisms samajhte hain, tab confusion khatam ho jata hai.\n\nDoctor-led metabolic care, calibrated for Indian biology.\n\nsteer · steerclub.com`,
-    hashtags: ['#MetabolicHealth', '#SteerEvidenceRadar', '#EvidenceBased', '#IndianBiology', '#DoctorLedCare'],
+    hinglish_caption: `Aapki biology ko sahi science ki zaroorat hai, guilt ki nahi.\n\nJab aap body ke mechanisms samajhte hain, tab confusion khatam ho jata hai.\n\nDoctor-led metabolic care, calibrated for Indian biology.\n\nMOTIVA · MOTIVAclub.com`,
+    hashtags: ['#MetabolicHealth', '#MOTIVAEvidenceRadar', '#EvidenceBased', '#IndianBiology', '#DoctorLedCare'],
     status: 'READY',
     generated_at: now,
   };
@@ -1114,12 +1114,12 @@ export function injectBriefIntoDeliverables(
     primary_finding: evidenceGap.what_evidence_supports.slice(0, 160) + '...',
     qualification: evidenceGap.limitations_and_uncertainty.slice(0, 140),
     source_note: `${paper.title.slice(0, 60)}... (${paper.journal}, ${paper.year})`,
-    caption: `${brief.hook}\n\n${brief.core_message}\n\nRead the full evidence brief in our carousel.\n\nsteer · steerclub.com`,
+    caption: `${brief.hook}\n\n${brief.core_message}\n\nRead the full evidence brief in our carousel.\n\nMOTIVA · MOTIVAclub.com`,
     hinglish_headline: `Social media reels se door: Asli clinical trial kya kehta hai?`,
     hinglish_supporting_text: `Weight loss mein muscle bachana sabse zaroori metabolic rule hai.`,
-    hinglish_caption: `Indian biology aur metabolism par doctor-led insights.\n\nsteer · steerclub.com`,
-    founder_note: 'Steer Clinical Desk',
-    hashtags: ['#MetabolicHealth', '#DoctorLed', '#SteerEvidenceStudio'],
+    hinglish_caption: `Indian biology aur metabolism par doctor-led insights.\n\nMOTIVA · MOTIVAclub.com`,
+    founder_note: 'MOTIVA Clinical Desk',
+    hashtags: ['#MetabolicHealth', '#DoctorLed', '#MOTIVAEvidenceStudio'],
     status: 'READY',
     generated_at: now,
   };
@@ -1173,13 +1173,13 @@ export function injectBriefIntoDeliverables(
       duration_sec: 9,
       title: 'Actionable Doctor Takeaway',
       on_screen_text: 'Prioritize Muscle. Protect Your Biology.',
-      voiceover_script: `It is biology, not willpower. Protect your muscle with resistance training and physician-supervised care. Read the full brief at steerclub.com.`,
-      subtitle_text: 'steer · steerclub.com · Doctor-Led Metabolic Health',
-      visual_cue: 'Warm Steer brand sign-off with doctor signature and verified badge.',
+      voiceover_script: `It is biology, not willpower. Protect your muscle with resistance training and physician-supervised care. Read the full brief at MOTIVAclub.com.`,
+      subtitle_text: 'MOTIVA · MOTIVAclub.com · Doctor-Led Metabolic Health',
+      visual_cue: 'Warm MOTIVA brand sign-off with doctor signature and verified badge.',
       b_roll_type: 'doctor_consult',
       music_mood: 'Empowering, warm, inspiring',
-      hinglish_voiceover: `Yeh willpower nahi, biology hai. Doctor-led metabolic care ke saath apne health ko steer kijiye.`,
-      hinglish_subtitle: `steer · steerclub.com · Doctor-Led Metabolic Health`,
+      hinglish_voiceover: `Yeh willpower nahi, biology hai. Doctor-led metabolic care ke saath apne health ko MOTIVA kijiye.`,
+      hinglish_subtitle: `MOTIVA · MOTIVAclub.com · Doctor-Led Metabolic Health`,
       mapped_claim_ids: [claimId],
     },
   ];
@@ -1192,8 +1192,8 @@ export function injectBriefIntoDeliverables(
     scenes,
     total_duration_sec: 40,
     caption: `${brief.hook}\n\n${brief.core_message}\n\n${brief.call_to_action}`,
-    hinglish_caption: `Sahi science ke saath samajhiye apni metabolic health.\n\nsteer · steerclub.com`,
-    hashtags: ['#MetabolicHealth', '#ReelScience', '#DoctorLed', '#steer'],
+    hinglish_caption: `Sahi science ke saath samajhiye apni metabolic health.\n\nMOTIVA · MOTIVAclub.com`,
+    hashtags: ['#MetabolicHealth', '#ReelScience', '#DoctorLed', '#MOTIVA'],
     status: 'READY',
     generated_at: now,
   };

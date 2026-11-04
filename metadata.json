@@ -1,6 +1,6 @@
 {
-  "name": "Remix Evidence Studio",
-  "description": "Transform scientific papers into evidence-backed social content with verified source traceability and professional editorial design.",
+  "name": "MOTIVA — Evidence-to-Publishing Studio",
+  "description": "Turn clinical papers into source-linked, human-reviewed claims and responsible health content.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

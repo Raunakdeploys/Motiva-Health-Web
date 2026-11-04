@@ -24,6 +24,7 @@ import {
   parsePastedText,
   parseQuestionsCsv,
 } from '../utils/radarEngine';
+import { authenticatedApiFetch } from '../utils/sqlApiClient';
 import {
   AlertCircle,
   AlertTriangle,
@@ -247,7 +248,7 @@ export const EvidenceRadar: React.FC<EvidenceRadarProps> = ({
     if (!pubMedQuery.trim()) return;
     setIsSearchingPubMed(true);
     try {
-      const res = await fetch(`/api/radar/literature-search?q=${encodeURIComponent(pubMedQuery)}`);
+      const res = await authenticatedApiFetch(`/api/radar/literature-search?q=${encodeURIComponent(pubMedQuery)}`);
       if (res.ok) {
         const data = await res.json();
         setPubMedResults(data.results || []);
@@ -390,7 +391,7 @@ export const EvidenceRadar: React.FC<EvidenceRadarProps> = ({
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#E6CBBD]/60 pb-5">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="font-serif italic text-2xl font-black text-[#661414] tracking-tight">steer</span>
+              <span className="font-serif italic text-2xl font-black text-[#661414] tracking-tight">MOTIVA</span>
               <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#C04E2A] border border-[#C04E2A]/40 px-2 py-0.5 rounded-xs bg-[#F5EBDF]">
                 EVIDENCE RADAR
               </span>

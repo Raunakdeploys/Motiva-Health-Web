@@ -82,12 +82,12 @@ export const EvidenceReportView: React.FC<EvidenceReportViewProps> = ({
     },
     overall_status: overallStatus,
     disclaimer:
-      'steer / Evidence Studio is an editorial research instrument for scientific content verification. It does not provide clinical certification, medical diagnoses, or treatment recommendations. Automated checks establish evidence traceability, not clinical truth.',
+      'MOTIVA / Evidence Studio is an editorial research instrument for scientific content verification. It does not provide clinical certification, medical diagnoses, or treatment recommendations. Automated checks establish evidence traceability, not clinical truth.',
   };
 
   const handleDownloadReport = () => {
     downloadJsonFile(
-      `steer-evidence-report-${activePaper.paper_id}.json`,
+      `motiva-evidence-report-${activePaper.paper_id}.json`,
       reportData
     );
   };

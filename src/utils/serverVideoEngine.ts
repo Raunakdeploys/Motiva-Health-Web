@@ -118,7 +118,7 @@ function wrapLines(text: string, maxChars: number = 32): string[] {
 }
 
 /**
- * Synthesize a medical video via FFmpeg with cinematic Steer branding & animations
+ * Synthesize a medical video via FFmpeg with cinematic MOTIVA branding & animations
  */
 export async function synthesizeFfmpegVideo(options: {
   prompt: string;
@@ -177,7 +177,7 @@ export async function synthesizeFfmpegVideo(options: {
   const line2 = sanitizeFfmpegText(promptLines[1] || '');
   const line3 = sanitizeFfmpegText(promptLines[2] || '');
 
-  // Build filter chain with Steer Brand Constitution (#F8F2EB cream, #661414 maroon, #C04E2A terracotta)
+  // Build filter chain with MOTIVA Brand Constitution (#F8F2EB cream, #661414 maroon, #C04E2A terracotta)
   const filters: string[] = [];
 
   if (imageBase64) {
@@ -191,7 +191,7 @@ export async function synthesizeFfmpegVideo(options: {
   filters.push(`drawbox=x=30:y=30:w=${width - 60}:h=${height - 60}:color=#E6CBBD@0.9:t=2`);
 
   // Brand Header
-  filters.push(`drawtext=text='steer':fontcolor=#661414:fontsize=${isPortrait ? 44 : 48}:x=60:y=70`);
+  filters.push(`drawtext=text='MOTIVA':fontcolor=#661414:fontsize=${isPortrait ? 44 : 48}:x=60:y=70`);
   filters.push(`drawtext=text='EVIDENCE STUDIO':fontcolor=#C04E2A:fontsize=${isPortrait ? 18 : 20}:x=${isPortrait ? 190 : 210}:y=${isPortrait ? 88 : 90}`);
   filters.push(`drawtext=text='NEURAL VEO RENDER':fontcolor=#8B6A60:fontsize=14:x=${width - 240}:y=${isPortrait ? 90 : 90}`);
 
@@ -225,7 +225,7 @@ export async function synthesizeFfmpegVideo(options: {
     filters.push(`drawtext=text='Targeted metabolic calibration prevents compensatory metabolic slowdown':fontcolor=#351D1D:fontsize=24:x=90:y=440`);
     filters.push(`drawtext=text='Statistically significant lean muscle retention during physician-guided therapy':fontcolor=#416C49:fontsize=22:x=90:y=490`);
 
-    filters.push(`drawtext=text='EVIDENCE-BASED METABOLIC CARE · steerclub.com':fontcolor=#8B6A60:fontsize=14:x=60:y=${height - 60}`);
+    filters.push(`drawtext=text='EVIDENCE-BASED METABOLIC CARE · MOTIVAclub.com':fontcolor=#8B6A60:fontsize=14:x=60:y=${height - 60}`);
   }
 
   const vfString = filters.join(',');
@@ -305,7 +305,7 @@ export async function renderReelVideoOnServer(
         // Outer border
         `drawbox=x=30:y=30:w=${width - 60}:h=${height - 60}:color=#E6CBBD@0.9:t=2`,
         // Top Header
-        `drawtext=text='steer':fontcolor=#661414:fontsize=44:x=60:y=70`,
+        `drawtext=text='MOTIVA':fontcolor=#661414:fontsize=44:x=60:y=70`,
         `drawtext=text='EVIDENCE STUDIO':fontcolor=#C04E2A:fontsize=18:x=190:y=88`,
         `drawtext=text='SCENE ${i + 1}\\/${scenes.length}':fontcolor=#8B6A60:fontsize=16:x=${width - 180}:y=88`,
         // Progress bar
@@ -334,7 +334,7 @@ export async function renderReelVideoOnServer(
       filters.push(`drawtext=text='Visual Cue\\: ${bRoll.substring(0, 32)}':fontcolor=#8B6A60:fontsize=15:x=90:y=760`);
 
       // Footer
-      filters.push(`drawtext=text='steer · Doctor-Led Metabolic Health · steerclub.com':fontcolor=#8B6A60:fontsize=14:x=60:y=${height - 90}`);
+      filters.push(`drawtext=text='MOTIVA · Doctor-Led Metabolic Health · MOTIVAclub.com':fontcolor=#8B6A60:fontsize=14:x=60:y=${height - 90}`);
 
       const vf = filters.join(',');
       const cmd = `ffmpeg -y -f lavfi -i color=c=#F8F2EB:s=${width}x${height}:d=${duration} -vf "${vf}" -c:v libx264 -pix_fmt yuv420p -preset fast -crf 22 "${sceneVideoPath}"`;

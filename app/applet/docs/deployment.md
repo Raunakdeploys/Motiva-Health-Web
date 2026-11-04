@@ -1,4 +1,4 @@
-# Steer Evidence Studio - Render Deployment Guide
+# MOTIVA Evidence Studio - Render Deployment Guide
 
 ## Render Optimization & Production Architecture
 To deploy successfully on Render (including free tier 512MB RAM constraints and standard Web Services):
@@ -12,7 +12,7 @@ To deploy successfully on Render (including free tier 512MB RAM constraints and 
 
 ### 2. Automated Blueprint Deployment
 This repository includes a `render.yaml` configuration. When creating a new Web Service or Blueprint on Render:
-1. Connect repository `Raunakdeploys/Steer-health-web`.
+1. Connect repository `Raunakdeploys/MOTIVA-health-web`.
 2. Render will automatically detect `render.yaml` with build and start settings.
 3. Configure environment variables in the Render Dashboard:
    - `GEMINI_API_KEY`: Google GenAI API key for medical claim extraction and content remixing.

@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { PaperRecord, ClaimRecord } from '../types';
 import { useAuth } from '../context/AuthContext';
+import { authenticatedApiFetch } from '../utils/sqlApiClient';
 
 interface AiMediaStudioProps {
   activePaper: PaperRecord | null;
@@ -67,7 +68,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
 
   // 3. Create & Edit Images State (gemini-nano-banana-2.1)
   const [imagePrompt, setImagePrompt] = useState(
-    'Minimalist editorial scientific illustration of metabolic health, showing protein synthesis, warm cream and terracotta tones, Steer aesthetic'
+    'Minimalist editorial scientific illustration of metabolic health, showing protein synthesis, warm cream and terracotta tones, MOTIVA aesthetic'
   );
   const [imageAspectRatio, setImageAspectRatio] = useState<'1:1' | '16:9' | '9:16' | '4:3'>('1:1');
   const [isImageGenerating, setIsImageGenerating] = useState(false);
@@ -137,7 +138,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
     }, 1000);
 
     try {
-      const res = await fetch('/api/generate-video', {
+      const res = await authenticatedApiFetch('/api/generate-video', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -164,7 +165,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
           setVideoStatusMessage(`Veo 3 neural diffusion in progress (${currentSec}s elapsed)...`);
 
           try {
-            const pollRes = await fetch('/api/video-status', {
+            const pollRes = await authenticatedApiFetch('/api/video-status', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -192,7 +193,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
           const fallbackUrl = videoAspectRatio === '9:16' ? '/api/videos/metabolic_reel_9_16.mp4' : '/api/videos/metabolic_landscape_16_9.mp4';
           setGeneratedVideoUrl(`${fallbackUrl}?t=${Date.now()}`);
           setVideoStreamStatus('ready');
-          setVideoStatusMessage('Rendered with Steer Clinical Video Engine (verified 720p H.264 stream).');
+          setVideoStatusMessage('Rendered with MOTIVA Clinical Video Engine (verified 720p H.264 stream).');
         }
       } else {
         // Immediate video stream ready
@@ -207,7 +208,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
       const fallbackUrl = videoAspectRatio === '9:16' ? '/api/videos/metabolic_reel_9_16.mp4' : '/api/videos/metabolic_landscape_16_9.mp4';
       setGeneratedVideoUrl(`${fallbackUrl}?t=${Date.now()}`);
       setVideoStreamStatus('ready');
-      setVideoStatusMessage('Rendered with Steer Clinical Video Engine (H.264).');
+      setVideoStatusMessage('Rendered with MOTIVA Clinical Video Engine (H.264).');
     } finally {
       clearInterval(ticker);
       setIsVideoGenerating(false);
@@ -233,7 +234,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
     }, 1000);
 
     try {
-      const res = await fetch('/api/generate-video', {
+      const res = await authenticatedApiFetch('/api/generate-video', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -260,7 +261,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
           setAnimateStatusMessage(`Animating photo with Veo 3 (${currentSec}s elapsed)...`);
 
           try {
-            const pollRes = await fetch('/api/video-status', {
+            const pollRes = await authenticatedApiFetch('/api/video-status', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -285,7 +286,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
         if (!isDone) {
           const fallbackUrl = animateAspectRatio === '9:16' ? '/api/videos/metabolic_reel_9_16.mp4' : '/api/videos/metabolic_landscape_16_9.mp4';
           setAnimatedVideoUrl(`${fallbackUrl}?t=${Date.now()}`);
-          setAnimateStatusMessage('Rendered with Steer Clinical Video Engine.');
+          setAnimateStatusMessage('Rendered with MOTIVA Clinical Video Engine.');
         }
       } else {
         const finalUrl = data.videoUri || (animateAspectRatio === '9:16' ? '/api/videos/metabolic_reel_9_16.mp4' : '/api/videos/metabolic_landscape_16_9.mp4');
@@ -296,7 +297,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
       console.warn('Veo image animation fallback:', err);
       const fallbackUrl = animateAspectRatio === '9:16' ? '/api/videos/metabolic_reel_9_16.mp4' : '/api/videos/metabolic_landscape_16_9.mp4';
       setAnimatedVideoUrl(`${fallbackUrl}?t=${Date.now()}`);
-      setAnimateStatusMessage('Rendered with Steer Clinical Video Engine.');
+      setAnimateStatusMessage('Rendered with MOTIVA Clinical Video Engine.');
     } finally {
       clearInterval(ticker);
       setIsAnimateGenerating(false);
@@ -310,7 +311,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
     setGeneratedImageUrl(null);
 
     try {
-      const res = await fetch('/api/generate-image', {
+      const res = await authenticatedApiFetch('/api/generate-image', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -343,7 +344,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
     setIsEditingImage(true);
 
     try {
-      const res = await fetch('/api/edit-image', {
+      const res = await authenticatedApiFetch('/api/edit-image', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -376,7 +377,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
     setImportedNotice(null);
 
     try {
-      const res = await fetch('/api/search-grounding', {
+      const res = await authenticatedApiFetch('/api/search-grounding', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: searchQuery.trim() }),
@@ -466,7 +467,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
           <div>
             <span className="text-[#786A61] block text-[9px]">PERSISTENCE</span>
             <span className="text-[#351D1D] font-bold text-[11px]">
-              {user ? user.email : 'Firestore Sandbox'}
+              {user ? user.email : 'Sign in required'}
             </span>
           </div>
         </div>
@@ -519,7 +520,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
           }`}
         >
           <Globe className="w-4 h-4 text-[#C04E2A]" />
-          <span>Google Search Grounding (Gemini 3.8 Flash)</span>
+          <span>Google Search Grounding</span>
         </button>
       </div>
 
@@ -619,7 +620,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
                   Rendering Clinical Reel Video
                 </h4>
                 <p className="text-xs text-[#786A61] max-w-xs leading-relaxed">
-                  Generating verified 720p H.264 video at {videoAspectRatio} aspect ratio with Steer clinical calibration.
+                  Generating verified 720p H.264 video at {videoAspectRatio} aspect ratio with MOTIVA clinical calibration.
                 </p>
                 <div className="flex items-center justify-center gap-2 text-xs font-mono text-[#C04E2A]">
                   <RefreshCw className="w-3.5 h-3.5 animate-spin" />
@@ -1124,7 +1125,7 @@ export const AiMediaStudio: React.FC<AiMediaStudioProps> = ({
                   Rendering with gemini-nano-banana-2.1
                 </h4>
                 <p className="text-xs text-[#786A61]">
-                  Generating high-fidelity medical visuals according to Steer editorial constitution.
+                  Generating high-fidelity medical visuals according to MOTIVA editorial constitution.
                 </p>
               </div>
             ) : generatedImageUrl ? (

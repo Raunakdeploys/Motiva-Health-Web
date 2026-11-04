@@ -1,4 +1,5 @@
 import { CarouselSlide, EvidenceAuditReport, ReelScene, StaticPostContent } from '../types';
+import { authenticatedApiFetch } from './sqlApiClient';
 
 /**
  * Downloads a text or JSON file as a real Blob
@@ -17,9 +18,9 @@ export function downloadJsonFile(filename: string, data: any) {
 }
 
 /**
- * Renders a Steer Editorial Static Post to an HTML5 Canvas and downloads as PNG
+ * Renders a MOTIVA Editorial Static Post to an HTML5 Canvas and downloads as PNG
  */
-export async function downloadStaticPostPng(post: StaticPostContent, filename = 'steer-static-post.png') {
+export async function downloadStaticPostPng(post: StaticPostContent, filename = 'motiva-static-post.png') {
   const canvas = document.createElement('canvas');
   canvas.width = 1080;
   canvas.height = 1080;
@@ -38,7 +39,7 @@ export async function downloadStaticPostPng(post: StaticPostContent, filename = 
   // Top header: Wordmark
   ctx.fillStyle = '#661414'; // Deep maroon
   ctx.font = 'bold 32px "DM Sans", sans-serif';
-  ctx.fillText('steer', 100, 140);
+  ctx.fillText('MOTIVA', 100, 140);
 
   ctx.fillStyle = '#C04E2A'; // Rust
   ctx.font = '600 18px "DM Sans", sans-serif';
@@ -135,7 +136,7 @@ export async function downloadCarouselSlidePng(
   // Top Header
   ctx.fillStyle = '#661414';
   ctx.font = 'bold 30px "DM Sans", sans-serif';
-  ctx.fillText('steer', 100, 140);
+  ctx.fillText('MOTIVA', 100, 140);
 
   ctx.fillStyle = '#8B6A60';
   ctx.font = '500 20px "DM Sans", sans-serif';
@@ -220,14 +221,14 @@ export async function downloadCarouselSlidePng(
 
   ctx.fillStyle = '#8B6A60';
   ctx.font = '400 18px "DM Sans", sans-serif';
-  ctx.fillText('Swipe for evidence audit · steer / Evidence Studio', 100, 970);
+  ctx.fillText('Swipe for evidence audit · MOTIVA / Evidence Studio', 100, 970);
 
   canvas.toBlob((blob) => {
     if (!blob) return;
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = filename || `steer-carousel-slide-${slideIndex + 1}.png`;
+    a.download = filename || `motiva-carousel-slide-${slideIndex + 1}.png`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -356,13 +357,13 @@ export async function recordReelVideo(
         return clientBlob;
       }
     } catch (clientErr) {
-      console.warn('Client-side MediaRecorder notice, switching to Steer Server Video Engine:', clientErr);
+      console.warn('Client-side MediaRecorder notice, switching to MOTIVA Server Video Engine:', clientErr);
     }
   }
 
   // Fallback to Server Video Engine
-  onProgress(50, 'Synthesizing with Steer Server Video Engine...');
-  const res = await fetch('/api/render-reel-video', {
+  onProgress(50, 'Synthesizing with MOTIVA Server Video Engine...');
+  const res = await authenticatedApiFetch('/api/render-reel-video', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ scenes, reelId: `reel_${Date.now()}` }),
@@ -402,7 +403,7 @@ function drawReelFrame(
   // Top header brand
   ctx.fillStyle = '#661414';
   ctx.font = 'bold 28px "DM Sans", sans-serif';
-  ctx.fillText('steer', 60, 90);
+  ctx.fillText('MOTIVA', 60, 90);
 
   ctx.fillStyle = '#C04E2A';
   ctx.font = '600 16px "DM Sans", sans-serif';

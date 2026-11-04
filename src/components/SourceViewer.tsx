@@ -296,9 +296,9 @@ export const SourceViewer: React.FC<SourceViewerProps> = ({
         <span className="truncate max-w-[280px]">
           {paper.filename} ({paper.journal})
         </span>
-        <span className="text-[#416C49] font-medium">
-          Verbatim Source Text · Human Audited
-        </span>
+          <span className="text-[#786A61] font-medium">
+            Source text · review status shown above
+          </span>
       </div>
     </div>
   );
