@@ -53,7 +53,7 @@ async function transcribePageWithAI(page: pdfjsLib.PDFPageProxy, pageNumber: num
 export async function extractPdfDocument(
   file: File,
   onProgress?: (percent: number, message: string) => void,
-  options: { useAiOcr?: boolean } = {}
+  options: { useAiOcr?: boolean } = { useAiOcr: true }
 ): Promise<ExtractionResult> {
   const paperId = 'paper_' + Date.now().toString(36) + Math.random().toString(36).substring(2, 6);
   const warnings: string[] = [];
@@ -119,7 +119,7 @@ export async function extractPdfDocument(
                 }
               } else {
                 ocrPagesAttempted++;
-                onProgress?.(percent, `Transcribing image-only page ${i} of ${numPages}...`);
+                onProgress?.(percent, `Transcribing low-text page ${i} of ${numPages}...`);
                 try {
                   const transcribedText = await transcribePageWithAI(page, i);
                   if (transcribedText.length >= 20) {
