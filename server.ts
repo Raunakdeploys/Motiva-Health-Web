@@ -2,7 +2,6 @@ import express, { type Request, type Response } from 'express';
 import { sql } from 'drizzle-orm';
 import { db } from './src/db/index.ts';
 import { createServer as createHttpServer } from 'node:http';
-import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import fs from 'fs';
 import { execSync } from 'child_process';
@@ -2307,6 +2306,7 @@ async function startServer() {
       });
     }
   } else {
+    const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
       server: {
         middlewareMode: true,
