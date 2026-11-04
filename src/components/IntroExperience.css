@@ -1,0 +1,1471 @@
+.motiva-site {
+  --site-forest: #112820;
+  --site-forest-soft: #1b3b2d;
+  --site-cream: #f0efe6;
+  --site-paper: #f8f7ef;
+  --site-sage: #c9d5c6;
+  --site-copper: #d29a73;
+  --site-muted: #9daf9f;
+  position: relative;
+  overflow: clip;
+  background: var(--site-forest);
+  color: var(--site-paper);
+  font-family: "DM Sans", system-ui, sans-serif;
+  isolation: isolate;
+}
+
+.motiva-site * {
+  box-sizing: border-box;
+}
+
+.motiva-site a {
+  color: inherit;
+}
+
+.motiva-site button {
+  font: inherit;
+}
+
+.motiva-site-header {
+  position: sticky;
+  z-index: 30;
+  top: 0;
+  height: 72px;
+  border-bottom: 1px solid rgb(224 232 220 / 10%);
+  background: rgb(17 40 32 / 87%);
+  backdrop-filter: blur(18px);
+}
+
+.motiva-site-header-inner {
+  display: flex;
+  width: min(100% - 64px, 1500px);
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin: 0 auto;
+}
+
+.motiva-site-brand {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 10px;
+  color: var(--site-paper);
+  text-decoration: none;
+}
+
+.motiva-site-brand-mark {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgb(255 250 237 / 30%);
+  border-radius: 11px;
+  background: linear-gradient(145deg, #d5a078, #a96f50);
+  box-shadow: 0 7px 22px rgb(0 0 0 / 19%);
+  color: #fff8ec;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 24px;
+  font-style: italic;
+  line-height: 1;
+}
+
+.motiva-site-brand-name {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.motiva-site-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(22px, 3.1vw, 48px);
+  margin-left: auto;
+  color: #c3d0c4;
+  font-size: 11px;
+}
+
+.motiva-site-nav a,
+.motiva-site-footer a {
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.motiva-site-nav a:hover,
+.motiva-site-footer a:hover {
+  color: #e3b391;
+}
+
+.motiva-site-nav-cta,
+.motiva-site-closing-cta {
+  display: inline-flex;
+  min-height: 40px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 1px solid rgb(230 235 222 / 24%);
+  border-radius: 999px;
+  padding: 0 15px;
+  background: rgb(238 241 226 / 7%);
+  color: var(--site-paper);
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 700;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.motiva-site-nav-cta:hover,
+.motiva-site-closing-cta:hover {
+  transform: translateY(-2px);
+  border-color: rgb(233 190 158 / 56%);
+  background: rgb(214 155 115 / 15%);
+}
+
+.motiva-site a:focus-visible,
+.motiva-site button:focus-visible {
+  outline: 2px solid #e7b38d;
+  outline-offset: 4px;
+}
+
+.motiva-site-hero {
+  position: relative;
+  display: flex;
+  min-height: min(900px, calc(100svh - 72px));
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding: clamp(68px, 10vh, 118px) max(32px, calc((100vw - 1500px) / 2)) 74px;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 77% 48%, rgb(70 111 84 / 30%), transparent 38%),
+    radial-gradient(ellipse at 15% 83%, rgb(185 116 78 / 12%), transparent 36%),
+    linear-gradient(128deg, #112820 1%, #18392c 61%, #152f26 100%);
+}
+
+.motiva-site-hero::before {
+  position: absolute;
+  z-index: -1;
+  border: 1px solid rgb(213 228 210 / 10%);
+  border-radius: 50%;
+  content: "";
+  width: min(88vw, 1140px);
+  aspect-ratio: 1;
+  top: -57%;
+  right: -20%;
+  box-shadow: 0 0 100px rgb(118 158 121 / 8%), inset 0 0 90px rgb(118 158 121 / 5%);
+}
+
+.motiva-site-hero-texture {
+  position: absolute;
+  z-index: -2;
+  background-image:
+    linear-gradient(rgb(222 232 217 / 8%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(222 232 217 / 8%) 1px, transparent 1px);
+  background-size: 72px 72px;
+  inset: 0;
+  mask-image: linear-gradient(125deg, black, transparent 82%);
+  opacity: 0.22;
+}
+
+.motiva-site-hero-glow {
+  position: absolute;
+  z-index: -1;
+  right: 12%;
+  bottom: -35%;
+  width: 440px;
+  aspect-ratio: 1;
+  border: 1px solid rgb(210 154 115 / 11%);
+  border-radius: 50%;
+  box-shadow: 0 0 120px rgb(210 154 115 / 7%);
+}
+
+.motiva-site-hero-layout {
+  display: grid;
+  width: min(100%, 1500px);
+  grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr);
+  align-items: center;
+  gap: clamp(34px, 7vw, 112px);
+  margin: 0 auto;
+}
+
+.motiva-site-hero-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 670px;
+}
+
+.motiva-site-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #d9ad8d;
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: 0.17em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.motiva-site-eyebrow > span {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--site-copper);
+  box-shadow: 0 0 14px rgb(210 154 115 / 70%);
+}
+
+.motiva-site-hero-copy h1,
+.motiva-site-tension-copy h2,
+.motiva-site-principles-intro h2,
+.motiva-site-closing-content h2 {
+  margin: 23px 0 0;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.motiva-site-hero-copy h1 {
+  max-width: 680px;
+  color: #f7f5ed;
+  font-size: clamp(58px, 7.2vw, 100px);
+  line-height: 0.92;
+}
+
+.motiva-site-hero-copy h1 em,
+.motiva-site-tension-copy h2 em,
+.motiva-site-principles-intro h2 em,
+.motiva-site-closing-content h2 em {
+  color: #dcb08f;
+  font-weight: 400;
+}
+
+.motiva-site-hero-copy > p {
+  max-width: 505px;
+  margin: 24px 0 0;
+  color: #c0cfc2;
+  font-size: 14px;
+  line-height: 1.8;
+  text-wrap: pretty;
+}
+
+.motiva-site-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 21px;
+  margin-top: 31px;
+}
+
+.motiva-site-primary-link,
+.motiva-site-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: #edc7a8;
+  font-size: 11px;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.motiva-site-primary-link {
+  min-height: 44px;
+  border: 1px solid rgb(228 179 143 / 36%);
+  border-radius: 999px;
+  padding: 0 18px;
+  background: linear-gradient(120deg, rgb(214 151 110 / 19%), rgb(214 151 110 / 7%));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 8%);
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.motiva-site-primary-link:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(120deg, rgb(214 151 110 / 29%), rgb(214 151 110 / 11%));
+}
+
+.motiva-site-hero-note {
+  color: #92a596;
+  font-size: 10px;
+}
+
+.motiva-site-hero-art {
+  position: relative;
+  display: grid;
+  min-height: 550px;
+  place-items: center;
+  perspective: 1300px;
+}
+
+.motiva-site-orbit {
+  position: absolute;
+  width: min(39vw, 510px);
+  aspect-ratio: 1;
+  border: 1px solid rgb(223 231 216 / 14%);
+  border-radius: 50%;
+  pointer-events: none;
+  transform-style: preserve-3d;
+}
+
+.motiva-site-orbit-one {
+  transform: rotateX(66deg) rotateZ(-21deg) scaleY(0.72);
+  box-shadow: 0 0 70px rgb(116 160 120 / 8%);
+}
+
+.motiva-site-orbit-two {
+  width: min(30vw, 390px);
+  transform: rotateX(66deg) rotateZ(24deg) scaleY(0.7);
+  border-style: dashed;
+  border-color: rgb(217 165 128 / 26%);
+}
+
+.motiva-site-document-stack {
+  position: relative;
+  width: min(82%, 430px);
+  height: 460px;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.motiva-site-document-back,
+.motiva-site-document {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 74%;
+  height: 86%;
+  border-radius: 13px;
+  backface-visibility: hidden;
+}
+
+.motiva-site-document-back {
+  transform: translate3d(-45%, -45%, -34px) rotateZ(9deg);
+  border: 1px solid rgb(237 239 225 / 51%);
+  background: linear-gradient(145deg, #c5d0c2, #9ba999);
+  box-shadow: 0 25px 50px rgb(0 0 0 / 22%);
+}
+
+.motiva-site-document {
+  display: flex;
+  flex-direction: column;
+  transform: translate3d(-55%, -53%, 24px) rotateZ(-6deg);
+  border: 1px solid #e7e6d9;
+  padding: clamp(20px, 2.7vw, 34px);
+  background: linear-gradient(148deg, #fbfaf3 0%, #eeede2 100%);
+  box-shadow: 0 34px 80px rgb(0 0 0 / 33%), inset 0 1px 0 white;
+  color: #33473a;
+}
+
+.motiva-site-document-topline,
+.motiva-site-document-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.motiva-site-document-topline > span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #45604c;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.motiva-site-document-topline > span:last-child {
+  color: #8b9687;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.motiva-site-document-title-lines,
+.motiva-site-document-paragraph,
+.motiva-site-document-highlight {
+  display: flex;
+  flex-direction: column;
+}
+
+.motiva-site-document-title-lines {
+  gap: 8px;
+  margin-top: 36px;
+}
+
+.motiva-site-document-title-lines i,
+.motiva-site-document-paragraph i,
+.motiva-site-document-highlight i,
+.motiva-site-gap-lines i,
+.motiva-site-journey-card-lines i {
+  display: block;
+  height: 5px;
+  border-radius: 99px;
+  background: #d4d9ce;
+}
+
+.motiva-site-document-title-lines i:first-child {
+  width: 90%;
+  height: 8px;
+  background: #536d59;
+}
+
+.motiva-site-document-title-lines i:nth-child(2) { width: 77%; background: #899a88; }
+.motiva-site-document-title-lines i:nth-child(3) { width: 55%; height: 3px; }
+
+.motiva-site-document-section {
+  margin: 33px 0 11px;
+  color: #80907e;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.motiva-site-document-paragraph { gap: 9px; }
+.motiva-site-document-paragraph i:nth-child(1) { width: 97%; }
+.motiva-site-document-paragraph i:nth-child(2) { width: 89%; }
+.motiva-site-document-paragraph i:nth-child(3) { width: 95%; }
+.motiva-site-document-paragraph i:nth-child(4) { width: 62%; }
+
+.motiva-site-document-highlight {
+  gap: 7px;
+  margin-top: 21px;
+  border-left: 3px solid #c98d69;
+  padding: 12px 13px;
+  background: #e8e8d9;
+}
+
+.motiva-site-document-highlight i:first-child { width: 92%; background: #c0c5b4; }
+.motiva-site-document-highlight i:last-child { width: 63%; height: 4px; background: #aeb8a7; }
+
+.motiva-site-document-footer {
+  margin-top: auto;
+  border-top: 1px solid #dce0d7;
+  padding-top: 15px;
+  color: #53765c;
+  font-size: 8px;
+  font-weight: 750;
+}
+
+.motiva-site-float-card {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgb(236 239 226 / 22%);
+  border-radius: 13px;
+  padding: 12px 14px;
+  background: rgb(26 52 41 / 93%);
+  box-shadow: 0 18px 48px rgb(0 0 0 / 27%), inset 0 1px 0 rgb(255 255 255 / 7%);
+  backdrop-filter: blur(15px);
+  transform: translateZ(85px);
+  animation: motiva-site-float 5.6s ease-in-out infinite;
+}
+
+.motiva-site-float-card > span:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.motiva-site-float-card strong { color: #f5f3eb; font-size: 10px; }
+.motiva-site-float-card small { color: #b0c1b2; font-size: 8px; }
+
+.motiva-site-float-icon {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 9px;
+  background: rgb(223 232 217 / 10%);
+  color: #e0ae88;
+}
+
+.motiva-site-float-source { top: 18%; left: 1%; }
+.motiva-site-float-claim { right: -2%; bottom: 17%; animation-delay: -2.3s; }
+
+.motiva-site-pulse-dot,
+.motiva-site-document-footer svg {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #d69b73;
+  box-shadow: 0 0 13px rgb(214 155 115 / 74%);
+}
+
+.motiva-site-review-seal {
+  position: absolute;
+  top: 14%;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transform: translateZ(90px) rotate(5deg);
+  border: 1px solid rgb(206 222 199 / 25%);
+  border-radius: 999px;
+  padding: 8px 11px;
+  background: #31563e;
+  box-shadow: 0 11px 29px rgb(0 0 0 / 24%);
+  color: #e0ecd8;
+  font-size: 8px;
+  font-weight: 750;
+}
+
+.motiva-site-art-note {
+  position: absolute;
+  right: 3%;
+  bottom: 2%;
+  color: #8ea191;
+  font-size: 7px;
+  letter-spacing: 0.12em;
+}
+
+.motiva-site-scroll-cue {
+  position: absolute;
+  bottom: 32px;
+  left: max(32px, calc((100vw - 1500px) / 2));
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #a8b8aa !important;
+  font-size: 9px;
+  text-decoration: none;
+}
+
+.motiva-site-scroll-cue svg { color: #d9a37c; animation: motiva-site-nudge 1.8s ease-in-out infinite; }
+
+.motiva-site-hero-index {
+  position: absolute;
+  right: max(32px, calc((100vw - 1500px) / 2));
+  bottom: 32px;
+  color: #788d7d;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+
+.motiva-site-tension {
+  position: relative;
+  display: grid;
+  min-height: 690px;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  align-items: center;
+  gap: clamp(42px, 8vw, 126px);
+  overflow: hidden;
+  padding: clamp(100px, 13vw, 190px) max(32px, calc((100vw - 1420px) / 2));
+  background:
+    radial-gradient(ellipse at 78% 50%, rgb(191 198 177 / 34%), transparent 37%),
+    linear-gradient(125deg, #e8e8dd, #f1f0e7 58%, #e9e9df);
+  color: #20382a;
+}
+
+.motiva-site-tension::before {
+  position: absolute;
+  right: -15%;
+  bottom: -48%;
+  width: 720px;
+  aspect-ratio: 1;
+  border: 1px solid rgb(44 73 52 / 9%);
+  border-radius: 50%;
+  box-shadow: 0 0 100px rgb(55 90 63 / 7%);
+  content: "";
+}
+
+.motiva-site-eyebrow-dark { color: #8a664d; }
+.motiva-site-eyebrow-dark > span { background: #b9805d; box-shadow: 0 0 12px rgb(185 128 93 / 35%); }
+
+.motiva-site-tension-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 510px;
+}
+
+.motiva-site-tension-copy h2,
+.motiva-site-principles-intro h2 {
+  font-size: clamp(44px, 5.4vw, 72px);
+  line-height: 0.99;
+}
+
+.motiva-site-tension-copy h2 em,
+.motiva-site-principles-intro h2 em { color: #8e694f; }
+
+.motiva-site-tension-copy > p,
+.motiva-site-principles-intro > p {
+  max-width: 445px;
+  margin: 22px 0 0;
+  color: #69766b;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.motiva-site-text-link {
+  margin-top: 28px;
+  color: #4a664e;
+}
+
+.motiva-site-gap-art {
+  position: relative;
+  display: flex;
+  min-height: 450px;
+  align-items: center;
+  justify-content: space-between;
+  perspective: 1000px;
+}
+
+.motiva-site-gap-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  aspect-ratio: 2.1;
+  transform: translate(-50%, -50%) rotateX(68deg) rotateZ(-8deg);
+  border: 1px solid rgb(61 91 66 / 14%);
+  border-radius: 50%;
+}
+
+.motiva-site-gap-card {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: min(42%, 240px);
+  min-height: 280px;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid rgb(72 89 70 / 13%);
+  border-radius: 14px;
+  padding: 20px;
+  background: linear-gradient(155deg, #faf9f2, #ebece1);
+  box-shadow: 0 28px 55px rgb(37 61 42 / 13%), inset 0 1px 0 white;
+  color: #47634b;
+  transform-style: preserve-3d;
+}
+
+.motiva-site-gap-card > svg { margin-top: 26px; color: #b47c5b; }
+.motiva-site-gap-card strong { margin-top: 11px; color: #293e2e; font-family: "Instrument Serif", Georgia, serif; font-size: 24px; font-weight: 400; }
+.motiva-site-gap-card small { margin-top: 13px; color: #818a7b; font-size: 8px; }
+
+.motiva-site-gap-card-label {
+  color: #879183;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.motiva-site-gap-lines {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 17px;
+}
+
+.motiva-site-gap-lines i { height: 4px; background: #d1d6c9; }
+.motiva-site-gap-lines i:nth-child(2) { width: 84%; }
+.motiva-site-gap-lines i:nth-child(3) { width: 59%; }
+
+.motiva-site-gap-bridge {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 18%;
+  display: flex;
+  width: 64%;
+  align-items: center;
+  transform: translateY(-50%);
+  transform-origin: left center;
+}
+
+.motiva-site-gap-bridge > span {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border: 1px solid #9b765c;
+  border-radius: 50%;
+  background: #e9e9dd;
+}
+
+.motiva-site-gap-bridge i {
+  height: 1px;
+  flex: 1;
+  background: repeating-linear-gradient(90deg, #a67d5d 0 4px, transparent 4px 8px);
+}
+
+.motiva-site-gap-tag {
+  position: absolute;
+  z-index: 3;
+  border: 1px solid rgb(78 98 76 / 15%);
+  border-radius: 999px;
+  padding: 7px 9px;
+  background: #f6f5ed;
+  box-shadow: 0 8px 20px rgb(44 66 46 / 8%);
+  color: #72806f;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.motiva-site-gap-tag-one { top: 17%; left: 10%; }
+.motiva-site-gap-tag-two { right: 7%; bottom: 14%; color: #a56f55; }
+
+.motiva-site-journey {
+  position: relative;
+  min-height: 360svh;
+  background:
+    radial-gradient(ellipse at 78% 20%, rgb(73 114 83 / 28%), transparent 34%),
+    linear-gradient(135deg, #122a21, #17372a 60%, #10271f);
+  color: var(--site-paper);
+}
+
+.motiva-site-journey-stage {
+  position: sticky;
+  top: 72px;
+  display: flex;
+  min-height: 520px;
+  height: calc(100svh - 72px);
+  flex-direction: column;
+  overflow: hidden;
+  padding: 38px max(32px, calc((100vw - 1420px) / 2)) 24px;
+  isolation: isolate;
+}
+
+.motiva-site-journey-grid {
+  position: absolute;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgb(222 232 217 / 7%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(222 232 217 / 7%) 1px, transparent 1px);
+  background-size: 70px 70px;
+  inset: 0;
+  mask-image: linear-gradient(110deg, transparent, black 55%, transparent);
+  opacity: 0.23;
+}
+
+.motiva-site-journey-head {
+  display: flex;
+  min-height: 25px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.motiva-site-journey-scroll-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #9eaf9f;
+  font-size: 9px;
+}
+
+.motiva-site-journey-scroll-label svg { color: #d8a17a; }
+
+.motiva-site-journey-layout {
+  display: grid;
+  width: min(100%, 1420px);
+  flex: 1;
+  grid-template-columns: minmax(260px, 0.77fr) minmax(0, 1.23fr);
+  align-items: center;
+  gap: clamp(32px, 6vw, 92px);
+  margin: 0 auto;
+}
+
+.motiva-site-journey-copy {
+  position: relative;
+  z-index: 3;
+  max-width: 500px;
+}
+
+.motiva-site-journey-count {
+  margin-bottom: 18px;
+  color: #e1b391;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.motiva-site-journey-count span { color: #819584; font-family: "DM Sans", sans-serif; font-size: 10px; }
+
+.motiva-site-journey-copy h2 {
+  max-width: 470px;
+  margin: 0;
+  color: #f5f3eb;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(39px, 4.3vw, 62px);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.motiva-site-journey-copy > p {
+  max-width: 430px;
+  margin: 17px 0 0;
+  color: #b7c7b8;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.motiva-site-journey-active-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  color: #e0b18e;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.motiva-site-journey-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 25px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.motiva-site-journey-list li {
+  display: flex;
+  min-height: 35px;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid rgb(228 235 221 / 10%);
+  color: #7f9584;
+  font-size: 9px;
+  transition: color 220ms ease;
+}
+
+.motiva-site-journey-list li[aria-current="step"] { color: #f1eee3; }
+
+.motiva-site-journey-list-icon {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgb(224 232 217 / 13%);
+  border-radius: 7px;
+  color: #a1b39f;
+}
+
+.motiva-site-journey-list li[aria-current="step"] .motiva-site-journey-list-icon {
+  border-color: rgb(220 169 130 / 41%);
+  background: rgb(211 151 111 / 12%);
+  color: #e5b18e;
+}
+
+.motiva-site-journey-list-number { margin-left: auto; color: #718777; font-family: "Instrument Serif", Georgia, serif; font-size: 13px; }
+
+.motiva-site-journey-scene {
+  position: relative;
+  display: grid;
+  min-height: 520px;
+  place-items: center;
+  perspective: 1200px;
+}
+
+.motiva-site-journey-orbit {
+  position: absolute;
+  aspect-ratio: 1;
+  border: 1px solid rgb(221 232 218 / 14%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.motiva-site-journey-orbit-one {
+  width: min(38vw, 500px);
+  transform: rotateX(67deg) rotateZ(-16deg) scaleY(0.7);
+  box-shadow: 0 0 70px rgb(125 161 127 / 8%);
+}
+
+.motiva-site-journey-orbit-two {
+  width: min(26vw, 350px);
+  transform: rotateX(68deg) rotateZ(22deg) scaleY(0.64);
+  border-style: dashed;
+  border-color: rgb(213 164 127 / 26%);
+}
+
+.motiva-site-journey-beam {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  width: 90%;
+  height: 1px;
+  background: rgb(224 235 217 / 15%);
+  transform: rotate(-10deg);
+}
+
+.motiva-site-journey-beam > span {
+  display: block;
+  width: 100%;
+  height: 1px;
+  transform-origin: left center;
+  background: linear-gradient(90deg, #d89f77, #ccdfc4 66%, #d89f77);
+  box-shadow: 0 0 13px rgb(204 223 196 / 55%);
+}
+
+.motiva-site-journey-nodes {
+  position: absolute;
+  z-index: 4;
+  top: 50%;
+  left: 8%;
+  display: flex;
+  width: 84%;
+  align-items: center;
+  justify-content: space-between;
+  transform: translateY(-50%) rotate(-10deg);
+}
+
+.motiva-site-journey-nodes > span {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 1px solid rgb(231 237 224 / 19%);
+  border-radius: 50%;
+  background: #1b392d;
+  color: #829686;
+  transition: transform 240ms ease, color 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
+}
+
+.motiva-site-journey-nodes > span.is-lit {
+  transform: scale(1.18);
+  border-color: rgb(220 169 130 / 63%);
+  box-shadow: 0 0 25px rgb(212 153 114 / 33%);
+  color: #edbc97;
+}
+
+.motiva-site-journey-card-shadow,
+.motiva-site-journey-card {
+  position: absolute;
+  top: 49%;
+  left: 50%;
+  width: min(68%, 370px);
+  height: 330px;
+  border-radius: 15px;
+  transform-style: preserve-3d;
+}
+
+.motiva-site-journey-card-shadow {
+  translate: -45% -47%;
+  rotate: 8deg;
+  background: rgb(0 0 0 / 18%);
+  filter: blur(23px);
+}
+
+.motiva-site-journey-card {
+  display: flex;
+  flex-direction: column;
+  translate: -55% -54%;
+  rotate: -5deg;
+  border: 1px solid #e5e4d8;
+  padding: 24px 26px;
+  background: linear-gradient(150deg, #f8f7ef, #ebecdf);
+  box-shadow: 0 30px 75px rgb(0 0 0 / 34%), inset 0 1px 0 white;
+  color: #324638;
+  will-change: transform;
+}
+
+.motiva-site-journey-card-top,
+.motiva-site-journey-card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.motiva-site-journey-card-top > span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #607761;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.motiva-site-journey-card-index { color: #a7b19f; font-family: "Instrument Serif", Georgia, serif; font-size: 16px; }
+
+.motiva-site-journey-card-label {
+  margin-top: 42px;
+  color: #989e8d;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.motiva-site-journey-card h3 {
+  margin: 7px 0 0;
+  color: #2f4635;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 35px;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+.motiva-site-journey-card p { margin: 8px 0 0; color: #798576; font-size: 10px; }
+
+.motiva-site-journey-card-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 25px;
+}
+
+.motiva-site-journey-card-lines i:first-child { width: 90%; background: #c4cbbb; }
+.motiva-site-journey-card-lines i:nth-child(2) { width: 82%; }
+.motiva-site-journey-card-lines i:nth-child(3) { width: 59%; }
+
+.motiva-site-journey-card-bottom {
+  justify-content: flex-start;
+  gap: 8px;
+  margin-top: auto;
+  border-top: 1px solid #d9ded4;
+  padding-top: 13px;
+  color: #758371;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.motiva-site-journey-card-bottom svg { margin-left: auto; color: #879783; }
+.motiva-site-journey-card-dot { width: 6px; height: 6px; border-radius: 50%; background: #6f9773; box-shadow: 0 0 10px rgb(111 151 115 / 45%); }
+
+.motiva-site-journey-float {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgb(228 235 220 / 17%);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: rgb(24 50 39 / 91%);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 23%);
+  color: #c7d5c5;
+  font-size: 8px;
+  backdrop-filter: blur(12px);
+}
+
+.motiva-site-journey-float svg { color: #dba77f; }
+.motiva-site-journey-float-left { top: 17%; left: 1%; }
+.motiva-site-journey-float-right { right: 0; bottom: 17%; }
+
+.motiva-site-journey-scene-caption {
+  position: absolute;
+  right: 0;
+  bottom: 3%;
+  color: #829788;
+  font-size: 7px;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+}
+
+.motiva-site-journey-scene-caption span { padding: 0 5px; color: #d8a17a; }
+
+.motiva-site-journey-progress {
+  height: 2px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border-radius: 99px;
+  background: rgb(222 233 217 / 14%);
+}
+
+.motiva-site-journey-progress > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: left center;
+  background: linear-gradient(90deg, #d49b74, #d1dfc9 57%, #d49b74);
+}
+
+.motiva-site-principles {
+  position: relative;
+  padding: clamp(94px, 11vw, 160px) max(32px, calc((100vw - 1420px) / 2)) clamp(84px, 9vw, 125px);
+  background: linear-gradient(137deg, #ecece2, #f5f4eb 50%, #e9ebe0);
+  color: #20382a;
+}
+
+.motiva-site-principles-intro {
+  max-width: 730px;
+}
+
+.motiva-site-principles-intro h2 { max-width: 730px; }
+
+.motiva-site-principle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+  margin-top: 57px;
+  perspective: 900px;
+}
+
+.motiva-site-principle-card {
+  position: relative;
+  min-height: 235px;
+  overflow: hidden;
+  border: 1px solid rgb(66 87 65 / 13%);
+  border-radius: 14px;
+  padding: 21px 22px;
+  background: linear-gradient(145deg, rgb(255 255 255 / 66%), rgb(233 235 224 / 75%));
+  box-shadow: 0 18px 40px rgb(36 58 39 / 5%), inset 0 1px 0 rgb(255 255 255 / 90%);
+  transition: transform 350ms cubic-bezier(.2,.75,.25,1), box-shadow 350ms ease;
+}
+
+.motiva-site-principle-card:hover {
+  transform: translateY(-7px) rotateX(2deg) rotateY(-2deg);
+  box-shadow: 0 25px 52px rgb(36 58 39 / 11%), inset 0 1px 0 white;
+}
+
+.motiva-site-principle-card::after {
+  position: absolute;
+  right: -48px;
+  bottom: -95px;
+  width: 210px;
+  aspect-ratio: 1;
+  border: 1px solid rgb(64 94 67 / 8%);
+  border-radius: 50%;
+  box-shadow: 0 0 45px rgb(64 94 67 / 4%), inset 0 0 45px rgb(64 94 67 / 4%);
+  content: "";
+}
+
+.motiva-site-principle-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #8c9987;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 16px;
+}
+
+.motiva-site-principle-icon {
+  display: grid;
+  width: 35px;
+  height: 35px;
+  place-items: center;
+  border: 1px solid rgb(89 114 84 / 15%);
+  border-radius: 10px;
+  background: rgb(224 231 216 / 72%);
+  color: #58735c;
+}
+
+.motiva-site-principle-card h3 {
+  position: relative;
+  z-index: 1;
+  margin: 37px 0 0;
+  color: #344b38;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 26px;
+  font-weight: 400;
+}
+
+.motiva-site-principle-card p {
+  position: relative;
+  z-index: 1;
+  max-width: 300px;
+  margin: 9px 0 0;
+  color: #758172;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.motiva-site-principle-rule {
+  position: absolute;
+  right: 22px;
+  bottom: 20px;
+  left: 22px;
+  height: 1px;
+  background: linear-gradient(90deg, rgb(97 126 96 / 27%), transparent);
+}
+
+.motiva-site-principles-footnote {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 27px;
+  color: #798876;
+  font-size: 9px;
+}
+
+.motiva-site-principles-footnote span { width: 6px; height: 6px; border-radius: 50%; background: #bd8c6c; }
+
+.motiva-site-closing {
+  position: relative;
+  display: flex;
+  min-height: 620px;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding: 110px max(32px, calc((100vw - 1420px) / 2)) 25px;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 52% 45%, rgb(53 92 66 / 46%), transparent 40%),
+    linear-gradient(132deg, #11271f, #19392c 52%, #11271f);
+  text-align: center;
+}
+
+.motiva-site-closing-rings,
+.motiva-site-closing-rings i {
+  position: absolute;
+  border: 1px solid rgb(218 231 213 / 13%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.motiva-site-closing-rings {
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  width: min(92vw, 960px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -59%) rotateX(67deg) rotateZ(-14deg) scaleY(0.8);
+  box-shadow: 0 0 90px rgb(115 155 118 / 8%);
+}
+
+.motiva-site-closing-rings i:first-child { inset: 10%; }
+.motiva-site-closing-rings i:nth-child(2) { inset: 23%; border-color: rgb(218 166 128 / 23%); }
+.motiva-site-closing-rings i:last-child { inset: 36%; border-style: dashed; }
+
+.motiva-site-closing-content {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 760px);
+  margin: auto;
+}
+
+.motiva-site-closing-content .motiva-site-eyebrow { justify-content: center; }
+
+.motiva-site-closing-content h2 {
+  margin-top: 24px;
+  color: #f5f3eb;
+  font-size: clamp(51px, 7vw, 88px);
+  line-height: 0.95;
+}
+
+.motiva-site-closing-content > p {
+  max-width: 500px;
+  margin: 19px auto 0;
+  color: #b9c8ba;
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.motiva-site-closing-cta {
+  min-height: 48px;
+  margin-top: 29px;
+  border-color: rgb(232 181 143 / 48%);
+  padding: 0 20px;
+  background: linear-gradient(120deg, rgb(210 151 111 / 25%), rgb(210 151 111 / 12%));
+  color: #f1c9a9;
+  font-size: 11px;
+}
+
+.motiva-site-footer {
+  display: flex;
+  min-height: 59px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-top: 1px solid rgb(225 233 218 / 14%);
+  padding-top: 13px;
+  color: #8fa292;
+  font-size: 8px;
+  text-align: left;
+}
+
+.motiva-site-footer .motiva-site-brand-mark { width: 29px; height: 29px; border-radius: 9px; font-size: 20px; }
+.motiva-site-footer .motiva-site-brand-name { font-size: 10px; }
+.motiva-site-footer > span { text-align: center; }
+.motiva-site-footer > a:last-child { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+
+@keyframes motiva-site-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -9px; }
+}
+
+@keyframes motiva-site-nudge {
+  0%, 100% { transform: translateY(-2px); }
+  50% { transform: translateY(4px); }
+}
+
+@media (max-width: 1000px) {
+  .motiva-site-header-inner { width: calc(100% - 44px); gap: 17px; }
+  .motiva-site-nav { gap: 18px; font-size: 10px; }
+  .motiva-site-hero { padding-inline: 42px; }
+  .motiva-site-hero-layout { grid-template-columns: minmax(0, 0.9fr) minmax(330px, 1.1fr); gap: 28px; }
+  .motiva-site-hero-copy h1 { font-size: clamp(57px, 7.8vw, 82px); }
+  .motiva-site-hero-art { min-height: 470px; }
+  .motiva-site-document-stack { height: 405px; }
+  .motiva-site-tension,
+  .motiva-site-principles,
+  .motiva-site-closing { padding-inline: 42px; }
+  .motiva-site-journey-stage { padding-inline: 42px; }
+  .motiva-site-journey-layout { grid-template-columns: minmax(240px, 0.82fr) minmax(0, 1.18fr); gap: 26px; }
+  .motiva-site-journey-scene { min-height: 450px; }
+  .motiva-site-journey-card { width: min(78%, 340px); height: 300px; }
+}
+
+@media (max-width: 720px) {
+  .motiva-site-header { height: 62px; }
+  .motiva-site-header-inner { width: calc(100% - 36px); gap: 10px; }
+  .motiva-site-brand { gap: 8px; }
+  .motiva-site-brand-mark { width: 30px; height: 30px; border-radius: 9px; font-size: 21px; }
+  .motiva-site-brand-name { font-size: 11px; }
+  .motiva-site-nav { display: none; }
+  .motiva-site-nav-cta { min-height: 34px; padding: 0 11px; font-size: 9px; }
+
+  .motiva-site-hero {
+    min-height: max(538px, calc(100svh - 42px));
+    padding: 16px 21px 42px;
+  }
+
+  .motiva-site-hero-layout { grid-template-columns: 1fr; gap: 0; }
+  .motiva-site-hero-copy { max-width: 560px; }
+  .motiva-site-eyebrow { gap: 7px; font-size: 8px; letter-spacing: 0.12em; }
+  .motiva-site-hero-copy h1 { max-width: 520px; margin-top: 15px; font-size: clamp(48px, 12vw, 76px); line-height: 0.9; }
+  .motiva-site-hero-copy > p { max-width: 490px; margin-top: 16px; font-size: 11px; line-height: 1.65; }
+  .motiva-site-hero-actions { gap: 13px; margin-top: 21px; }
+  .motiva-site-primary-link { min-height: 39px; gap: 7px; padding-inline: 13px; font-size: 9px; }
+  .motiva-site-hero-note { font-size: 8px; }
+  .motiva-site-hero-art { min-height: 185px; margin-top: 0; }
+  .motiva-site-orbit-one { width: min(75vw, 390px); }
+  .motiva-site-orbit-two { width: min(55vw, 285px); }
+  .motiva-site-document-stack { width: min(76%, 360px); height: 190px; }
+  .motiva-site-document-back,
+  .motiva-site-document { width: 64%; height: 91%; }
+  .motiva-site-document { padding: 15px; }
+  .motiva-site-document-topline > span:first-child { gap: 4px; font-size: 6px; }
+  .motiva-site-document-topline > span:last-child { font-size: 5px; }
+  .motiva-site-document-title-lines { gap: 5px; margin-top: 18px; }
+  .motiva-site-document-title-lines i { height: 3px; }
+  .motiva-site-document-title-lines i:first-child { height: 6px; }
+  .motiva-site-document-title-lines i:nth-child(3) { height: 2px; }
+  .motiva-site-document-section { margin: 18px 0 8px; font-size: 5px; }
+  .motiva-site-document-paragraph { gap: 6px; }
+  .motiva-site-document-paragraph i { height: 3px; }
+  .motiva-site-document-highlight { gap: 5px; margin-top: 11px; padding: 7px 8px; }
+  .motiva-site-document-highlight i { height: 3px; }
+  .motiva-site-document-highlight i:last-child { height: 2px; }
+  .motiva-site-document-footer { padding-top: 8px; font-size: 6px; }
+  .motiva-site-float-card { gap: 6px; border-radius: 9px; padding: 7px 8px; }
+  .motiva-site-float-icon { width: 22px; height: 22px; border-radius: 6px; }
+  .motiva-site-float-card strong { font-size: 8px; }
+  .motiva-site-float-card small { font-size: 6px; }
+  .motiva-site-float-source { top: 13%; left: -4%; }
+  .motiva-site-float-claim { right: -4%; bottom: 10%; }
+  .motiva-site-review-seal { top: 4%; right: -1%; gap: 4px; padding: 6px 8px; font-size: 6px; }
+  .motiva-site-art-note { right: 0; bottom: 1%; font-size: 6px; }
+  .motiva-site-scroll-cue { bottom: 20px; left: 22px; gap: 7px; font-size: 8px; }
+  .motiva-site-hero-index { right: 22px; bottom: 20px; font-size: 10px; }
+
+  .motiva-site-tension {
+    min-height: 0;
+    grid-template-columns: 1fr;
+    gap: 23px;
+    padding: 82px 22px 48px;
+  }
+  .motiva-site-tension-copy h2,
+  .motiva-site-principles-intro h2 { margin-top: 17px; font-size: clamp(45px, 11vw, 64px); }
+  .motiva-site-tension-copy > p,
+  .motiva-site-principles-intro > p { margin-top: 14px; font-size: 11px; line-height: 1.7; }
+  .motiva-site-text-link { margin-top: 20px; font-size: 10px; }
+  .motiva-site-gap-art { min-height: 300px; }
+  .motiva-site-gap-card { width: 43%; min-height: 220px; border-radius: 11px; padding: 13px; }
+  .motiva-site-gap-card > svg { width: 16px; margin-top: 20px; }
+  .motiva-site-gap-card strong { margin-top: 8px; font-size: 19px; }
+  .motiva-site-gap-card small { margin-top: 9px; font-size: 6px; }
+  .motiva-site-gap-card-label { font-size: 6px; }
+  .motiva-site-gap-lines { gap: 5px; margin-top: 11px; }
+  .motiva-site-gap-lines i { height: 3px; }
+  .motiva-site-gap-tag { padding: 6px 7px; font-size: 6px; }
+  .motiva-site-gap-tag-one { top: 11%; left: 0; }
+  .motiva-site-gap-tag-two { right: 0; bottom: 8%; }
+
+  .motiva-site-journey { min-height: 370svh; }
+  .motiva-site-journey-stage { top: 62px; min-height: 0; height: calc(100svh - 62px); padding: 15px 21px 12px; }
+  .motiva-site-journey-head { min-height: 20px; }
+  .motiva-site-journey-scroll-label { font-size: 8px; }
+  .motiva-site-journey-layout { grid-template-columns: 1fr; align-content: center; gap: 0; padding: 12px 0 10px; }
+  .motiva-site-journey-copy { max-width: 100%; }
+  .motiva-site-journey-count { margin-bottom: 9px; font-size: 22px; }
+  .motiva-site-journey-copy h2 { max-width: 440px; font-size: clamp(35px, 9vw, 48px); line-height: 0.98; }
+  .motiva-site-journey-copy > p { margin-top: 9px; font-size: 10px; line-height: 1.5; }
+  .motiva-site-journey-active-label { gap: 6px; margin-top: 10px; font-size: 7px; }
+  .motiva-site-journey-list { display: grid; grid-template-columns: 1fr 1fr; column-gap: 12px; margin-top: 11px; }
+  .motiva-site-journey-list li { min-height: 28px; gap: 6px; font-size: 7px; }
+  .motiva-site-journey-list-icon { width: 18px; height: 18px; border-radius: 6px; }
+  .motiva-site-journey-list-icon svg { width: 11px; }
+  .motiva-site-journey-list-number { font-size: 10px; }
+  .motiva-site-journey-scene { min-height: 185px; margin-top: 0; }
+  .motiva-site-journey-orbit-one { width: min(69vw, 330px); }
+  .motiva-site-journey-orbit-two { width: min(47vw, 235px); }
+  .motiva-site-journey-card-shadow,
+  .motiva-site-journey-card { width: min(61%, 250px); height: 190px; border-radius: 10px; }
+  .motiva-site-journey-card { padding: 13px 14px; }
+  .motiva-site-journey-card-top > span:first-child { gap: 4px; font-size: 6px; }
+  .motiva-site-journey-card-top svg { width: 11px; }
+  .motiva-site-journey-card-index { font-size: 12px; }
+  .motiva-site-journey-card-label { margin-top: 20px; font-size: 5px; }
+  .motiva-site-journey-card h3 { margin-top: 5px; font-size: 24px; }
+  .motiva-site-journey-card p { margin-top: 5px; font-size: 7px; }
+  .motiva-site-journey-card-lines { gap: 5px; margin-top: 12px; }
+  .motiva-site-journey-card-lines i { height: 3px; }
+  .motiva-site-journey-card-bottom { gap: 5px; padding-top: 7px; font-size: 6px; }
+  .motiva-site-journey-card-bottom svg { width: 11px; }
+  .motiva-site-journey-nodes { left: 4%; width: 92%; }
+  .motiva-site-journey-nodes > span { width: 24px; height: 24px; }
+  .motiva-site-journey-nodes svg { width: 11px; }
+  .motiva-site-journey-float { gap: 5px; border-radius: 7px; padding: 7px 8px; font-size: 6px; }
+  .motiva-site-journey-float svg { width: 12px; }
+  .motiva-site-journey-float-left { top: 9%; left: -1%; }
+  .motiva-site-journey-float-right { right: -1%; bottom: 9%; }
+  .motiva-site-journey-scene-caption { right: 0; bottom: 0; font-size: 5px; }
+  .motiva-site-journey-scene-caption span { padding: 0 3px; }
+
+  .motiva-site-principles { padding: 78px 22px 65px; }
+  .motiva-site-principle-grid { grid-template-columns: 1fr; gap: 9px; margin-top: 29px; }
+  .motiva-site-principle-card { min-height: 168px; border-radius: 11px; padding: 16px; }
+  .motiva-site-principle-icon { width: 30px; height: 30px; }
+  .motiva-site-principle-card h3 { margin-top: 22px; font-size: 22px; }
+  .motiva-site-principle-card p { margin-top: 6px; font-size: 9px; }
+  .motiva-site-principle-rule { right: 16px; bottom: 14px; left: 16px; }
+  .motiva-site-principles-footnote { align-items: flex-start; margin-top: 18px; font-size: 8px; line-height: 1.5; }
+
+  .motiva-site-closing { min-height: 560px; padding: 82px 22px 15px; }
+  .motiva-site-closing-rings { width: 130vw; }
+  .motiva-site-closing-content h2 { margin-top: 18px; font-size: clamp(48px, 12vw, 70px); }
+  .motiva-site-closing-content > p { margin-top: 13px; font-size: 10px; }
+  .motiva-site-closing-cta { min-height: 43px; gap: 7px; margin-top: 21px; padding-inline: 14px; font-size: 9px; }
+  .motiva-site-footer { min-height: 48px; flex-wrap: wrap; gap: 8px; padding-top: 9px; }
+  .motiva-site-footer .motiva-site-brand-mark { width: 25px; height: 25px; }
+  .motiva-site-footer > span { order: 3; width: 100%; text-align: left; font-size: 7px; }
+  .motiva-site-footer > a:last-child { font-size: 8px; }
+}
+
+@media (max-width: 390px) {
+  .motiva-site-header-inner { width: calc(100% - 28px); }
+  .motiva-site-nav-cta { gap: 5px; padding-inline: 8px; font-size: 8px; }
+  .motiva-site-hero { padding-inline: 16px; }
+  .motiva-site-hero-copy h1 { font-size: 50px; }
+  .motiva-site-hero-note { max-width: 115px; line-height: 1.4; }
+  .motiva-site-tension,
+  .motiva-site-principles,
+  .motiva-site-closing { padding-right: 17px; padding-left: 17px; }
+  .motiva-site-journey-stage { padding-right: 16px; padding-left: 16px; }
+  .motiva-site-journey-copy h2 { font-size: 34px; }
+  .motiva-site-journey-list li { font-size: 6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motiva-site,
+  .motiva-site * {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

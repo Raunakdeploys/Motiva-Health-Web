@@ -60,6 +60,7 @@ import { GoogleAuthModal } from './components/GoogleAuthModal';
 import { ClinicalTrialSimulator } from './components/ClinicalTrialSimulator';
 import { AiMediaStudio } from './components/AiMediaStudio';
 import { EvidenceRadar } from './components/EvidenceRadar';
+import { IntroExperience } from './components/IntroExperience';
 import { ContentBrief } from './types';
 import { propagateClaimChange } from './utils/impactAnalysis';
 
@@ -72,6 +73,7 @@ export default function App() {
   const [isInspectorOpen, setIsInspectorOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
+  const [hasEnteredWorkspace, setHasEnteredWorkspace] = useState(false);
 
   // Persistence State
   const [papers, setPapers] = useState<PaperRecord[]>([]);
@@ -792,6 +794,10 @@ export default function App() {
     setSelectedClaimId(claim.claim_id);
     setIsInspectorOpen(true);
   };
+
+  if (!hasEnteredWorkspace) {
+    return <IntroExperience onEnter={() => setHasEnteredWorkspace(true)} />;
+  }
 
   return (
     <div className="motiva-app-shell flex">
