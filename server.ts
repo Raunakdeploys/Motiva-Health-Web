@@ -1820,6 +1820,49 @@ app.post('/api/search-grounding', async (req: AuthRequest, res: Response) => {
   }
 });
 
+const activeResearchJobs = new Set<string>();
+const ResearchRequestSchema = z.object({
+  mode: z.enum(['pdf', 'web', 'combined']),
+  query: z.string().max(500).optional(),
+  claims: z.array(z.string().max(600)).max(10).optional(),
+  document: z.object({
+    filename: z.string().max(300),
+    pageCount: z.number().int().min(1).max(1000),
+    pages: z.array(z.object({ page: z.number().int().min(1), text: z.string().max(60_000), method: z.enum(['text', 'ocr', 'library']) })).max(1000),
+  }).optional(),
+});
+
+app.post('/api/research/analyze', async (req: AuthRequest, res: Response) => {
+  const parsed = ResearchRequestSchema.safeParse(req.body);
+  if (!parsed.success) return res.status(400).json({ error: 'Invalid research request.' });
+  const request = parsed.data;
+  if (request.mode !== 'web' && !request.document?.pages.length) return res.status(400).json({ error: 'Upload a PDF for this mode.' });
+  if (request.mode === 'web' && (request.query || '').trim().length < 3 && !request.claims?.length) return res.status(400).json({ error: 'Enter a research question or claims to verify.' });
+
+  const clientKey = req.user?.uid || req.ip || 'unknown';
+  if (activeResearchJobs.has(clientKey)) return res.status(409).json({ error: 'A research analysis is already running for your account.' });
+  if (!consumeAiQuota(clientKey)) return res.status(429).json({ error: 'Research analysis limit reached. Try again later.' });
+
+  activeResearchJobs.add(clientKey);
+  res.setHeader('Content-Type', 'application/x-ndjson; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache, no-transform');
+  res.setHeader('X-Accel-Buffering', 'no');
+  const write = (event: unknown) => { if (!res.writableEnded) res.write(`${JSON.stringify(event)}\n`); };
+  const keepAlive = setInterval(() => write({ type: 'ping' }), 15_000);
+  try {
+    const { runResearchPipeline } = await import('./src/research/pipeline.ts');
+    const report = await runResearchPipeline(request, write);
+    write({ type: 'report', report });
+  } catch (error) {
+    console.error('Research pipeline failed:', error instanceof Error ? error.message : 'Unknown error');
+    write({ type: 'error', message: 'The research analysis could not be completed. Try again shortly.' });
+  } finally {
+    clearInterval(keepAlive);
+    activeResearchJobs.delete(clientKey);
+    res.end();
+  }
+});
+
 // Video Streaming Endpoint with full HTTP 206 Partial Content range support, CORS, and deployment safety
 app.all('/api/videos/:filename', (req: Request, res: Response) => {
   const rawFilename = path.basename(req.params.filename);
