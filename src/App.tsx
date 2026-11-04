@@ -39,9 +39,8 @@ import {
   saveDeliverableToSql,
   seedDemoToSql,
 } from './utils/sqlApiClient';
-import { ActiveTab } from './components/NavigationSidebar';
-import { NavigationDrawer } from './components/NavigationDrawer';
-import { AppHeader } from './components/AppHeader';
+import { NavigationSidebar, type ActiveTab } from './components/NavigationSidebar';
+import { TopBar } from './components/TopBar';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
 import { ContextInspector } from './components/ContextInspector';
 import { Workspace } from './components/Workspace';
@@ -66,7 +65,7 @@ import { propagateClaimChange } from './utils/impactAnalysis';
 export default function App() {
   const { user, idToken } = useAuth();
 
-  const [currentTab, setCurrentTab] = useState<ActiveTab>('studio');
+  const [currentTab, setCurrentTab] = useState<ActiveTab>('workspace');
   const [studioTab, setStudioTab] = useState<'carousel' | 'static' | 'reel' | 'caption'>('carousel');
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isInspectorOpen, setIsInspectorOpen] = useState(false);
@@ -1009,32 +1008,71 @@ export default function App() {
   };
 
   return (
-    <div className="app-shell min-h-screen text-[#261f1a]">
-      <NavigationDrawer
-        open={isMobileSidebarOpen}
-        onClose={() => setIsMobileSidebarOpen(false)}
+    <div className="steer-app-shell flex">
+      <NavigationSidebar
         currentTab={currentTab}
         onSelectTab={setCurrentTab}
         activePaper={activePaper}
         papers={papers}
         onSwitchPaper={handleSwitchPaper}
-        onOpenAuthModal={() => setIsAuthModalOpen(true)}
+        approvedClaimsCount={approvedClaims.length}
+        totalClaimsCount={currentPaperClaims.length}
+        flaggedClaimsCount={flaggedClaims.length}
+        sqlSyncStatus={sqlSyncStatus}
+        onOpenDemo={handleResetDemo}
+        isOpenMobile={isMobileSidebarOpen}
+        onCloseMobile={() => setIsMobileSidebarOpen(false)}
       />
+      {isMobileSidebarOpen && (
+        <button
+          type="button"
+          aria-label="Close navigation"
+          onClick={() => setIsMobileSidebarOpen(false)}
+          className="fixed inset-0 z-30 bg-black/25 md:hidden"
+        />
+      )}
 
-      <div className="flex min-h-screen min-w-0 flex-col">
-        <AppHeader
+      <div className="flex min-h-screen min-w-0 flex-1 flex-col md:ml-[232px]">
+        <TopBar
           currentTab={currentTab}
+          onSelectTab={setCurrentTab}
           activePaper={activePaper}
-          onOpenMenu={() => setIsMobileSidebarOpen(true)}
+          onToggleSidebarMobile={() => setIsMobileSidebarOpen(true)}
           isInspectorOpen={isInspectorOpen}
           onToggleInspector={() => setIsInspectorOpen(!isInspectorOpen)}
-          onOpenAuthModal={() => setIsAuthModalOpen(true)}
           sqlSyncStatus={sqlSyncStatus}
-          onQuickAction={
-            currentTab === 'radar' || currentTab === 'desk' || currentTab === 'provenance' ? () => setCurrentTab('studio') :
-            currentTab === 'studio' ? () => setCurrentTab('schedule') :
-            currentTab === 'schedule' ? () => setCurrentTab('submission') : undefined
+          quickActionLabel={
+            currentTab === 'radar'
+              ? 'Content Studio →'
+              : currentTab === 'papers'
+              ? 'Doctor Review Gate →'
+              : currentTab === 'review' || currentTab === 'desk' || currentTab === 'provenance'
+              ? 'Content Studio →'
+              : currentTab === 'studio'
+              ? '7-Day Calendar →'
+              : currentTab === 'schedule'
+              ? 'Pitch Packet →'
+              : currentTab === 'submission'
+              ? 'Content Studio'
+              : undefined
           }
+          onQuickAction={
+            currentTab === 'radar'
+              ? () => setCurrentTab('studio')
+              : currentTab === 'papers'
+              ? () => setCurrentTab('review')
+              : currentTab === 'review' || currentTab === 'desk' || currentTab === 'provenance'
+              ? () => setCurrentTab('studio')
+              : currentTab === 'studio'
+              ? () => setCurrentTab('schedule')
+              : currentTab === 'schedule'
+              ? () => setCurrentTab('submission')
+              : currentTab === 'submission'
+              ? () => setCurrentTab('studio')
+              : undefined
+          }
+          onOpenAuthModal={() => setIsAuthModalOpen(true)}
+          onOpenSimulator={() => setIsSimulatorOpen(true)}
         />
 
         {/* Main content canvas with contextual inspector */}
@@ -1374,7 +1412,7 @@ export default function App() {
           </main>
 
           {/* 04. RIGHT: Contextual Inspector (310px where viewport allows) */}
-          {['workspace', 'evidence', 'review'].includes(currentTab) && isInspectorOpen && (
+          {['workspace', 'source', 'review'].includes(currentTab) && isInspectorOpen && (
             <div className="hidden xl:block">
               <ContextInspector
                 selectedClaim={inspectedClaim}
