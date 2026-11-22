@@ -64,6 +64,8 @@ export async function extractPdfDocument(
   onProgress?.(15, 'Initializing PDF parser engine...');
   let pdfDoc: pdfjsLib.PDFDocumentProxy | null = null;
   let pdfJsFailed = false;
+  let loadingTask: ReturnType<typeof
+  pdfjsLib.getDocument> | null=null;
 
   try {
     const loadingTask = pdfjsLib.getDocument({
@@ -309,7 +311,6 @@ export async function extractPdfPagesForResearch(
     pages.push({ page: i, text: text.slice(0, 60_000), method });
     page.cleanup();
   }
-  await pdfDoc.destroy();
   return { pageCount: pages.length, pages, warnings };
 }
 

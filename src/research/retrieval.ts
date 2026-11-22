@@ -94,7 +94,7 @@ export async function fetchPubMedRecords(ids: string[]): Promise<Draft[]> {
   const res = await politeFetch(`https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=${ids.join(',')}&retmode=xml${key}`, {}, 20_000);
   if (!res.ok) throw new Error(`efetch HTTP ${res.status}`);
   const articles = res.text.split('<PubmedArticle>').slice(1);
-  return articles.map((xml) => {
+  return articles.map((xml): Draft => {
     const pmid = xmlTag(xml, 'PMID');
     const title = xmlTag(xml, 'ArticleTitle');
     const abstract = xmlAll(xml, 'AbstractText').join(' ').replace(/\s+/g, ' ');
